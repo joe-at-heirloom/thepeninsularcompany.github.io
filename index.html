@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Peninsular Company</title>
+    <meta name="description" content="Independent software company in Detroit, Michigan. Publisher of The Ollin Tuner, Learn to Play Cards, The Converter, Detroit Air Survey, Heirloom, and Daily Canvas.">
+    <link rel="canonical" href="https://thepeninsularcompany.com/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#EFECE6">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thepeninsularcompany.com/">
+    <meta property="og:title" content="The Peninsular Company">
+    <meta property="og:description" content="Independent software company. Detroit, Michigan.">
+    <meta property="og:image" content="https://thepeninsularcompany.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "The Peninsular Company",
+        "legalName": "The Peninsular Company LLC",
+        "url": "https://thepeninsularcompany.com",
+        "logo": "https://thepeninsularcompany.com/apple-touch-icon.png",
+        "email": "hello@thepeninsularcompany.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Detroit", "addressRegion": "MI", "addressCountry": "US" },
+        "founder": { "@type": "Person", "name": "Joe Lint", "url": "https://joelint.com" }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --travertine: #EFECE6;
+            --stone: #E4E0D7;
+            --ink: #151515;
+            --ink-2: #6A6964;
+            --rule: #CDC8BD;
+            --steel: #1A1A1A;
+            /* glazed brick, Saarinen's GM Tech Center; the red is Wright's */
+            --red: #B3392A;
+            --blue: #2B4E8C;
+            --yellow: #E3A62C;
+            --orange: #D6632A;
+            --green: #2F5F52;
+            --black: #222222;
+            --font: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color-scheme: light;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+        body {
+            margin: 0;
+            background: var(--travertine);
+            color: var(--ink);
+            font-family: var(--font);
+            font-size: 17px;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: "ss01", "cv11";
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--red); color: #fff; }
+
+        a { color: inherit; }
+        a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+        .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: 24px;
+        }
+
+        .small { font-size: 13.5px; line-height: 1.45; font-weight: 500; }
+        .muted { color: var(--ink-2); }
+
+        /* ---------- Header ---------- */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-top: 26px;
+            padding-bottom: 26px;
+            border-bottom: 1px solid var(--ink);
+        }
+        .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; white-space: nowrap; }
+        .brand i { width: 16px; height: 16px; background: var(--red); flex: none; }
+        .site-nav { display: flex; gap: 32px; }
+        .site-nav a { text-decoration: none; }
+        .site-nav a:hover { color: var(--red); }
+
+        /* ---------- Hero ---------- */
+        .hero { padding-top: 22px; }
+
+        .info { row-gap: 8px; }
+        .info p { margin: 0; grid-column: span 3; }
+
+        h1 {
+            grid-column: 1 / -1;
+            margin: 96px 0 0;
+            font-weight: 600;
+            font-size: clamp(46px, 9vw, 136px);
+            line-height: 0.92;
+            letter-spacing: -0.045em;
+        }
+        h1 span { display: block; }
+
+        .statement {
+            grid-column: 7 / span 5;
+            margin: 48px 0 0;
+            font-size: clamp(19px, 1.8vw, 23px);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        /* ---------- Elevation ---------- */
+        .elevation { margin-top: 88px; }
+
+        .facade {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 6px;
+            background: var(--steel);
+            padding: 16px 6px 6px;
+            height: clamp(200px, 26vw, 320px);
+            position: relative;
+        }
+        /* roof fascia */
+        .facade::before {
+            content: "";
+            position: absolute;
+            left: -14px; right: -14px; top: -8px;
+            height: 10px;
+            background: var(--steel);
+        }
+
+        .bay {
+            display: grid;
+            grid-template-rows: 1fr 4px 28%;
+            text-decoration: none;
+            background: var(--steel);
+            outline: none;
+        }
+        .bay .glass {
+            position: relative;
+            background:
+                linear-gradient(112deg, transparent 38%, rgba(255, 255, 255, 0.28) 44%, transparent 52%),
+                linear-gradient(180deg, #DCE3E4 0%, #B3C0C4 55%, #93A3A8 100%);
+            background-size: 260% 100%, 100% 100%;
+            background-position: 100% 0, 0 0;
+            transition: background-position 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+        /* center mullion */
+        .bay .glass::after {
+            content: "";
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 2px;
+            margin-left: -1px;
+            background: var(--steel);
+        }
+        .bay .spandrel { grid-row: 3; background: var(--c, #6E7477); transition: filter 0.3s ease; }
+
+        .bay.vacant .glass {
+            background:
+                linear-gradient(112deg, transparent 38%, rgba(255, 255, 255, 0.08) 44%, transparent 52%),
+                linear-gradient(180deg, #5E686C 0%, #414A4E 100%);
+            background-size: 260% 100%, 100% 100%;
+            background-position: 100% 0, 0 0;
+        }
+        .bay.vacant .spandrel {
+            background: repeating-linear-gradient(135deg, #5A5F61 0 3px, #4A4F51 3px 9px);
+        }
+
+        .bay:hover .glass, .bay.lit .glass, .bay:focus-visible .glass { background-position: 0 0, 0 0; }
+        .bay:hover .spandrel, .bay.lit .spandrel, .bay:focus-visible .spandrel { filter: brightness(1.12) saturate(1.1); }
+        .bay:focus-visible { box-shadow: 0 0 0 3px var(--red); }
+
+        .plinth { height: 14px; background: var(--stone); border-bottom: 1px solid var(--rule); }
+
+        .bay-numbers {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 6px;
+            padding: 10px 6px 0;
+            color: var(--ink-2);
+        }
+        .bay-numbers span { text-align: center; font-variant-numeric: tabular-nums; }
+
+        .caption { margin: 18px 0 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .caption #caption-text { color: var(--ink); min-height: 1.45em; }
+
+        /* ---------- Sections ---------- */
+        section { padding: 128px 0 0; }
+        .section-label { grid-column: span 3; margin: 0; padding-top: 6px; }
+        .section-body { grid-column: 4 / -1; }
+        .section-body > h2 {
+            margin: 0 0 16px;
+            font-weight: 600;
+            font-size: clamp(36px, 4.4vw, 56px);
+            line-height: 1;
+            letter-spacing: -0.035em;
+        }
+        .section-body > p { margin: 0 0 48px; max-width: 520px; color: var(--ink-2); }
+
+        /* ---------- Affiliates ---------- */
+        .roster { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+
+        .row {
+            display: grid;
+            grid-template-columns: 76px minmax(0, 1.1fr) minmax(0, 1.5fr) 140px;
+            column-gap: 24px;
+            align-items: baseline;
+            padding: 22px 0 22px;
+            border-bottom: 1px solid var(--rule);
+            position: relative;
+            transition: background-color 0.25s ease;
+        }
+        .row.lit, .row:hover { background: linear-gradient(90deg, rgba(0, 0, 0, 0.035), rgba(0, 0, 0, 0)); }
+
+        .no { display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
+        .no i { width: 12px; height: 12px; background: var(--c); flex: none; transform: translateY(1px); }
+        .row.vacant .no i { background: repeating-linear-gradient(135deg, #8A8F91 0 2px, #C9C6BE 2px 5px); }
+
+        .row h3 { margin: 0; font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+        .row h3 a { text-decoration: none; }
+        .row h3 a:hover { color: var(--red); }
+        .row.vacant h3 { color: var(--ink-2); font-weight: 500; }
+
+        .desc p { margin: 0 0 8px; }
+        .links { display: flex; flex-wrap: wrap; gap: 2px 18px; }
+        .links a { color: var(--ink-2); text-decoration: none; }
+        .links a:hover { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+
+        .meta { text-align: right; }
+        .meta span { display: block; }
+        .meta .status { color: var(--ink); }
+
+        /* ---------- Contact ---------- */
+        .contact { row-gap: 40px; }
+        .contact > div { grid-column: span 7; }
+        .contact > div + div { grid-column: span 5; }
+        .contact .big {
+            margin: 6px 0 8px;
+            font-size: clamp(22px, 2.2vw, 30px);
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        .contact .big a { text-decoration: none; border-bottom: 2px solid var(--red); }
+        .contact .big a:hover { color: var(--red); }
+        .contact p { margin: 0; }
+
+        /* ---------- Footer ---------- */
+        footer { margin-top: 144px; background: var(--steel); color: #D9D5CC; }
+        footer .grid { padding-top: 28px; padding-bottom: 36px; row-gap: 8px; }
+        footer p { margin: 0; grid-column: span 4; }
+        footer .brand { color: #F2EFE9; font-size: 14px; }
+        footer .brand i { width: 12px; height: 12px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .bay .glass { transition: none; }
+        }
+
+        /* ---------- Small screens ---------- */
+        @media (max-width: 960px) {
+            .info p { grid-column: span 6; }
+            .statement { grid-column: 1 / -1; max-width: 560px; }
+            .section-label { grid-column: 1 / -1; margin-bottom: 20px; }
+            .section-body { grid-column: 1 / -1; }
+            .contact > div, .contact > div + div { grid-column: 1 / -1; }
+            footer p { grid-column: span 6; }
+            .row { grid-template-columns: 64px minmax(0, 1fr) 120px; }
+            .row .desc { grid-column: 2 / 3; grid-row: 2; margin-top: 6px; }
+            .row .meta { grid-row: 1 / span 2; }
+        }
+
+        @media (max-width: 640px) {
+            .wrap { padding: 0 16px; }
+            .grid { column-gap: 16px; }
+            .site-nav { gap: 20px; }
+            .brand { font-size: 15px; }
+            .info p { grid-column: 1 / -1; }
+            h1 { margin-top: 56px; }
+            .statement { margin-top: 32px; }
+            .elevation { margin-top: 56px; }
+            .facade { gap: 4px; padding: 10px 4px 4px; }
+            .facade::before { left: -8px; right: -8px; top: -6px; height: 8px; }
+            .bay { grid-template-rows: 1fr 3px 28%; }
+            .bay-numbers { gap: 4px; padding: 8px 4px 0; font-size: 11px; }
+            section { padding-top: 88px; }
+            .row { grid-template-columns: 52px minmax(0, 1fr); row-gap: 6px; }
+            .row .desc { grid-column: 2; grid-row: 2; margin-top: 0; }
+            .row .meta { grid-column: 2; grid-row: 3; text-align: left; display: flex; gap: 12px; }
+            footer { margin-top: 104px; }
+            footer p { grid-column: 1 / -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <header class="site-header">
+            <a class="brand" href="./"><i aria-hidden="true"></i>The Peninsular Company</a>
+            <nav class="site-nav small" aria-label="Sections">
+                <a href="#affiliates">Affiliates</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+    </div>
+
+    <main>
+        <div class="wrap hero">
+            <div class="grid info small">
+                <p>Independent software company</p>
+                <p class="muted">Detroit, Michigan</p>
+                <p class="muted">Six affiliates, three in progress</p>
+            </div>
+
+            <div class="grid">
+                <h1><span>The Peninsular</span> <span>Company</span></h1>
+                <p class="statement">
+                    We design and build software in Detroit. Some of it is listed below.
+                    The rest is still under construction.
+                </p>
+            </div>
+
+            <figure class="elevation" style="margin-left:0;margin-right:0;margin-bottom:0">
+                <div class="facade" id="facade">
+                    <a class="bay" href="#pen-1" data-bay="1" data-name="The Ollin Tuner" style="--c: var(--yellow)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay" href="#pen-2" data-bay="2" data-name="Learn to Play Cards" style="--c: var(--red)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay" href="#pen-3" data-bay="3" data-name="The Converter" style="--c: var(--blue)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay" href="#pen-4" data-bay="4" data-name="Detroit Air Survey" style="--c: var(--black)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay" href="#pen-5" data-bay="5" data-name="Heirloom" style="--c: var(--orange)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay" href="#pen-6" data-bay="6" data-name="Daily Canvas" style="--c: var(--green)"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay vacant" href="#pen-7" data-bay="7" data-name="Untitled. Under construction"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay vacant" href="#pen-8" data-bay="8" data-name="Untitled. Under construction"><span class="glass"></span><span class="spandrel"></span></a>
+                    <a class="bay vacant" href="#pen-9" data-bay="9" data-name="Untitled. Under construction"><span class="glass"></span><span class="spandrel"></span></a>
+                </div>
+                <div class="plinth"></div>
+                <div class="bay-numbers small" aria-hidden="true">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                </div>
+                <figcaption class="caption small">
+                    <span id="caption-text" aria-live="polite">South elevation. Nine bays, six occupied.</span>
+                    <span class="muted">Not to scale</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <section id="affiliates">
+            <div class="wrap grid">
+                <p class="section-label small">Affiliates</p>
+                <div class="section-body">
+                    <h2>What we publish.</h2>
+                    <p>Each app keeps its own support, privacy policy, and terms. They're linked under its name.</p>
+
+                    <ol class="roster" id="roster">
+                        <li class="row" id="pen-1" data-bay="1" style="--c: var(--yellow)">
+                            <span class="no small"><i aria-hidden="true"></i>001</span>
+                            <h3><a href="https://ollintuner.com">The Ollin Tuner</a></h3>
+                            <div class="desc">
+                                <p>An Aztec oracle. Hold the stone, ask a question, listen.</p>
+                                <div class="links small">
+                                    <a href="https://apps.apple.com/us/app/the-ollin-tuner/id6759269358">App Store</a>
+                                    <a href="https://ollintuner.com/support.html">Support</a>
+                                    <a href="https://ollintuner.com/privacy.html">Privacy</a>
+                                    <a href="https://ollintuner.com/terms.html">Terms</a>
+                                </div>
+                            </div>
+                            <div class="meta small"><span class="status">Available</span><span class="muted">iPhone</span></div>
+                        </li>
+
+                        <li class="row" id="pen-2" data-bay="2" style="--c: var(--red)">
+                            <span class="no small"><i aria-hidden="true"></i>002</span>
+                            <h3><a href="https://learntoplaycardsapp.com">Learn to Play Cards</a></h3>
+                            <div class="desc">
+                                <p>Twenty-one card games, taught from the first hand.</p>
+                                <div class="links small">
+                                    <a href="https://apps.apple.com/us/app/learn-to-play-cards/id6759671819">App Store</a>
+                                    <a href="mailto:support@learntoplaycardsapp.com">Support</a>
+                                    <a href="https://learntoplaycardsapp.com/privacy.html">Privacy</a>
+                                    <a href="https://learntoplaycardsapp.com/terms.html">Terms</a>
+                                </div>
+                            </div>
+                            <div class="meta small"><span class="status">Available</span><span class="muted">iPhone</span></div>
+                        </li>
+
+                        <li class="row" id="pen-3" data-bay="3" style="--c: var(--blue)">
+                            <span class="no small"><i aria-hidden="true"></i>003</span>
+                            <h3><a href="https://joelint.com/apps/the-converter/">The Converter</a></h3>
+                            <div class="desc">
+                                <p>Any file into any format, on your own Mac. Free and open source.</p>
+                                <div class="links small">
+                                    <a href="https://github.com/joe-at-heirloom/the-converter">Source</a>
+                                </div>
+                            </div>
+                            <div class="meta small"><span class="status">Available</span><span class="muted">Mac</span></div>
+                        </li>
+
+                        <li class="row" id="pen-4" data-bay="4" style="--c: var(--black)">
+                            <span class="no small"><i aria-hidden="true"></i>004</span>
+                            <h3><a href="https://joelint.com/apps/detroit-air-survey/">Detroit Air Survey</a></h3>
+                            <div class="desc">
+                                <p>Detroit from the air in 1949, laid over the city today.</p>
+                            </div>
+                            <div class="meta small"><span class="status">Available</span><span class="muted">Web</span></div>
+                        </li>
+
+                        <li class="row" id="pen-5" data-bay="5" style="--c: var(--orange)">
+                            <span class="no small"><i aria-hidden="true"></i>005</span>
+                            <h3><a href="https://heirloomapp.io">Heirloom</a></h3>
+                            <div class="desc">
+                                <p>Know what you own, and keep its story with it.</p>
+                                <div class="links small">
+                                    <a href="mailto:hello@heirloomapp.io">Support</a>
+                                    <a href="https://heirloomapp.io/privacy.html">Privacy</a>
+                                    <a href="https://heirloomapp.io/terms.html">Terms</a>
+                                </div>
+                            </div>
+                            <div class="meta small"><span class="status">Beta</span><span class="muted">Web</span></div>
+                        </li>
+
+                        <li class="row" id="pen-6" data-bay="6" style="--c: var(--green)">
+                            <span class="no small"><i aria-hidden="true"></i>006</span>
+                            <h3><a href="https://dailycanvasapp.com">Daily Canvas</a></h3>
+                            <div class="desc">
+                                <p>A museum painting on your screens every morning.</p>
+                                <div class="links small">
+                                    <a href="mailto:support@dailycanvasapp.com">Support</a>
+                                    <a href="https://dailycanvasapp.com/privacy.html">Privacy</a>
+                                    <a href="https://dailycanvasapp.com/terms.html">Terms</a>
+                                </div>
+                            </div>
+                            <div class="meta small"><span class="status">Coming soon</span><span class="muted">Apple platforms</span></div>
+                        </li>
+
+                        <li class="row vacant" id="pen-7" data-bay="7">
+                            <span class="no small"><i aria-hidden="true"></i>007</span>
+                            <h3>Untitled</h3>
+                            <div class="desc"><p class="muted">Under construction.</p></div>
+                            <div class="meta small"><span class="status">In progress</span></div>
+                        </li>
+
+                        <li class="row vacant" id="pen-8" data-bay="8">
+                            <span class="no small"><i aria-hidden="true"></i>008</span>
+                            <h3>Untitled</h3>
+                            <div class="desc"><p class="muted">Under construction.</p></div>
+                            <div class="meta small"><span class="status">In progress</span></div>
+                        </li>
+
+                        <li class="row vacant" id="pen-9" data-bay="9">
+                            <span class="no small"><i aria-hidden="true"></i>009</span>
+                            <h3>Untitled</h3>
+                            <div class="desc"><p class="muted">Under construction.</p></div>
+                            <div class="meta small"><span class="status">In progress</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="wrap grid">
+                <p class="section-label small">Contact</p>
+                <div class="section-body">
+                    <h2>Inquiries.</h2>
+                    <div class="grid contact" style="margin-top:40px">
+                        <div>
+                            <p class="small muted">Business and press</p>
+                            <p class="big"><a href="mailto:hello@thepeninsularcompany.com">hello@<wbr>thepeninsularcompany.com</a></p>
+                            <p class="small muted">For help with an app, use its support link above.</p>
+                        </div>
+                        <div>
+                            <p class="small muted">Principal</p>
+                            <p class="big"><a href="https://joelint.com">Joe Lint</a></p>
+                            <p class="small muted">Founder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap grid small">
+            <p><span class="brand"><i aria-hidden="true"></i>The Peninsular Company LLC</span></p>
+            <p>Detroit, Michigan</p>
+            <p>&copy; <span id="year">2026</span>. No cookies, no tracking.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tie each bay of the elevation to its row in the roster.
+        (function () {
+            var caption = document.getElementById('caption-text');
+            var resting = caption.textContent;
+            var bays = document.querySelectorAll('.bay');
+            var rows = document.querySelectorAll('.row');
+
+            function light(n, on) {
+                bays.forEach(function (b) { b.classList.toggle('lit', on && b.getAttribute('data-bay') === n); });
+                rows.forEach(function (r) { r.classList.toggle('lit', on && r.getAttribute('data-bay') === n); });
+            }
+
+            bays.forEach(function (bay) {
+                var n = bay.getAttribute('data-bay');
+                var label = 'Bay ' + n + ': ' + bay.getAttribute('data-name') + '.';
+                bay.setAttribute('aria-label', label);
+                function on() { light(n, true); caption.textContent = label; }
+                function off() { light(n, false); caption.textContent = resting; }
+                bay.addEventListener('mouseenter', on);
+                bay.addEventListener('mouseleave', off);
+                bay.addEventListener('focus', on);
+                bay.addEventListener('blur', off);
+            });
+
+            rows.forEach(function (row) {
+                var n = row.getAttribute('data-bay');
+                row.addEventListener('mouseenter', function () { light(n, true); });
+                row.addEventListener('mouseleave', function () { light(n, false); });
+            });
+        })();
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

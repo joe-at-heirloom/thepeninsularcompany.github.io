@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unoccupied · The Peninsular Company</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#EFECE6">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --travertine: #EFECE6; --ink: #151515; --ink-2: #6A6964; --red: #B3392A; color-scheme: light; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--travertine);
+            color: var(--ink);
+            font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+        header .wrap { display: flex; padding-top: 26px; padding-bottom: 26px; }
+        header .inner { flex: 1; border-bottom: 1px solid var(--ink); padding-bottom: 26px; margin-bottom: -26px; }
+        .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+        .brand i { width: 16px; height: 16px; background: var(--red); }
+        main { flex: 1; display: flex; align-items: center; }
+        .no { font-size: 13.5px; font-weight: 500; color: var(--ink-2); margin: 0 0 20px; }
+        h1 { margin: 0 0 24px; font-weight: 600; font-size: clamp(56px, 11vw, 150px); line-height: 0.92; letter-spacing: -0.045em; }
+        p { font-size: 19px; line-height: 1.45; margin: 0 0 32px; max-width: 460px; }
+        .back { font-size: 13.5px; font-weight: 500; color: inherit; text-decoration: none; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+        .back:hover { color: var(--red); }
+        @media (max-width: 640px) { .wrap { padding: 0 16px; } }
+    </style>
+</head>
+<body>
+    <header><div class="wrap"><div class="inner"><a class="brand" href="/"><i aria-hidden="true"></i>The Peninsular Company</a></div></div></header>
+    <main>
+        <div class="wrap">
+            <p class="no">Error 404</p>
+            <h1>Unoccupied.</h1>
+            <p>Nothing has been built here. Maybe not yet.</p>
+            <a class="back" href="/">Return to the lobby</a>
+        </div>
+    </main>
+</body>
+</html>
