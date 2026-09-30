@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Privacy Policy · The Peninsular Company</title>
+    <meta name="description" content="How The Peninsular Company, LLC collects, uses, and protects personal information.">
+    <link rel="canonical" href="https://thepeninsularcompany.com/privacy/">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#EFECE6">
+    <meta name="color-scheme" content="light">
+    <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* Inter Tight, SIL Open Font License 1.1 (fonts/OFL.txt) */
+        @font-face {
+            font-family: 'Inter Tight';
+            font-style: normal;
+            font-weight: 400 600;
+            font-display: swap;
+            src: url(/fonts/inter-tight-latin.woff2) format('woff2');
+        }
+
+        :root {
+            --ground: #EFECE6;
+            --ink: #141414;
+            --ink-2: #62615C;
+            --rule: #CFCABF;
+            --pine: #1F4B3E;
+            --steel: #181818;
+            --font: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --gutter: 40px;
+            --measure: 1200px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            margin: 0;
+            background: var(--ground);
+            color: var(--ink);
+            font-family: var(--font);
+            font-size: 17px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--pine); color: #fff; }
+
+        h1, h2, h3, p, ol, figure { margin: 0; }
+
+        a { color: inherit; }
+        a:focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; }
+
+        .wrap { max-width: calc(var(--measure) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: 24px;
+        }
+
+        .small { font-size: 13.5px; line-height: 1.45; font-weight: 500; }
+        .muted { color: var(--ink-2); }
+
+        .skip {
+            position: absolute;
+            left: var(--gutter); top: -60px;
+            z-index: 10;
+            padding: 10px 14px;
+            background: var(--ink);
+            color: var(--ground);
+            text-decoration: none;
+        }
+        .skip:focus { top: 12px; }
+
+        /* ---------- Header ---------- */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 28px 0;
+        }
+        .home { display: block; line-height: 0; }
+        .mark-line { display: block; width: 226px; height: auto; }
+        .site-nav { display: flex; gap: 32px; }
+        .site-nav a { padding: 4px 0; text-decoration: none; }
+        .site-nav a:hover { color: var(--pine); }
+
+        /* ---------- Hero ---------- */
+        .hero { align-items: end; padding-top: 64px; padding-bottom: 72px; }
+        .hero h1 { grid-column: 1 / span 6; line-height: 0; }
+        .mark-stacked { display: block; width: clamp(240px, 33vw, 420px); height: auto; }
+        .statement {
+            grid-column: 8 / -1;
+            max-width: 420px;
+            padding-bottom: 6px;
+            font-size: clamp(19px, 1.8vw, 23px);
+            line-height: 1.38;
+            letter-spacing: -0.01em;
+            text-wrap: balance;
+        }
+
+        /* ---------- The lake ---------- */
+        .band { margin: 0; }
+        .lake {
+            --g: #EFECE6;
+            --l: #141414;
+            --glass: var(--g);
+            --lit: var(--g);
+            --moon: transparent;
+            --starA: 0;
+            --navA: 0;
+            --lampA: 0.35;
+            --refA: 0;
+            --glintA: 0;
+            display: block;
+            width: 100%;
+            height: max(240px, 30vw);
+        }
+        .lake .ground { fill: var(--g); }
+        .lake .draw { fill: none; stroke: var(--l); stroke-width: 0.8; }
+        .lake .o { fill: var(--g); }
+        .lake .s { fill: var(--l); }
+        .lake .glass { fill: var(--glass); }
+        .lake .win { fill: var(--g); }
+        .lake .win.lit { fill: var(--lit); }
+        .lake .orb { fill: var(--g); stroke: var(--l); stroke-width: 0.8; }
+        .lake .moonlit { fill: var(--moon); }
+        .lake .stars { fill: #E6E2D6; opacity: var(--starA); }
+        .lake .nav { fill: #FFF6DE; opacity: var(--navA); }
+        .lake .glint { stroke: var(--l); stroke-width: 0.8; opacity: var(--glintA); }
+        .lake .lamp { opacity: var(--lampA); }
+        .lake .lamp .core { fill: #FFF4D6; }
+        .lake .lampref { stroke: #F0B54A; stroke-width: 0.8; opacity: var(--refA); }
+        /* William Livingstone Memorial Light: occulting white, 4 s period (USCG Light List No. 8240) */
+        .lake .lamp circle, .lake .lampref path { animation: occult 4s steps(1, end) infinite; }
+        @keyframes occult { 0% { opacity: 1; } 75% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* ---------- Sections ---------- */
+        section { padding-top: 136px; }
+        .section-label { grid-column: span 3; padding-top: 3px; font-size: 13.5px; font-weight: 500; line-height: 1.45; }
+        .section-body { grid-column: 4 / -1; }
+        .lede { max-width: 520px; color: var(--ink-2); text-wrap: pretty; }
+
+        /* ---------- Works ---------- */
+        .works { list-style: none; margin-top: 40px; padding: 0; border-top: 1px solid var(--ink); }
+        .work {
+            display: grid;
+            grid-template-columns: 76px minmax(0, 1fr) 240px 124px;
+            column-gap: 24px;
+            align-items: baseline;
+            padding: 22px 0 24px;
+            border-bottom: 1px solid var(--rule);
+        }
+        .no { font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .no::before {
+            content: "";
+            display: inline-block;
+            width: 10px; height: 10px;
+            margin-right: 10px;
+            background: var(--c);
+        }
+        .no.outlined::before { box-shadow: inset 0 0 0 1px var(--ink-2); }
+        h3 { font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+        h3 a { text-decoration: none; }
+        h3 a:hover { color: var(--pine); }
+        .what p { max-width: 440px; margin-top: 6px; color: var(--ink-2); text-wrap: pretty; }
+        .links { grid-column: 3; display: flex; flex-wrap: wrap; gap: 2px 16px; }
+        .links a { color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+        .links a:hover { color: var(--pine); text-decoration: underline; text-underline-offset: 3px; }
+        .meta { grid-column: 4; text-align: right; }
+        .meta span { display: block; }
+
+        /* ---------- Contact ---------- */
+        .email {
+            font-size: min(clamp(24px, 2.6vw, 34px), calc((100vw - 2 * var(--gutter)) / 14.7));
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+        .email a { text-decoration: none; border-bottom: 2px solid var(--pine); }
+        .email a:hover { color: var(--pine); }
+        .contact .lede { margin-top: 20px; }
+        .principal { margin-top: 28px; }
+        .principal a { text-underline-offset: 3px; }
+
+        /* ---------- Footer ---------- */
+        footer { margin-top: 152px; background: var(--steel); color: #D9D5CC; }
+        footer .grid { row-gap: 20px; padding-top: 36px; padding-bottom: 44px; }
+        footer .grid > div { grid-column: span 4; }
+        footer .grid > div:last-child { text-align: right; }
+        footer .strong { color: #F3F0EA; }
+        footer .quiet { color: #A5A199; }
+        footer a { color: #F3F0EA; text-decoration: none; border-bottom: 1px solid #5C5A55; }
+        footer a:hover { border-bottom-color: #F3F0EA; }
+        footer .sep { display: inline-block; width: 18px; }
+
+
+        /* ---------- Legal pages ---------- */
+        .doc { padding-top: 64px; }
+        .doc-head { grid-column: 4 / -1; }
+        .doc-head h1 { font-weight: 600; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -0.035em; margin-left: -0.03em; }
+        .doc-head .updated { margin-top: 16px; }
+        .doc-aside { grid-column: span 3; padding-top: 6px; }
+        .doc-aside ol { list-style: none; padding: 0; margin: 0; position: sticky; top: 32px; }
+        .doc-aside li { margin: 0 0 6px; }
+        .doc-aside a { color: var(--ink-2); text-decoration: none; }
+        .doc-aside a:hover { color: var(--pine); }
+        .doc-body { grid-column: 4 / -1; max-width: 700px; }
+        .doc-body .intro { font-size: 20px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 8px; }
+        .doc-body section { padding-top: 40px; scroll-margin-top: 24px; }
+        .doc-body h2 { font-size: 20px; line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 12px; }
+        .doc-body p { margin: 0 0 14px; }
+        .doc-body ul { margin: 0 0 14px; padding-left: 1.2em; }
+        .doc-body li { margin: 0 0 6px; }
+        .doc-body a { text-underline-offset: 3px; text-decoration-color: var(--rule); }
+        .doc-body a:hover { color: var(--pine); text-decoration-color: currentColor; }
+        .doc-row { row-gap: 40px; margin-top: 56px; }
+        @media (max-width: 1100px) {
+            .doc-head, .doc-body { grid-column: 1 / -1; }
+            .doc-aside { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .lake .lamp circle, .lake .lampref path { animation: none; }
+        }
+
+        /* ---------- Narrower ---------- */
+        @media (max-width: 1100px) {
+            .section-label { grid-column: 1 / -1; margin-bottom: 20px; padding-top: 0; }
+            .section-body { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 900px) {
+            :root { --gutter: 24px; }
+            .hero { row-gap: 32px; padding-top: 40px; padding-bottom: 56px; }
+            .hero h1, .statement { grid-column: 1 / -1; }
+            .work { grid-template-columns: 76px minmax(0, 1fr) 120px; }
+            .work .links { grid-column: 2; grid-row: 2; margin-top: 10px; }
+            .work .links:empty { display: none; }
+            .work .meta { grid-column: 3; grid-row: 1 / span 2; }
+            footer .grid > div { grid-column: span 6; }
+            footer .grid > div:last-child { grid-column: 1 / -1; text-align: left; }
+        }
+
+        @media (max-width: 640px) {
+            :root { --gutter: 16px; }
+            .grid { column-gap: 16px; }
+            .site-header { padding: 22px 0; }
+            .mark-line { width: 196px; }
+            .site-nav { gap: 18px; }
+            .mark-stacked { width: min(100%, 300px); }
+            section { padding-top: 96px; }
+            .work { grid-template-columns: minmax(0, 1fr) auto; padding: 20px 0 14px; }
+            .work .no { grid-column: 1; grid-row: 1; margin-bottom: 8px; }
+            .work .meta { grid-column: 2; grid-row: 1; display: flex; gap: 10px; }
+            .work .what { grid-column: 1 / -1; grid-row: 2; padding-bottom: 8px; }
+            .work .links { grid-column: 1 / -1; grid-row: 3; gap: 0 22px; margin-top: 0; }
+            .work .links a { padding: 8px 0; }
+            footer { margin-top: 112px; }
+            footer .grid > div { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 380px) {
+            .mark-line { width: 172px; }
+            .site-nav { gap: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a class="skip small" href="#content">Skip to content</a>
+
+    <div class="wrap">
+        <header class="site-header">
+            <a class="home" href="/"><svg class="mark-line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225.5 24.674" role="img" aria-label="The Peninsular Company"><rect x="0" y="8" width="13" height="13" fill="#1F4B3E"/><rect x="0" y="0" width="225.5" height="2" fill="#141414"/><path fill="#141414" d="M19.76 9.89V7.9H30.21V9.89H26.16V21H23.82V9.89ZM33.93 15.25V21H31.62V7.9H33.87V12.85H34Q34.34 12.02 35.06 11.53Q35.78 11.05 36.92 11.05Q37.94 11.05 38.7 11.48Q39.46 11.91 39.88 12.74Q40.3 13.56 40.3 14.75V21H37.98V15.11Q37.98 14.11 37.47 13.56Q36.96 13.01 36.05 13.01Q35.43 13.01 34.95 13.27Q34.47 13.54 34.2 14.03Q33.93 14.53 33.93 15.25ZM46.54 21.19Q45.06 21.19 43.99 20.57Q42.91 19.95 42.34 18.82Q41.76 17.69 41.76 16.15Q41.76 14.63 42.33 13.48Q42.91 12.33 43.94 11.69Q44.98 11.05 46.39 11.05Q47.29 11.05 48.1 11.34Q48.92 11.63 49.55 12.24Q50.17 12.84 50.53 13.78Q50.89 14.72 50.89 16.01V16.73H42.84V15.17H49.74L48.66 15.63Q48.66 14.79 48.41 14.18Q48.15 13.56 47.65 13.2Q47.15 12.85 46.4 12.85Q45.66 12.85 45.13 13.2Q44.6 13.56 44.33 14.15Q44.06 14.74 44.06 15.47V16.55Q44.06 17.45 44.37 18.09Q44.68 18.72 45.25 19.06Q45.81 19.39 46.57 19.39Q47.06 19.39 47.47 19.25Q47.88 19.11 48.17 18.82Q48.47 18.54 48.63 18.12L50.79 18.37Q50.58 19.22 50.01 19.86Q49.44 20.5 48.56 20.85Q47.68 21.19 46.54 21.19ZM56.4 21V7.9H61.31Q62.82 7.9 63.84 8.47Q64.87 9.03 65.4 10.01Q65.92 11 65.92 12.25Q65.92 13.5 65.39 14.48Q64.86 15.46 63.82 16.02Q62.79 16.58 61.27 16.58H58.02V14.63H60.95Q61.84 14.63 62.4 14.32Q62.97 14.02 63.24 13.48Q63.51 12.94 63.51 12.25Q63.51 11.54 63.24 11.01Q62.97 10.48 62.4 10.19Q61.84 9.89 60.94 9.89H58.77V21ZM71.6 21.19Q70.12 21.19 69.05 20.57Q67.98 19.95 67.4 18.82Q66.82 17.69 66.82 16.15Q66.82 14.63 67.4 13.48Q67.97 12.33 69 11.69Q70.04 11.05 71.45 11.05Q72.35 11.05 73.17 11.34Q73.98 11.63 74.61 12.24Q75.24 12.84 75.6 13.78Q75.96 14.72 75.96 16.01V16.73H67.91V15.17H74.8L73.72 15.63Q73.72 14.79 73.47 14.18Q73.21 13.56 72.71 13.2Q72.21 12.85 71.46 12.85Q70.72 12.85 70.19 13.2Q69.66 13.56 69.39 14.15Q69.12 14.74 69.12 15.47V16.55Q69.12 17.45 69.43 18.09Q69.74 18.72 70.31 19.06Q70.88 19.39 71.63 19.39Q72.12 19.39 72.53 19.25Q72.94 19.11 73.24 18.82Q73.53 18.54 73.69 18.12L75.85 18.37Q75.64 19.22 75.07 19.86Q74.51 20.5 73.62 20.85Q72.74 21.19 71.6 21.19ZM79.7 15.25V21H77.38V11.17H79.65V12.85H79.77Q80.1 12.03 80.82 11.54Q81.53 11.05 82.64 11.05Q83.66 11.05 84.42 11.48Q85.17 11.91 85.59 12.74Q86.01 13.57 86.01 14.75V21H83.69V15.11Q83.69 14.13 83.18 13.57Q82.67 13.01 81.78 13.01Q81.17 13.01 80.7 13.27Q80.23 13.54 79.96 14.03Q79.7 14.53 79.7 15.25ZM87.89 21V11.17H90.2V21ZM89.05 9.79Q88.5 9.79 88.1 9.42Q87.71 9.06 87.71 8.54Q87.71 8.01 88.1 7.64Q88.5 7.27 89.05 7.27Q89.6 7.27 89.99 7.64Q90.39 8.01 90.39 8.53Q90.39 9.06 89.99 9.42Q89.6 9.79 89.05 9.79ZM94.4 15.25V21H92.09V11.17H94.36V12.85H94.47Q94.8 12.03 95.52 11.54Q96.24 11.05 97.34 11.05Q98.36 11.05 99.12 11.48Q99.87 11.91 100.29 12.74Q100.71 13.57 100.71 14.75V21H98.4V15.11Q98.4 14.13 97.89 13.57Q97.38 13.01 96.48 13.01Q95.88 13.01 95.41 13.27Q94.94 13.54 94.67 14.03Q94.4 14.53 94.4 15.25ZM110.35 13.78 108.25 14Q108.11 13.52 107.67 13.15Q107.24 12.77 106.44 12.77Q105.71 12.77 105.23 13.09Q104.74 13.41 104.74 13.9Q104.74 14.33 105.06 14.61Q105.38 14.88 106.13 15.05L107.81 15.4Q109.19 15.69 109.87 16.35Q110.56 17.01 110.56 18.06Q110.56 18.98 110.02 19.69Q109.49 20.4 108.54 20.8Q107.6 21.19 106.37 21.19Q104.56 21.19 103.47 20.43Q102.38 19.67 102.16 18.32L104.41 18.11Q104.56 18.77 105.07 19.11Q105.57 19.44 106.37 19.44Q107.19 19.44 107.69 19.11Q108.19 18.77 108.19 18.28Q108.19 17.45 106.88 17.15L105.2 16.8Q103.78 16.49 103.1 15.8Q102.43 15.11 102.43 14.04Q102.43 13.12 102.93 12.46Q103.43 11.79 104.33 11.42Q105.22 11.05 106.4 11.05Q108.13 11.05 109.12 11.79Q110.11 12.54 110.35 13.78ZM118.23 16.88V11.17H120.55V21H118.31V19.25H118.2Q117.87 20.08 117.11 20.6Q116.35 21.13 115.25 21.12Q114.28 21.12 113.55 20.7Q112.81 20.27 112.39 19.44Q111.98 18.61 111.98 17.43V11.17H114.29V17.08Q114.29 18 114.8 18.56Q115.32 19.11 116.15 19.1Q116.66 19.1 117.14 18.86Q117.62 18.61 117.93 18.12Q118.23 17.62 118.23 16.88ZM124.74 7.9V21H122.43V7.9ZM129.46 21.2Q128.52 21.2 127.77 20.86Q127.02 20.53 126.59 19.87Q126.16 19.21 126.16 18.24Q126.16 17.41 126.47 16.87Q126.78 16.32 127.31 16Q127.84 15.67 128.51 15.5Q129.18 15.33 129.89 15.26Q130.76 15.16 131.3 15.09Q131.83 15.02 132.07 14.87Q132.31 14.71 132.31 14.37V14.33Q132.31 13.62 131.89 13.22Q131.47 12.83 130.66 12.83Q129.81 12.83 129.31 13.2Q128.82 13.56 128.64 14.07L126.49 13.76Q126.74 12.86 127.33 12.26Q127.92 11.66 128.77 11.35Q129.62 11.05 130.64 11.05Q131.35 11.05 132.05 11.21Q132.75 11.38 133.34 11.76Q133.93 12.15 134.28 12.8Q134.63 13.45 134.63 14.43V21H132.41V19.65H132.34Q132.13 20.05 131.75 20.41Q131.37 20.76 130.8 20.98Q130.23 21.2 129.46 21.2ZM130.05 19.5Q130.75 19.5 131.26 19.22Q131.77 18.94 132.05 18.48Q132.33 18.02 132.33 17.48V16.32Q132.22 16.41 131.96 16.49Q131.71 16.56 131.38 16.62Q131.06 16.68 130.75 16.73Q130.43 16.77 130.21 16.8Q129.69 16.87 129.28 17.03Q128.87 17.19 128.63 17.48Q128.39 17.76 128.39 18.21Q128.39 18.85 128.86 19.17Q129.33 19.5 130.05 19.5ZM136.53 21V11.17H138.77V12.83H138.88Q139.14 11.96 139.8 11.5Q140.46 11.04 141.3 11.04Q141.49 11.04 141.73 11.06Q141.97 11.08 142.13 11.1V13.23Q141.98 13.18 141.66 13.14Q141.35 13.11 141.06 13.11Q140.41 13.11 139.91 13.38Q139.41 13.65 139.13 14.13Q138.84 14.6 138.84 15.23V21ZM152.92 21.18Q151.2 21.18 149.84 20.38Q148.48 19.58 147.7 18.07Q146.93 16.57 146.93 14.46Q146.93 12.34 147.71 10.84Q148.5 9.33 149.86 8.53Q151.21 7.73 152.92 7.73Q154 7.73 154.95 8.04Q155.89 8.34 156.63 8.94Q157.37 9.53 157.84 10.39Q158.31 11.24 158.46 12.33H156.07Q155.97 11.74 155.69 11.28Q155.42 10.82 155.01 10.5Q154.6 10.18 154.08 10.02Q153.56 9.86 152.96 9.86Q151.89 9.86 151.07 10.39Q150.24 10.92 149.77 11.95Q149.31 12.98 149.31 14.46Q149.31 15.96 149.78 16.98Q150.25 18 151.07 18.53Q151.89 19.05 152.96 19.05Q153.54 19.05 154.05 18.9Q154.56 18.74 154.98 18.43Q155.4 18.12 155.68 17.67Q155.95 17.23 156.07 16.65H158.46Q158.33 17.59 157.88 18.41Q157.44 19.23 156.72 19.85Q156 20.47 155.05 20.82Q154.09 21.18 152.92 21.18ZM164.33 21.19Q162.89 21.19 161.84 20.56Q160.78 19.93 160.21 18.79Q159.63 17.64 159.63 16.13Q159.63 14.61 160.21 13.46Q160.78 12.32 161.84 11.68Q162.89 11.05 164.33 11.05Q165.77 11.05 166.83 11.68Q167.88 12.32 168.46 13.46Q169.04 14.61 169.04 16.13Q169.04 17.64 168.46 18.79Q167.88 19.93 166.83 20.56Q165.77 21.19 164.33 21.19ZM164.33 19.33Q165.13 19.33 165.65 18.9Q166.17 18.48 166.43 17.75Q166.69 17.02 166.69 16.13Q166.69 15.23 166.43 14.5Q166.17 13.77 165.65 13.34Q165.13 12.91 164.33 12.91Q163.55 12.91 163.02 13.34Q162.5 13.77 162.24 14.5Q161.98 15.23 161.98 16.13Q161.98 17.02 162.24 17.75Q162.5 18.48 163.02 18.9Q163.55 19.33 164.33 19.33ZM170.5 21V11.17H172.7V12.85H172.83Q173.13 12.01 173.85 11.53Q174.56 11.05 175.53 11.05Q176.54 11.05 177.22 11.53Q177.91 12.02 178.18 12.85H178.28Q178.62 12.04 179.39 11.54Q180.17 11.05 181.24 11.05Q182.59 11.05 183.45 11.91Q184.31 12.76 184.31 14.41V21H181.99V14.76Q181.99 13.85 181.5 13.43Q181.01 13 180.31 13Q179.47 13 179.01 13.52Q178.54 14.05 178.54 14.87V21H176.25V14.67Q176.25 13.91 175.81 13.45Q175.36 13 174.62 13Q174.12 13 173.71 13.26Q173.29 13.51 173.05 13.97Q172.81 14.43 172.81 15.02V21ZM186.19 24.67V11.17H188.46V12.8H188.6Q188.77 12.45 189.1 12.04Q189.42 11.63 189.98 11.34Q190.54 11.05 191.41 11.05Q192.54 11.05 193.46 11.63Q194.37 12.21 194.91 13.34Q195.45 14.46 195.45 16.1Q195.45 17.72 194.93 18.86Q194.4 19.99 193.48 20.58Q192.56 21.18 191.4 21.18Q190.57 21.18 190.01 20.89Q189.45 20.6 189.11 20.2Q188.77 19.8 188.6 19.44H188.5V24.67ZM190.77 19.28Q191.53 19.28 192.05 18.86Q192.56 18.45 192.83 17.73Q193.09 17.01 193.09 16.1Q193.09 15.18 192.83 14.47Q192.56 13.76 192.05 13.35Q191.54 12.95 190.77 12.95Q190.02 12.95 189.51 13.34Q188.99 13.72 188.73 14.43Q188.46 15.14 188.46 16.1Q188.46 17.04 188.73 17.76Q188.99 18.48 189.51 18.88Q190.03 19.28 190.77 19.28ZM199.75 21.2Q198.81 21.2 198.06 20.86Q197.31 20.53 196.88 19.87Q196.45 19.21 196.45 18.24Q196.45 17.41 196.76 16.87Q197.07 16.32 197.6 16Q198.13 15.67 198.8 15.5Q199.47 15.33 200.18 15.26Q201.05 15.16 201.58 15.09Q202.12 15.02 202.36 14.87Q202.6 14.71 202.6 14.37V14.33Q202.6 13.62 202.18 13.22Q201.76 12.83 200.95 12.83Q200.1 12.83 199.6 13.2Q199.11 13.56 198.93 14.07L196.78 13.76Q197.03 12.86 197.62 12.26Q198.21 11.66 199.06 11.35Q199.91 11.05 200.93 11.05Q201.64 11.05 202.34 11.21Q203.04 11.38 203.63 11.76Q204.22 12.15 204.57 12.8Q204.92 13.45 204.92 14.43V21H202.7V19.65H202.63Q202.42 20.05 202.04 20.41Q201.65 20.76 201.09 20.98Q200.52 21.2 199.75 21.2ZM200.34 19.5Q201.04 19.5 201.55 19.22Q202.06 18.94 202.34 18.48Q202.62 18.02 202.62 17.48V16.32Q202.51 16.41 202.25 16.49Q202 16.56 201.67 16.62Q201.35 16.68 201.04 16.73Q200.72 16.77 200.49 16.8Q199.98 16.87 199.57 17.03Q199.16 17.19 198.92 17.48Q198.68 17.76 198.68 18.21Q198.68 18.85 199.15 19.17Q199.62 19.5 200.34 19.5ZM209.13 15.25V21H206.82V11.17H209.09V12.85H209.2Q209.53 12.03 210.25 11.54Q210.97 11.05 212.07 11.05Q213.09 11.05 213.85 11.48Q214.61 11.91 215.02 12.74Q215.44 13.57 215.44 14.75V21H213.13V15.11Q213.13 14.13 212.62 13.57Q212.11 13.01 211.21 13.01Q210.61 13.01 210.14 13.27Q209.67 13.54 209.4 14.03Q209.13 14.53 209.13 15.25ZM218.42 24.67Q217.94 24.68 217.54 24.61Q217.14 24.53 216.89 24.44L217.44 22.63L217.55 22.67Q218.26 22.85 218.75 22.7Q219.25 22.54 219.55 21.74L219.74 21.21L216.19 11.17H218.64L220.9 18.6H221.01L223.28 11.17H225.75L221.81 22.19Q221.54 22.97 221.09 23.53Q220.64 24.08 219.98 24.38Q219.32 24.67 218.42 24.67Z"/></svg></a>
+            <nav class="site-nav small" aria-label="Sections">
+                <a href="/#works">Works</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+        </header>
+    </div>
+
+    <main id="content" class="doc">
+        <div class="wrap grid">
+            <div class="doc-head">
+                <h1>Privacy Policy</h1>
+                <p class="updated small muted">Last updated and effective September 29, 2026</p>
+            </div>
+        </div>
+        <div class="wrap grid doc-row">
+            <nav class="doc-aside small" aria-label="On this page"><ol><li><a href="#who-we-are">Who we are</a></li><li><a href="#what-this-policy-covers">What this policy covers</a></li><li><a href="#when-you-visit-our-website">When you visit our website</a></li><li><a href="#when-you-email-us">When you email us</a></li><li><a href="#when-you-buy-from-us-or-become-a-client">When you buy from us or become a client</a></li><li><a href="#payments">Payments</a></li><li><a href="#how-we-use-information">How we use information</a></li><li><a href="#how-we-share-information">How we share information</a></li><li><a href="#selling-advertising-and-marketing-email">Selling, advertising, and marketing email</a></li><li><a href="#how-long-we-keep-information">How long we keep information</a></li><li><a href="#security">Security</a></li><li><a href="#your-choices-and-rights">Your choices and rights</a></li><li><a href="#children">Children</a></li><li><a href="#international-users">International users</a></li><li><a href="#changes-to-this-policy">Changes to this policy</a></li><li><a href="#contact-us">Contact us</a></li></ol></nav>
+            <div class="doc-body">
+                <p class="intro">This policy explains what personal information The Peninsular Company, LLC collects, how we use and share it, and the choices you have.</p>
+
+                <section id="who-we-are">
+                <h2>Who we are</h2>
+                <p>The Peninsular Company, LLC (&ldquo;The Peninsular Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is a privately held Michigan limited liability company based in Detroit, Michigan, for new ventures in technology and beyond.</p>
+                </section>
+
+                <section id="what-this-policy-covers">
+                <h2>What this policy covers</h2>
+                <p>This policy applies to our website at thepeninsularcompany.com, email you send us, client work we do for you, and purchases you make directly from us, including web checkout, invoices, subscriptions, digital products, and physical products. Not every kind of purchase listed here is available today. Our <a href="/terms/">Terms</a> explain buying from us, including subscriptions, cancellations, and refunds.</p>
+                <p>Each of our products has its own privacy policy, which applies when you use that product:</p>
+                <ul>
+                <li>The Ollin Tuner: <a href="https://ollintuner.com/privacy.html">ollintuner.com/privacy.html</a></li>
+                <li>Learn to Play Cards: <a href="https://learntoplaycardsapp.com/privacy.html">learntoplaycardsapp.com/privacy.html</a></li>
+                <li>Heirloom: <a href="https://heirloomapp.io/privacy.html">heirloomapp.io/privacy.html</a></li>
+                <li>Daily Canvas: <a href="https://dailycanvasapp.com/privacy.html">dailycanvasapp.com/privacy.html</a></li>
+                </ul>
+                <p>Purchases made inside our Apple apps through the App Store are processed by Apple under Apple&rsquo;s terms and privacy policy. If you buy a subscription to one of our products from us on the web, this policy covers the purchase and billing. The product&rsquo;s own policy covers how the product handles your data, including any billing status it keeps to give you access.</p>
+                </section>
+
+                <section id="when-you-visit-our-website">
+                <h2>When you visit our website</h2>
+                <p>Our website is a simple static site. It sets no cookies and uses no analytics, tracking, advertising, forms, or third-party scripts. Our fonts are served from our own site, not from an outside font service. The site does not track you over time or across other websites, and it does not let other companies do so. Because there is no tracking to turn off, it works the same whether or not your browser sends a Do Not Track or Global Privacy Control signal.</p>
+                <p>The site is hosted by GitHub Pages. GitHub may log your IP address and details of your request for security and operations, and it handles that information under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>. Other sites we link to, including our product sites, have their own privacy policies.</p>
+                </section>
+
+                <section id="when-you-email-us">
+                <h2>When you email us</h2>
+                <p>This section covers email to <a href="mailto:hello@thepeninsularcompany.com">hello@thepeninsularcompany.com</a>. Email to a product&rsquo;s own support address is covered by that product&rsquo;s privacy policy. When you email us, we receive your email address, your name if your email includes it, your message, any attachments, and standard details such as when it was sent. We use this to answer you and to keep a record of our conversation. Our email hosting provider stores these messages for us.</p>
+                </section>
+
+                <section id="when-you-buy-from-us-or-become-a-client">
+                <h2>When you buy from us or become a client</h2>
+                <p>When you buy from us, subscribe on the web, or hire us for client work, we may collect:</p>
+                <ul>
+                <li>Your name, email address, and other contact details you give us, such as a phone number.</li>
+                <li>Your company name and any business tax ID you give us, if you are buying for a business.</li>
+                <li>Billing details, such as your billing address and the limited payment information Stripe shares with us.</li>
+                <li>The name and address you want an order shipped to, if you order a physical product.</li>
+                <li>Order and payment records, such as what you bought, prices, taxes, invoices, receipts, refunds, and subscription status, plus a record of the billing terms you agreed to and when.</li>
+                <li>Your communications with us about your order, subscription, or project.</li>
+                <li>Project materials you share for client work, such as content, files, and passwords or other access to the accounts and systems we are working on.</li>
+                </ul>
+                <p>We collect this from you, from Stripe when you pay, and, if you order a physical product, from any carrier or supplier that ships it, about your order&rsquo;s status. If project materials include personal information about other people, such as your customers, we use it only to do the work you hired us to do. If you give us passwords or other access to your accounts, we use that access only for your project. We recommend that you change those passwords or remove our access when the work ends.</p>
+                </section>
+
+                <section id="payments">
+                <h2>Payments</h2>
+                <p>Payments made directly to us are processed by Stripe and, where applicable, its affiliates. You enter your card or other payment details on a payment page or form provided by Stripe, not into our systems, and we do not see or store your full card number. If you subscribe or choose to save a payment method, Stripe stores it so we can make the charges you agreed to. If you save your details with Link, Stripe&rsquo;s faster-checkout service, Link&rsquo;s own terms and privacy policy apply.</p>
+                <p>Stripe shares limited information with us, such as your name, email address, billing address, card brand, the last four digits and expiration date of your card, the card&rsquo;s country, whether the payment succeeded, and the results of Stripe&rsquo;s fraud checks, which can include your IP address.</p>
+                <p>When you pay, Stripe also collects information such as your IP address and details about your device and browser, and it may use cookies on its payment pages. Stripe uses payment information for its own purposes too, such as preventing fraud, meeting its legal obligations, and improving its services. Stripe is responsible for that use under the <a href="https://stripe.com/privacy">Stripe Privacy Policy</a> and the <a href="https://stripe.com/legal/cookies-policy">Stripe Cookie Policy</a>.</p>
+                </section>
+
+                <section id="how-we-use-information">
+                <h2>How we use information</h2>
+                <p>We use personal information to:</p>
+                <ul>
+                <li>Provide the products and services you ask for, including client work.</li>
+                <li>Process payments, orders, invoices, subscriptions, refunds, and shipments, and respond to payment disputes.</li>
+                <li>Communicate with you and provide support.</li>
+                <li>Send marketing email, which you can stop at any time.</li>
+                <li>With your permission, show completed work in our portfolio and name you as a client.</li>
+                <li>Detect and prevent fraud, abuse, and security problems.</li>
+                <li>Meet our legal, tax, and accounting obligations and enforce our terms.</li>
+                </ul>
+                </section>
+
+                <section id="how-we-share-information">
+                <h2>How we share information</h2>
+                <p>We share personal information with the companies and advisers below, and we give each one only what it needs to do its job:</p>
+                <ul>
+                <li>Stripe, to process payments, send invoices, manage subscriptions, and prevent fraud. Stripe also uses some of this information for its own purposes, as described under &ldquo;Payments.&rdquo;</li>
+                <li>Our email hosting provider.</li>
+                <li>GitHub Pages, which hosts our website.</li>
+                <li>The carrier, and any supplier that ships directly to you, if you order a physical product. They receive your name, shipping address, phone number if you gave one, and order details.</li>
+                <li>Professional advisers, such as lawyers and accountants, and accounting or tax software, when needed to keep our books, file taxes, or get advice.</li>
+                <li>Stripe, the card networks, and your card issuer or bank, if you dispute a charge. We may share your order details, delivery records, and our messages with you so the dispute can be decided.</li>
+                </ul>
+                <p>We also share information when you ask us to. For client work, that includes the platforms and vendors you ask us to work with, such as your website host, domain registrar, or app store account.</p>
+                <p>We may disclose information when the law requires it, such as in response to a valid subpoena or court order, or when we believe in good faith it is needed to protect the rights, property, or safety of our customers, the public, or us. If all or part of our business is merged, acquired, or sold, personal information may transfer with it and will remain subject to this policy.</p>
+                </section>
+
+                <section id="selling-advertising-and-marketing-email">
+                <h2>Selling, advertising, and marketing email</h2>
+                <ul>
+                <li>We do not sell the personal information this policy covers.</li>
+                <li>We do not share it for cross-context behavioral advertising, also called targeted advertising.</li>
+                </ul>
+                <p>Our products&rsquo; own privacy policies explain whether they show ads.</p>
+                <p>If we send you marketing email, every message will tell you how to unsubscribe, and we will stop within 10 business days of your request. We will still send messages you need, such as receipts, order updates, and subscription notices.</p>
+                </section>
+
+                <section id="how-long-we-keep-information">
+                <h2>How long we keep information</h2>
+                <p>We keep email and project records while we work with you and for three years after our last contact. We keep financial records, such as invoices, receipts, order and payment records, records of your agreement to recurring charges, and dispute records, for seven years after the end of the year they relate to, to meet tax, accounting, and legal requirements. We may keep information longer if we need it for a legal claim or a payment dispute. When we no longer need information, we delete it or remove the details that identify you, and we do not try to identify you again from what remains.</p>
+                </section>
+
+                <section id="security">
+                <h2>Security</h2>
+                <p>We use reasonable safeguards suited to the information we hold, and we limit access to people who need it. Our website and Stripe&rsquo;s payment pages use encrypted HTTPS connections. Card payments are handled by Stripe, which is certified as a Level 1 service provider under the Payment Card Industry Data Security Standard (PCI DSS). Please do not send card numbers or other payment details to us by email. No method of storing or sending information is completely secure, so we cannot guarantee absolute security. If a breach affects your personal information, we will notify you as the law requires.</p>
+                </section>
+
+                <section id="your-choices-and-rights">
+                <h2>Your choices and rights</h2>
+                <p>You can ask us to:</p>
+                <ul>
+                <li>Tell you what personal information we have about you and give you a copy, in a portable format if you ask.</li>
+                <li>Correct information that is wrong or incomplete.</li>
+                <li>Delete your personal information.</li>
+                <li>Stop sending you marketing email.</li>
+                </ul>
+                <p>To make a request, email <a href="mailto:hello@thepeninsularcompany.com">hello@thepeninsularcompany.com</a> with &ldquo;Privacy request&rdquo; in the subject line and tell us what you would like. An authorized agent can also make a request for you, with proof that you authorized them. We will verify your identity before acting, usually by confirming that you control the email address linked to the information. We will respond within 45 days. If we need more time, we will tell you why and when to expect an answer.</p>
+                <p>If we decline all or part of your request, we will explain why. You can appeal by replying with &ldquo;Privacy appeal&rdquo; in the subject line, and we will answer within 45 days.</p>
+                <p>We may need to keep some information after a deletion request, such as records that tax law requires us to keep or that we need to handle a payment dispute, and we will tell you if so. Stripe keeps its own payment records under its privacy policy. We will not deny you service, charge you a different price, or give you a lower level of service because you exercised your privacy rights.</p>
+                </section>
+
+                <section id="children">
+                <h2>Children</h2>
+                <p>Our website and the services we sell directly are meant for adults. They are not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has given us personal information, email us and we will delete it.</p>
+                </section>
+
+                <section id="international-users">
+                <h2>International users</h2>
+                <p>We are based in the United States, and we process personal information in the United States, where privacy laws may differ from those where you live. Some of our service providers, such as Stripe, also operate in other countries under their own privacy policies.</p>
+                </section>
+
+                <section id="changes-to-this-policy">
+                <h2>Changes to this policy</h2>
+                <p>When we update this policy, we will post the new version on this page and change the &ldquo;Last updated&rdquo; date. If we make a material change, we will post a notice on our website and email current customers and clients before the change takes effect. Other changes take effect when posted. We will not use personal information we already have in a materially different way from what this policy said when we collected it unless you agree.</p>
+                </section>
+
+                <section id="contact-us">
+                <h2>Contact us</h2>
+                <p>Questions about this policy or your personal information can go to <a href="mailto:hello@thepeninsularcompany.com">hello@thepeninsularcompany.com</a>. We are based in Detroit, Michigan, United States.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="wrap grid small">
+            <div>
+                <p class="strong">The Peninsular Company, LLC</p>
+                <p class="quiet">Detroit, Michigan</p>
+            </div>
+            <div>
+                <p class="strong">If you seek a pleasant peninsula, look about you.</p>
+                <p class="quiet">State motto of Michigan</p>
+            </div>
+            <div>
+                <p><a href="/privacy/">Privacy</a><span class="sep"></span><a href="/terms/">Terms</a></p>
+                <p class="quiet">&copy; <span id="year">2026</span>. No cookies, no tracking.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
