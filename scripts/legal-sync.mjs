@@ -336,16 +336,34 @@ async function main() {
     rmSync(work, { recursive: true, force: true });
     mkdirSync(work, { recursive: true });
 
+    // Access problems are collected and explained together at the end, so one
+    // run names everything the token is missing.
+    const access = [];
+    const guard = (repo, need, step) => {
+      try {
+        return step();
+      } catch (error) {
+        const said = `${error.stderr ?? ''} ${error.message}`;
+        if (!/\b40[134]\b|not granted|not found|Authentication failed|could not read Username/i.test(said)) throw error;
+        access.push(`${repo} (${need})`);
+        throw new Error(`the token cannot ${need} ${repo}`);
+      }
+    };
+
     for (const site of sites) {
       try {
         const dir = join(work, site.repo.replace('/', '__'));
+        const branch = site.branch ?? 'main';
         const paths = [...site.files, ...(site.outputs ?? []), site.module?.path, site.vendor?.path].filter(Boolean);
-        clone(site.repo, site.branch ?? 'main', dir, site.sparse ? paths : null);
+        guard(site.repo, 'read', () => clone(site.repo, branch, dir, site.sparse ? paths : null));
+        // A public repo clones without any access at all, so prove the token
+        // can push before relying on it, even when there is nothing to push.
+        if (push) guard(site.repo, 'write', () => git(dir, ...authArgs(), 'push', '--dry-run', '--quiet', 'origin', `HEAD:${branch}`));
 
         let sourcesDir;
         if (site.sources) {
           sourcesDir = join(work, `${site.sources.repo.replace('/', '__')}@sources`);
-          clone(site.sources.repo, site.sources.ref ?? 'main', sourcesDir, site.sources.files);
+          guard(site.sources.repo, 'read', () => clone(site.sources.repo, site.sources.ref ?? 'main', sourcesDir, site.sources.files));
           for (const rel of site.sources.files) {
             const text = readFileSync(join(sourcesDir, rel), 'utf8');
             if (!SYNTAX.html.re().test(text)) {
@@ -382,6 +400,15 @@ async function main() {
       } catch (error) {
         failures.push(`${site.name}: ${error.stderr?.toString().trim() || error.message}`);
       }
+    }
+
+    if (access.length) {
+      const message =
+        `LEGAL_SYNC_TOKEN is missing access to: ${access.join(', ')}. ` +
+        'Edit the token at https://github.com/settings/personal-access-tokens: under "Repository access" choose ' +
+        '"Only select repositories" and include every repo in legal/sites.json, and under "Repository permissions" ' +
+        'set "Contents" to "Read and write". Saving is enough (the secret does not change); then run the workflow again.';
+      console.error(process.env.GITHUB_ACTIONS ? `::error title=Token access::${message}` : message);
     }
   }
 
