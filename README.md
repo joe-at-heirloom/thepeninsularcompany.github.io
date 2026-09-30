@@ -16,6 +16,10 @@ Company site for The Peninsular Company, LLC: a privately held company in Detroi
 
 Copy an `<li class="work">` in `index.html`, give it the next number and a color in `style="--c: #..."`, and fill in its links. Use `class="no outlined small"` for a very light color so the marker still shows.
 
+## The apps' legal pages
+
+`legal/company.json` holds the company facts every app's privacy policy and terms share (legal name, where, which law governs). Change it and push: the **Legal sync** workflow updates and publishes every app site. See [legal/README.md](legal/README.md). `_config.yml` keeps `legal/` and `scripts/` off the published site.
+
 ## How the page is built
 
 `index.html` is one self-contained file. It is assembled from parts kept outside the repo:

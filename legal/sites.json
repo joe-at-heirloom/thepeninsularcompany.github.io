@@ -1,0 +1,63 @@
+{
+  "sites": [
+    {
+      "name": "Ollin Tuner",
+      "repo": "joe-at-heirloom/ollintuner.github.io",
+      "local": "Ollin Tuner - Website",
+      "files": ["privacy.html", "terms.html", "index.html", "support.html", "404.html"],
+      "verify": ["privacy.html", "terms.html"]
+    },
+    {
+      "name": "Learn to Play Cards",
+      "repo": "joe-at-heirloom/learntoplaycards.github.io",
+      "local": "Learn to Play Cards - Website",
+      "files": ["privacy.html", "terms.html", "index.html"],
+      "verify": ["privacy.html", "terms.html"]
+    },
+    {
+      "name": "Daily Canvas",
+      "repo": "joe-at-heirloom/dailycanvas.github.io",
+      "local": "Daily Canvas - Website",
+      "files": ["privacy.html", "terms.html", "index.html"],
+      "verify": ["privacy.html", "terms.html"]
+    },
+    {
+      "name": "Madame Fortune",
+      "repo": "joe-at-heirloom/madamefortune.github.io",
+      "local": "MadameFortune - Website",
+      "files": ["privacy.html", "terms.html", "index.html", "support.html"],
+      "verify": ["privacy.html", "terms.html"]
+    },
+    {
+      "name": "WorldSimulator",
+      "repo": "joe-at-heirloom/worldsimulator",
+      "local": "WorldSimulator",
+      "sparse": true,
+      "module": {
+        "path": "src/lib/company.ts",
+        "keys": ["name", "operator", "jurisdiction", "courts", "email"]
+      },
+      "files": ["src/app/privacy/page.tsx", "src/app/terms/page.tsx", "src/app/refunds/page.tsx"],
+      "verify": ["src/lib/company.ts"]
+    },
+    {
+      "name": "Heirloom",
+      "repo": "joe-at-heirloom/heirloom.github.io",
+      "local": "Heirloom - Website",
+      "files": ["index.html", "scripts/build-legal.mjs"],
+      "vendor": {
+        "path": "scripts/company.json",
+        "keys": ["name", "operator", "location-country", "jurisdiction", "courts"]
+      },
+      "sources": {
+        "repo": "joe-at-heirloom/heirloom",
+        "ref": "main",
+        "files": ["legal/PRIVACY_POLICY.md", "legal/TERMS_OF_SERVICE.md"]
+      },
+      "build": ["node scripts/build-legal.mjs", "node scripts/check-copy.mjs"],
+      "env": { "LEGAL_DIR": "{sources}/legal" },
+      "outputs": ["privacy.html", "terms.html"],
+      "verify": ["privacy.html", "terms.html"]
+    }
+  ]
+}

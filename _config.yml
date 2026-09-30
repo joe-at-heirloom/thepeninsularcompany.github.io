@@ -1,0 +1,5 @@
+# GitHub Pages builds this site with Jekyll. Keep the legal-sync tooling
+# (legal/, scripts/) in the repo but off the published site.
+exclude:
+  - legal
+  - scripts

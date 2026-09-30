@@ -1,0 +1,49 @@
+name: Legal sync
+
+# legal/company.json holds the facts every app's privacy policy and terms
+# share: who publishes the app, where the company is, which law governs. A push
+# that changes it (or the site list, or the script) rewrites the marked spots
+# on each site in legal/sites.json and pushes the result, which publishes those
+# sites. Run it by hand from the Actions tab too. On 1 January it rolls the ©
+# year (GitHub pauses scheduled runs in a repo with no activity for 60 days;
+# the next push catches the year up either way).
+#
+# Needs the LEGAL_SYNC_TOKEN secret: a fine-grained token with Contents: read
+# and write on the site repos and read on joe-at-heirloom/heirloom. See
+# legal/README.md.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - legal/company.json
+      - legal/sites.json
+      - scripts/legal-sync.mjs
+      - .github/workflows/legal-sync.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '0 14 1 1 *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legal-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync every site's legal pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Sync, build, commit and push
+        env:
+          GH_TOKEN: ${{ secrets.LEGAL_SYNC_TOKEN }}
+          BEFORE: ${{ github.event.before }}
+        run: node scripts/legal-sync.mjs --clone "$RUNNER_TEMP/sites" --push
