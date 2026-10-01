@@ -9,8 +9,8 @@ name: Legal sync
 # the next push catches the year up either way).
 #
 # Needs the LEGAL_SYNC_TOKEN secret: a fine-grained token with Contents: read
-# and write on the site repos and read on joe-at-heirloom/heirloom. See
-# legal/README.md.
+# and write on every repo in legal/sites.json (it only reads
+# joe-at-heirloom/heirloom). See legal/README.md.
 
 on:
   push:

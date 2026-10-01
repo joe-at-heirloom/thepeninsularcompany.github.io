@@ -41,9 +41,10 @@ wrap its current text in the markers; the next sync keeps it current.
 
 - **Ollin Tuner, Learn to Play Cards, Daily Canvas, Madame Fortune**: markers in
   their HTML.
-- **WorldSimulator**: the sync writes `src/lib/company.ts`, which the legal pages
-  import, and moves their `pc:updated` dates. A push to its `main` deploys on
-  Vercel.
+- **WorldSimulator** and **Codekeeper**: the sync writes `src/lib/company.ts`,
+  which the legal pages import, and moves their `pc:updated` dates. A push to
+  `main` deploys WorldSimulator on Vercel and Codekeeper on Cloudflare Pages.
+  Codekeeper has a privacy policy but no terms yet.
 - **Heirloom**: the legal text is Markdown in the app repo
   (`joe-at-heirloom/heirloom`, `legal/`), with markers. The sync never pushes
   there, because a push to that repo's `main` runs its CI and redeploys its
@@ -69,7 +70,9 @@ The workflow pushes to other repos, so it needs a token of its own:
    new token**. Resource owner `joe-at-heirloom`; **Only select repositories**:
    `ollintuner.github.io`, `learntoplaycards.github.io`,
    `dailycanvas.github.io`, `madamefortune.github.io`, `heirloom.github.io`,
-   `worldsimulator` and `heirloom`. Permissions: **Contents: Read and write**.
+   `worldsimulator`, `codekeeper` and `heirloom`. Permissions: **Contents: Read
+   and write**. (A token's permissions apply to every repo it covers; the sync
+   only reads `heirloom`.)
 2. Save it as this repo's secret:
    `gh secret set LEGAL_SYNC_TOKEN --repo joe-at-heirloom/thepeninsularcompany.github.io`
    (paste the token when asked).

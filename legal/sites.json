@@ -41,6 +41,18 @@
       "verify": ["src/lib/company.ts"]
     },
     {
+      "name": "Codekeeper",
+      "repo": "joe-at-heirloom/codekeeper",
+      "local": "CodeEdPro",
+      "sparse": true,
+      "module": {
+        "path": "src/lib/company.ts",
+        "keys": ["name", "operator", "location"]
+      },
+      "files": ["src/pages/Privacy.tsx"],
+      "verify": ["src/lib/company.ts"]
+    },
+    {
       "name": "Heirloom",
       "repo": "joe-at-heirloom/heirloom.github.io",
       "local": "Heirloom - Website",
