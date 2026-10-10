@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Terms of Service · The Peninsular Company</title>
     <meta name="description" content="Terms for using thepeninsularcompany.com and for purchases and services from The Peninsular Company, LLC, including refunds and cancellation.">
     <link rel="canonical" href="https://thepeninsularcompany.com/terms/">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Peninsular">
     <meta name="theme-color" content="#EFECE6">
     <meta name="color-scheme" content="light">
     <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -21,6 +22,26 @@
             font-display: swap;
             src: url(/fonts/inter-tight-latin.woff2) format('woff2');
         }
+        /* Until Inter Tight arrives, Helvetica or Arial stands in at its width and height,
+           so no line rewraps and nothing moves when it loads. */
+        @font-face {
+            font-family: 'Inter Tight Fallback';
+            font-weight: 400;
+            src: local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('ArialMT'), local('Roboto');
+            size-adjust: 95.6%;
+            ascent-override: 101.3%;
+            descent-override: 25.2%;
+            line-gap-override: 0%;
+        }
+        @font-face {
+            font-family: 'Inter Tight Fallback';
+            font-weight: 600;
+            src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+            size-adjust: 93%;
+            ascent-override: 104.2%;
+            descent-override: 25.9%;
+            line-gap-override: 0%;
+        }
 
         :root {
             --ground: #EFECE6;
@@ -29,7 +50,7 @@
             --rule: #CFCABF;
             --pine: #1F4B3E;
             --steel: #181818;
-            --font: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             --gutter: 40px;
             --measure: 1200px;
         }
@@ -54,10 +75,15 @@
 
         h1, h2, h3, p, ol, figure { margin: 0; }
 
-        a { color: inherit; }
+        a { color: inherit; transition: color 0.12s, border-color 0.12s; -webkit-tap-highlight-color: rgba(31, 75, 62, 0.14); }
         a:focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; }
 
-        .wrap { max-width: calc(var(--measure) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+        /* The gutters give way to a phone's notch when it is held sideways. */
+        .wrap {
+            max-width: calc(var(--measure) + 2 * var(--gutter));
+            margin: 0 auto;
+            padding: 0 max(var(--gutter), env(safe-area-inset-right)) 0 max(var(--gutter), env(safe-area-inset-left));
+        }
 
         .grid {
             display: grid;
@@ -93,116 +119,17 @@
         .site-nav a { padding: 4px 0; text-decoration: none; }
         .site-nav a:hover { color: var(--pine); }
 
-        /* ---------- Hero ---------- */
-        .hero { align-items: end; padding-top: 64px; padding-bottom: 72px; }
-        .hero h1 { grid-column: 1 / span 6; line-height: 0; }
-        .mark-stacked { display: block; width: clamp(240px, 33vw, 420px); height: auto; }
-        .statement {
-            grid-column: 8 / -1;
-            max-width: 420px;
-            padding-bottom: 6px;
-            font-size: clamp(19px, 1.8vw, 23px);
-            line-height: 1.38;
-            letter-spacing: -0.01em;
-            text-wrap: balance;
-        }
-
-        /* ---------- The lake ---------- */
-        .band { margin: 0; }
-        .lake {
-            --g: #EFECE6;
-            --l: #141414;
-            --glass: var(--g);
-            --lit: var(--g);
-            --moon: transparent;
-            --starA: 0;
-            --navA: 0;
-            --lampA: 0.35;
-            --refA: 0;
-            --glintA: 0;
-            display: block;
-            width: 100%;
-            height: max(240px, 30vw);
-        }
-        .lake .ground { fill: var(--g); }
-        .lake .draw { fill: none; stroke: var(--l); stroke-width: 0.8; }
-        .lake .o { fill: var(--g); }
-        .lake .s { fill: var(--l); }
-        .lake .glass { fill: var(--glass); }
-        .lake .win { fill: var(--g); }
-        .lake .win.lit { fill: var(--lit); }
-        .lake .orb { fill: var(--g); stroke: var(--l); stroke-width: 0.8; }
-        .lake .moonlit { fill: var(--moon); }
-        .lake .stars { fill: #E6E2D6; opacity: var(--starA); }
-        .lake .nav { fill: #FFF6DE; opacity: var(--navA); }
-        .lake .glint { stroke: var(--l); stroke-width: 0.8; opacity: var(--glintA); }
-        .lake .lamp { opacity: var(--lampA); }
-        .lake .lamp .core { fill: #FFF4D6; }
-        .lake .lampref { stroke: #F0B54A; stroke-width: 0.8; opacity: var(--refA); }
-        /* William Livingstone Memorial Light: occulting white, 4 s period (USCG Light List No. 8240) */
-        .lake .lamp circle, .lake .lampref path { animation: occult 4s steps(1, end) infinite; }
-        @keyframes occult { 0% { opacity: 1; } 75% { opacity: 0; } 100% { opacity: 1; } }
-
-        /* ---------- Sections ---------- */
-        section { padding-top: 136px; }
-        .section-label { grid-column: span 3; padding-top: 3px; font-size: 13.5px; font-weight: 500; line-height: 1.45; }
-        .section-body { grid-column: 4 / -1; }
-        .lede { max-width: 520px; color: var(--ink-2); text-wrap: pretty; }
-
-        /* ---------- Works ---------- */
-        .works { list-style: none; margin-top: 40px; padding: 0; border-top: 1px solid var(--ink); }
-        .work {
-            display: grid;
-            grid-template-columns: 76px minmax(0, 1fr) 240px 124px;
-            column-gap: 24px;
-            align-items: baseline;
-            padding: 22px 0 24px;
-            border-bottom: 1px solid var(--rule);
-        }
-        .no { font-variant-numeric: tabular-nums; white-space: nowrap; }
-        .no::before {
-            content: "";
-            display: inline-block;
-            width: 10px; height: 10px;
-            margin-right: 10px;
-            background: var(--c);
-        }
-        .no.outlined::before { box-shadow: inset 0 0 0 1px var(--ink-2); }
-        h3 { font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
-        h3 a { text-decoration: none; }
-        h3 a:hover { color: var(--pine); }
-        .what p { max-width: 440px; margin-top: 6px; color: var(--ink-2); text-wrap: pretty; }
-        .links { grid-column: 3; display: flex; flex-wrap: wrap; gap: 2px 16px; }
-        .links a { color: var(--ink-2); text-decoration: none; white-space: nowrap; }
-        .links a:hover { color: var(--pine); text-decoration: underline; text-underline-offset: 3px; }
-        .meta { grid-column: 4; text-align: right; }
-        .meta span { display: block; }
-
-        /* ---------- Contact ---------- */
-        .email {
-            font-size: min(clamp(24px, 2.6vw, 34px), calc((100vw - 2 * var(--gutter)) / 14.7));
-            font-weight: 500;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            white-space: nowrap;
-        }
-        .email a { text-decoration: none; border-bottom: 2px solid var(--pine); }
-        .email a:hover { color: var(--pine); }
-        .contact .lede { margin-top: 20px; }
-        .principal { margin-top: 28px; }
-        .principal a { text-underline-offset: 3px; }
-
         /* ---------- Footer ---------- */
         footer { margin-top: 152px; background: var(--steel); color: #D9D5CC; }
-        footer .grid { row-gap: 20px; padding-top: 36px; padding-bottom: 44px; }
+        footer .grid { row-gap: 20px; padding-top: 36px; padding-bottom: calc(44px + env(safe-area-inset-bottom)); }
         footer .grid > div { grid-column: span 4; }
         footer .grid > div:last-child { text-align: right; }
         footer .strong { color: #F3F0EA; }
         footer .quiet { color: #A5A199; }
         footer a { color: #F3F0EA; text-decoration: none; border-bottom: 1px solid #5C5A55; }
         footer a:hover { border-bottom-color: #F3F0EA; }
+        footer a:focus-visible { outline-color: #F3F0EA; }
         footer .sep { display: inline-block; width: 18px; }
-
 
         /* ---------- Legal pages ---------- */
         .doc { padding-top: 64px; }
@@ -231,23 +158,11 @@
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .lake .lamp circle, .lake .lampref path { animation: none; }
         }
 
         /* ---------- Narrower ---------- */
-        @media (max-width: 1100px) {
-            .section-label { grid-column: 1 / -1; margin-bottom: 20px; padding-top: 0; }
-            .section-body { grid-column: 1 / -1; }
-        }
-
         @media (max-width: 900px) {
             :root { --gutter: 24px; }
-            .hero { row-gap: 32px; padding-top: 40px; padding-bottom: 56px; }
-            .hero h1, .statement { grid-column: 1 / -1; }
-            .work { grid-template-columns: 76px minmax(0, 1fr) 120px; }
-            .work .links { grid-column: 2; grid-row: 2; margin-top: 10px; }
-            .work .links:empty { display: none; }
-            .work .meta { grid-column: 3; grid-row: 1 / span 2; }
             footer .grid > div { grid-column: span 6; }
             footer .grid > div:last-child { grid-column: 1 / -1; text-align: left; }
         }
@@ -258,14 +173,6 @@
             .site-header { padding: 22px 0; }
             .mark-line { width: 196px; }
             .site-nav { gap: 18px; }
-            .mark-stacked { width: min(100%, 300px); }
-            section { padding-top: 96px; }
-            .work { grid-template-columns: minmax(0, 1fr) auto; padding: 20px 0 14px; }
-            .work .no { grid-column: 1; grid-row: 1; margin-bottom: 8px; }
-            .work .meta { grid-column: 2; grid-row: 1; display: flex; gap: 10px; }
-            .work .what { grid-column: 1 / -1; grid-row: 2; padding-bottom: 8px; }
-            .work .links { grid-column: 1 / -1; grid-row: 3; gap: 0 22px; margin-top: 0; }
-            .work .links a { padding: 8px 0; }
             footer { margin-top: 112px; }
             footer .grid > div { grid-column: 1 / -1; }
         }
@@ -273,6 +180,44 @@
         @media (max-width: 380px) {
             .mark-line { width: 172px; }
             .site-nav { gap: 14px; }
+        }
+
+        /* ---------- Touch ---------- */
+        /* A full-size target behind each small link. Nothing moves. */
+        @media (pointer: coarse) {
+            .site-nav a, footer a { position: relative; }
+            .site-nav a::after, footer a::after {
+                content: "";
+                position: absolute;
+                top: 50%; left: -6px; right: -6px;
+                height: 44px;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* ---------- High contrast ---------- */
+        /* Forced-color themes repaint the page but leave drawings alone, which would put
+           a black logo on a black ground. Hand the logo the theme's own color. */
+        @media (forced-colors: active) {
+            .mark-line * { fill: CanvasText; }
+            footer { border-top: 1px solid CanvasText; }
+        }
+
+        /* ---------- Paper ---------- */
+        /* For anyone filing the page: white ground and a footer that reads without its dark panel. */
+        @media print {
+            @page { margin: 0.6in; }
+            :root { --gutter: 0px; }
+            body { background: #fff; }
+            .skip, .site-nav { display: none; }
+            .site-header { padding-top: 0; }
+            p { orphans: 3; widows: 3; }
+            h2 { break-after: avoid; }
+            li, footer { break-inside: avoid; }
+            footer { margin-top: 64px; border-top: 1px solid var(--ink); background: none; color: var(--ink); }
+            footer .strong, footer a { color: var(--ink); }
+            footer .quiet { color: var(--ink-2); }
+            footer a { border-bottom-color: var(--rule); }
         }
     </style>
 </head>
@@ -458,7 +403,7 @@
                 <p class="quiet">State motto of Michigan</p>
             </div>
             <div>
-                <p><a href="/privacy/">Privacy</a><span class="sep"></span><a href="/terms/">Terms</a></p>
+                <p><a href="/privacy/">Privacy</a><span class="sep"></span><a href="/terms/" aria-current="page">Terms</a></p>
                 <p class="quiet">&copy; <span id="year">2026</span>. No cookies, no tracking.</p>
             </div>
         </div>

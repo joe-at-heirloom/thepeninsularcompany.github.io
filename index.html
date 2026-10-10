@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>The Peninsular Company</title>
     <meta name="description" content="A privately held company in Detroit, Michigan, for new ventures in technology and beyond. Its works include The Ollin Tuner, Learn to Play Cards, Heirloom, Daily Canvas, and Codekeeper.">
     <link rel="canonical" href="https://thepeninsularcompany.com/">
     <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Peninsular">
     <meta name="theme-color" content="#EFECE6">
     <meta name="color-scheme" content="light">
 
@@ -49,6 +50,26 @@
             font-display: swap;
             src: url(fonts/inter-tight-latin.woff2) format('woff2');
         }
+        /* Until Inter Tight arrives, Helvetica or Arial stands in at its width and height,
+           so no line rewraps and nothing moves when it loads. */
+        @font-face {
+            font-family: 'Inter Tight Fallback';
+            font-weight: 400;
+            src: local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('ArialMT'), local('Roboto');
+            size-adjust: 95.6%;
+            ascent-override: 101.3%;
+            descent-override: 25.2%;
+            line-gap-override: 0%;
+        }
+        @font-face {
+            font-family: 'Inter Tight Fallback';
+            font-weight: 600;
+            src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+            size-adjust: 93%;
+            ascent-override: 104.2%;
+            descent-override: 25.9%;
+            line-gap-override: 0%;
+        }
 
         :root {
             --ground: #EFECE6;
@@ -57,9 +78,21 @@
             --rule: #CFCABF;
             --pine: #1F4B3E;
             --steel: #181818;
-            --font: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             --gutter: 40px;
             --measure: 1200px;
+
+            /* The lake's light. Day by default; the script in the head sets these
+               to Detroit's sky at this moment, before anything is drawn. */
+            --g: #EFECE6;
+            --l: #141414;
+            --glass: var(--g);
+            --moon: transparent;
+            --starA: 0;
+            --navA: 0;
+            --lampA: 0.35;
+            --refA: 0;
+            --glintA: 0;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -82,10 +115,15 @@
 
         h1, h2, h3, p, ol, figure { margin: 0; }
 
-        a { color: inherit; }
+        a { color: inherit; transition: color 0.12s, border-color 0.12s; -webkit-tap-highlight-color: rgba(31, 75, 62, 0.14); }
         a:focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; }
 
-        .wrap { max-width: calc(var(--measure) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+        /* The gutters give way to a phone's notch when it is held sideways. */
+        .wrap {
+            max-width: calc(var(--measure) + 2 * var(--gutter));
+            margin: 0 auto;
+            padding: 0 max(var(--gutter), env(safe-area-inset-right)) 0 max(var(--gutter), env(safe-area-inset-left));
+        }
 
         .grid {
             display: grid;
@@ -124,7 +162,7 @@
         /* ---------- Hero ---------- */
         .hero { align-items: end; padding-top: 64px; padding-bottom: 72px; }
         .hero h1 { grid-column: 1 / span 6; line-height: 0; }
-        .mark-stacked { display: block; width: clamp(240px, 33vw, 420px); height: auto; }
+        .mark-stacked { display: block; width: clamp(240px, 33vw, 420px); height: auto; overflow: visible; } /* the C of Company overshoots the left edge */
         .statement {
             grid-column: 8 / -1;
             max-width: 420px;
@@ -138,15 +176,6 @@
         /* ---------- The lake ---------- */
         .band { margin: 0; }
         .lake {
-            --g: #EFECE6;
-            --l: #141414;
-            --glass: var(--g);
-            --moon: transparent;
-            --starA: 0;
-            --navA: 0;
-            --lampA: 0.35;
-            --refA: 0;
-            --glintA: 0;
             display: block;
             width: 100%;
             /* The drawing is pinned to its left edge and cropped on the right.
@@ -222,13 +251,14 @@
 
         /* ---------- Footer ---------- */
         footer { margin-top: 152px; background: var(--steel); color: #D9D5CC; }
-        footer .grid { row-gap: 20px; padding-top: 36px; padding-bottom: 44px; }
+        footer .grid { row-gap: 20px; padding-top: 36px; padding-bottom: calc(44px + env(safe-area-inset-bottom)); }
         footer .grid > div { grid-column: span 4; }
         footer .grid > div:last-child { text-align: right; }
         footer .strong { color: #F3F0EA; }
         footer .quiet { color: #A5A199; }
         footer a { color: #F3F0EA; text-decoration: none; border-bottom: 1px solid #5C5A55; }
         footer a:hover { border-bottom-color: #F3F0EA; }
+        footer a:focus-visible { outline-color: #F3F0EA; }
         footer .sep { display: inline-block; width: 18px; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -237,6 +267,14 @@
         }
 
         /* ---------- Narrower ---------- */
+        /* Each work's links drop under its description, so the description keeps its measure. */
+        @media (max-width: 1280px) {
+            .work { grid-template-columns: 76px minmax(0, 1fr) 120px; }
+            .work .links { grid-column: 2; grid-row: 2; margin-top: 10px; }
+            .work .links:empty { display: none; }
+            .work .meta { grid-column: 3; grid-row: 1 / span 2; }
+        }
+
         @media (max-width: 1100px) {
             .section-label { grid-column: 1 / -1; margin-bottom: 20px; padding-top: 0; }
             .section-body { grid-column: 1 / -1; }
@@ -246,10 +284,6 @@
             :root { --gutter: 24px; }
             .hero { row-gap: 32px; padding-top: 40px; padding-bottom: 56px; }
             .hero h1, .statement { grid-column: 1 / -1; }
-            .work { grid-template-columns: 76px minmax(0, 1fr) 120px; }
-            .work .links { grid-column: 2; grid-row: 2; margin-top: 10px; }
-            .work .links:empty { display: none; }
-            .work .meta { grid-column: 3; grid-row: 1 / span 2; }
             footer .grid > div { grid-column: span 6; }
             footer .grid > div:last-child { grid-column: 1 / -1; text-align: left; }
         }
@@ -276,7 +310,210 @@
             .mark-line { width: 172px; }
             .site-nav { gap: 14px; }
         }
+
+        /* ---------- Touch ---------- */
+        /* A full-size target behind each small link. Nothing moves. */
+        @media (pointer: coarse) {
+            .site-nav a, .links a, .principal a, footer a { position: relative; }
+            .site-nav a::after, .links a::after, .principal a::after, footer a::after {
+                content: "";
+                position: absolute;
+                top: 50%; left: -6px; right: -6px;
+                height: 44px;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* ---------- High contrast ---------- */
+        /* Forced-color themes repaint the page but leave drawings alone, which would put
+           a black logo on a black ground. Hand the drawings the theme's own colors. */
+        @media (forced-colors: active) {
+            .mark-line *, .mark-stacked * { fill: CanvasText; }
+            .lake { --g: Canvas; --l: CanvasText; --glass: Canvas; --moon: transparent; --starA: 0; --navA: 0; --lampA: 0; --refA: 0; }
+            .no::before { forced-color-adjust: none; }
+            footer { border-top: 1px solid CanvasText; }
+        }
+
+        /* ---------- Paper ---------- */
+        /* For anyone filing the page: white ground, the lake as the day drawing,
+           and a footer that reads without its dark panel. */
+        @media print {
+            @page { margin: 0.6in; }
+            :root { --gutter: 0px; }
+            body { background: #fff; }
+            .skip, .site-nav { display: none; }
+            .site-header { padding-top: 0; }
+            .hero { padding-top: 24px; padding-bottom: 40px; }
+            .lake { --g: #fff; --l: #141414; --glass: #fff; --moon: transparent; --starA: 0; --navA: 0; --lampA: 0.35; --refA: 0; }
+            section { padding-top: 56px; }
+            #works { break-before: page; padding-top: 0; }  /* page one is the name and the lake; Works starts page two */
+            p { orphans: 3; widows: 3; }
+            h2, h3 { break-after: avoid; }
+            li, .contact, footer { break-inside: avoid; }
+            .work { padding: 16px 0 18px; }                 /* five works fit one page */
+            .work h3 a::after { content: attr(href); margin-left: 12px; font-size: 13.5px; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+            footer { margin-top: 64px; border-top: 1px solid var(--ink); background: none; color: var(--ink); }
+            footer .strong, footer a { color: var(--ink); }
+            footer .quiet { color: var(--ink-2); }
+            footer a { border-bottom-color: var(--rule); }
+        }
     </style>
+
+    <script>
+        // Low-precision sun and moon positions for Detroit (NOAA sun; Schlyter moon). Accurate to about a degree.
+        var ASTRO = (function () {
+            var LAT = 42.3314, LON = -83.0458, R = Math.PI / 180;
+            function rev(x) { return ((x % 360) + 360) % 360; }
+            function days(ms) { return ms / 86400000 - 10957.5; }             // days since 2000 Jan 1.5
+            function horizon(ra, dec, d) {                                        // radians in, degrees out
+                var lst = ((18.697374558 + 24.06570982441908 * d) % 24) * 15 + LON;
+                var ha = lst * R - ra;
+                var alt = Math.asin(Math.sin(LAT * R) * Math.sin(dec) + Math.cos(LAT * R) * Math.cos(dec) * Math.cos(ha));
+                var az = Math.atan2(-Math.sin(ha), Math.tan(dec) * Math.cos(LAT * R) - Math.sin(LAT * R) * Math.cos(ha));
+                return { alt: alt / R, az: rev(az / R) };
+            }
+            function sun(ms) {
+                var d = days(ms);
+                var L = rev(280.460 + 0.9856474 * d), g = rev(357.528 + 0.9856003 * d) * R;
+                var lam = (L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * R;
+                var eps = (23.439 - 0.0000004 * d) * R;
+                var ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam));
+                var dec = Math.asin(Math.sin(eps) * Math.sin(lam));
+                var h = horizon(ra, dec, d);
+                return { alt: h.alt, az: h.az, lon: lam / R };
+            }
+            function moon(ms) {
+                var d = days(ms) + 1.5;                                           // Schlyter's day number (2000 Jan 0.0)
+                var N = rev(125.1228 - 0.0529538083 * d), i = 5.1454, w = rev(318.0634 + 0.1643573223 * d);
+                var e = 0.0549, M = rev(115.3654 + 13.0649929509 * d);
+                var E = M + (180 / Math.PI) * e * Math.sin(M * R) * (1 + e * Math.cos(M * R));
+                E = E - (E - (180 / Math.PI) * e * Math.sin(E * R) - M) / (1 - e * Math.cos(E * R));
+                var xv = Math.cos(E * R) - e, yv = Math.sqrt(1 - e * e) * Math.sin(E * R);
+                var v = Math.atan2(yv, xv) / R;
+                var xh = Math.cos(N * R) * Math.cos((v + w) * R) - Math.sin(N * R) * Math.sin((v + w) * R) * Math.cos(i * R);
+                var yh = Math.sin(N * R) * Math.cos((v + w) * R) + Math.cos(N * R) * Math.sin((v + w) * R) * Math.cos(i * R);
+                var zh = Math.sin((v + w) * R) * Math.sin(i * R);
+                var lon = rev(Math.atan2(yh, xh) / R), lat = Math.atan2(zh, Math.sqrt(xh * xh + yh * yh)) / R;
+                var Ms = rev(356.0470 + 0.9856002585 * d), Ls = rev(282.9404 + 4.70935e-5 * d + Ms);
+                var Lm = rev(N + w + M), Dm = rev(Lm - Ls), F = rev(Lm - N);
+                var s = function (x) { return Math.sin(x * R); };
+                lon += -1.274 * s(M - 2 * Dm) + 0.658 * s(2 * Dm) - 0.186 * s(Ms) - 0.059 * s(2 * M - 2 * Dm)
+                    - 0.057 * s(M - 2 * Dm + Ms) + 0.053 * s(M + 2 * Dm) + 0.046 * s(2 * Dm - Ms) + 0.041 * s(M - Ms)
+                    - 0.035 * s(Dm) - 0.031 * s(M + Ms) - 0.015 * s(2 * F - 2 * Dm) + 0.011 * s(M - 4 * Dm);
+                lat += -0.173 * s(F - 2 * Dm) - 0.055 * s(M - F - 2 * Dm) - 0.046 * s(M + F - 2 * Dm)
+                    + 0.033 * s(F + 2 * Dm) + 0.017 * s(2 * M + F);
+                var ecl = (23.4393 - 3.563e-7 * d) * R;
+                var xe = Math.cos(lon * R) * Math.cos(lat * R);
+                var ye = Math.sin(lon * R) * Math.cos(lat * R) * Math.cos(ecl) - Math.sin(lat * R) * Math.sin(ecl);
+                var ze = Math.sin(lon * R) * Math.cos(lat * R) * Math.sin(ecl) + Math.sin(lat * R) * Math.cos(ecl);
+                var h = horizon(Math.atan2(ye, xe), Math.atan2(ze, Math.sqrt(xe * xe + ye * ye)), days(ms));
+                h.alt -= 0.95 * Math.cos(h.alt * R);                              // parallax
+                var elong = rev(lon - sun(ms).lon);                               // 0 new, 180 full
+                return { alt: h.alt, az: h.az, lit: (1 - Math.cos(elong * R)) / 2, waxing: elong < 180, elong: elong };
+            }
+            return { sun: sun, moon: moon };
+        })();
+    </script>
+    <script>
+        // The lake is drawn in Detroit's light at this moment: day, dusk, or night,
+        // with the sun and moon where they actually are when they're in view.
+        // The colors are set here in the head, before the page first draws, so the
+        // lake never shows the wrong hour. LAKE.paint() runs again once the drawing
+        // exists, to place the sun and moon.
+        var LAKE = (function () {
+            // The view looks west-southwest across the water: azimuth 205 at the left edge, 295 at the right.
+            var AZ0 = 205, AZ1 = 295, W = 1200, HZ = 205, TOP = 30;
+
+            // Ground color by the sun's height: afternoon, golden hour, sunset, blue hour, night.
+            var SKY = [
+                { alt: 8,   c: [239, 236, 230] },
+                { alt: 2,   c: [238, 229, 214] },
+                { alt: -1,  c: [229, 206, 180] },
+                { alt: -2.5, c: [196, 180, 190] },
+                { alt: -4,  c: [141, 148, 168] },
+                { alt: -7,  c: [46, 56, 80] },
+                { alt: -10, c: [20, 28, 46] }
+            ];
+            var INK = [20, 20, 20], PALE = [214, 210, 199];
+
+            function mix(a, b, t) { return [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); }); }
+            function rgb(c) { return 'rgb(' + c.join(',') + ')'; }
+            function clamp(x) { return Math.max(0, Math.min(1, x)); }
+            function place(az, alt) { return { x: (az - AZ0) / (AZ1 - AZ0) * W, y: HZ - alt * (HZ / TOP) }; }
+            function inView(p) { return p.x > -30 && p.x < W + 30; }
+            function ground(alt) {
+                if (alt >= SKY[0].alt) return SKY[0].c;
+                for (var i = 1; i < SKY.length; i++) {
+                    if (alt >= SKY[i].alt) return mix(SKY[i - 1].c, SKY[i].c, (SKY[i - 1].alt - alt) / (SKY[i - 1].alt - SKY[i].alt));
+                }
+                return SKY[SKY.length - 1].c;
+            }
+            function lum(c) { return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
+
+            // ?at=HH:MM or ?at=YYYY-MM-DDTHH:MM shows another Detroit time (for checking the drawing)
+            var shift = 0;
+            var at = /[?&]at=([^&]+)/.exec(location.search);
+            if (at) {
+                var m = /^(?:(\d{4})-(\d\d)-(\d\d)T)?(\d\d?):(\d\d)$/.exec(decodeURIComponent(at[1]));
+                if (m) {
+                    var base = m[1] ? Date.UTC(+m[1], +m[2] - 1, +m[3], 17) : Date.now();
+                    var parts = {};
+                    new Intl.DateTimeFormat('en-US', { timeZone: 'America/Detroit', hour12: false, hour: 'numeric', minute: 'numeric' })
+                        .formatToParts(new Date(base)).forEach(function (p) { parts[p.type] = parseInt(p.value, 10); });
+                    shift = base - Date.now() + ((+m[4] * 60 + +m[5]) - ((parts.hour % 24) * 60 + parts.minute)) * 60000;
+                }
+            }
+
+            function paint() {
+                var now = Date.now() + shift;
+                var s = ASTRO.sun(now), mo = ASTRO.moon(now);
+                var g = ground(s.alt);
+                var dark = clamp((0.62 - lum(g)) / 0.22);              // lines turn pale as the ground darkens
+                var l = mix(INK, PALE, dark);
+                var lamps = clamp((-1 - s.alt) / 5);                    // lights come on after sunset
+                var night = clamp((-7 - s.alt) / 5);
+                var st = document.documentElement.style;
+                st.setProperty('--g', rgb(g));
+                st.setProperty('--l', rgb(l));
+                st.setProperty('--glass', lamps > 0.4 ? '#F0B54A' : rgb(g));
+                st.setProperty('--moon', 'rgba(236, 232, 220,' + (0.9 * dark).toFixed(2) + ')');
+                st.setProperty('--starA', (night * 0.85).toFixed(2));
+                st.setProperty('--navA', lamps.toFixed(2));
+                st.setProperty('--lampA', (0.35 + 0.65 * lamps).toFixed(2));
+                st.setProperty('--refA', (0.85 * lamps * dark).toFixed(2));
+
+                var sun = document.getElementById('sun');
+                var moon = document.getElementById('moon');
+                var glint = document.getElementById('glint');
+                if (!sun || !moon || !glint) return;                    // the drawing isn't on the page yet
+
+                var sp = place(s.az, s.alt);
+                var sunUp = s.alt > -1 && inView(sp);
+                sun.setAttribute('cx', sunUp ? sp.x.toFixed(1) : -50);
+                sun.setAttribute('cy', sunUp ? sp.y.toFixed(1) : -50);
+
+                var mp = place(mo.az, mo.alt);
+                var moonUp = mo.alt > -1 && inView(mp) && mo.lit > 0.03;
+                moon.setAttribute('transform', 'translate(' + (moonUp ? mp.x.toFixed(1) + ' ' + mp.y.toFixed(1) : '-50 -50') + ')');
+                moon.style.opacity = moonUp ? (0.45 + 0.55 * dark).toFixed(2) : 0;
+                var r = 9, k = mo.lit, rx = Math.abs(1 - 2 * k) * r, side = mo.waxing ? 1 : 0;
+                moon.querySelector('.moonlit').setAttribute('d', 'M0 ' + -r + 'A' + r + ' ' + r + ' 0 0 ' + side + ' 0 ' + r +
+                    'A' + rx.toFixed(2) + ' ' + r + ' 0 0 ' + (k > 0.5 ? side : 1 - side) + ' 0 ' + -r + 'Z');
+
+                // light on the water under whichever is low in the sky
+                var orb = sunUp && s.alt < 25 ? { p: sp, a: 1 - s.alt / 25 }
+                        : moonUp && dark > 0.5 && mo.alt < 30 ? { p: mp, a: 0.6 * mo.lit } : null;
+                glint.setAttribute('transform', 'translate(' + (orb ? orb.p.x.toFixed(1) : -100) + ' 0)');
+                st.setProperty('--glintA', orb ? clamp(orb.a).toFixed(2) : 0);
+            }
+
+            paint();
+            setInterval(paint, 30000);
+            document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
+            window.addEventListener('pageshow', paint);                 // coming back with the back button
+            return { paint: paint };
+        })();
+    </script>
 </head>
 <body>
 
@@ -430,6 +667,7 @@
 <g class="lamp"><circle cx="270" cy="91.12" r="16" fill="url(#halo)"/><circle class="core" cx="270" cy="91.12" r="1.7"/></g>
 </svg>
         </figure>
+        <script>window.LAKE && LAKE.paint();</script>
 
         <section id="works">
             <div class="wrap grid">
@@ -437,7 +675,7 @@
                 <div class="section-body">
                     <p class="lede">Each one keeps its own support, privacy policy, and terms, listed alongside it.</p>
 
-                    <ol class="works">
+                    <ol class="works" role="list">
                         <li class="work" style="--c: #E2A52B">
                             <p class="no small">001</p>
                             <div class="what">
@@ -445,10 +683,10 @@
                                 <p>An Aztec oracle. Ask a question, press and hold the Sun Stone, and it answers out loud.</p>
                             </div>
                             <p class="links small">
-                                <a href="https://apps.apple.com/us/app/the-ollin-tuner/id6759269358">App Store</a>
-                                <a href="https://ollintuner.com/support.html">Support</a>
-                                <a href="https://ollintuner.com/privacy.html">Privacy</a>
-                                <a href="https://ollintuner.com/terms.html">Terms</a>
+                                <a href="https://apps.apple.com/us/app/the-ollin-tuner/id6759269358" aria-label="The Ollin Tuner on the App Store">App Store</a>
+                                <a href="https://ollintuner.com/support.html" aria-label="Support for The Ollin Tuner">Support</a>
+                                <a href="https://ollintuner.com/privacy.html" aria-label="Privacy policy for The Ollin Tuner">Privacy</a>
+                                <a href="https://ollintuner.com/terms.html" aria-label="Terms for The Ollin Tuner">Terms</a>
                             </p>
                             <p class="meta small"><span>Available</span> <span class="muted">iPhone</span></p>
                         </li>
@@ -460,10 +698,10 @@
                                 <p>Twenty-one card games taught from the first hand, in 128 lessons. Free.</p>
                             </div>
                             <p class="links small">
-                                <a href="https://apps.apple.com/us/app/learn-to-play-cards/id6759671819">App Store</a>
-                                <a href="mailto:support@learntoplaycardsapp.com">Support</a>
-                                <a href="https://learntoplaycardsapp.com/privacy.html">Privacy</a>
-                                <a href="https://learntoplaycardsapp.com/terms.html">Terms</a>
+                                <a href="https://apps.apple.com/us/app/learn-to-play-cards/id6759671819" aria-label="Learn to Play Cards on the App Store">App Store</a>
+                                <a href="mailto:support@learntoplaycardsapp.com" aria-label="Support for Learn to Play Cards">Support</a>
+                                <a href="https://learntoplaycardsapp.com/privacy.html" aria-label="Privacy policy for Learn to Play Cards">Privacy</a>
+                                <a href="https://learntoplaycardsapp.com/terms.html" aria-label="Terms for Learn to Play Cards">Terms</a>
                             </p>
                             <p class="meta small"><span>Available</span> <span class="muted">iPhone</span></p>
                         </li>
@@ -475,9 +713,9 @@
                                 <p>Photograph something you own. Heirloom finds out what it is, keeps its story, and passes it on to the people you trust.</p>
                             </div>
                             <p class="links small">
-                                <a href="mailto:hello@heirloomapp.io">Support</a>
-                                <a href="https://heirloomapp.io/privacy.html">Privacy</a>
-                                <a href="https://heirloomapp.io/terms.html">Terms</a>
+                                <a href="mailto:hello@heirloomapp.io" aria-label="Support for Heirloom">Support</a>
+                                <a href="https://heirloomapp.io/privacy.html" aria-label="Privacy policy for Heirloom">Privacy</a>
+                                <a href="https://heirloomapp.io/terms.html" aria-label="Terms for Heirloom">Terms</a>
                             </p>
                             <p class="meta small"><span>Beta</span> <span class="muted">Web</span></p>
                         </li>
@@ -489,9 +727,9 @@
                                 <p>A painting every morning from the Met, the Art Institute of Chicago, and the National Gallery, on every screen you own.</p>
                             </div>
                             <p class="links small">
-                                <a href="mailto:support@dailycanvasapp.com">Support</a>
-                                <a href="https://dailycanvasapp.com/privacy.html">Privacy</a>
-                                <a href="https://dailycanvasapp.com/terms.html">Terms</a>
+                                <a href="mailto:support@dailycanvasapp.com" aria-label="Support for Daily Canvas">Support</a>
+                                <a href="https://dailycanvasapp.com/privacy.html" aria-label="Privacy policy for Daily Canvas">Privacy</a>
+                                <a href="https://dailycanvasapp.com/terms.html" aria-label="Terms for Daily Canvas">Terms</a>
                             </p>
                             <p class="meta small"><span>Coming soon</span> <span class="muted">Apple platforms</span></p>
                         </li>
@@ -503,8 +741,8 @@
                                 <p>Meetings, dues, and a website for Michigan building-official associations, with every member&rsquo;s continuing-education hours kept against PA 407.</p>
                             </div>
                             <p class="links small">
-                                <a href="mailto:hello@codekeeper.app">Support</a>
-                                <a href="https://codekeeper.app/privacy">Privacy</a>
+                                <a href="mailto:hello@codekeeper.app" aria-label="Support for Codekeeper">Support</a>
+                                <a href="https://codekeeper.app/privacy" aria-label="Privacy policy for Codekeeper">Privacy</a>
                             </p>
                             <p class="meta small"><span>Available</span> <span class="muted">Web</span></p>
                         </li>
@@ -542,159 +780,6 @@
         </div>
     </footer>
 
-    <script>
-        // Low-precision sun and moon positions for Detroit (NOAA sun; Schlyter moon). Accurate to about a degree.
-        var ASTRO = (function () {
-            var LAT = 42.3314, LON = -83.0458, R = Math.PI / 180;
-            function rev(x) { return ((x % 360) + 360) % 360; }
-            function days(ms) { return ms / 86400000 - 10957.5; }             // days since 2000 Jan 1.5
-            function horizon(ra, dec, d) {                                        // radians in, degrees out
-                var lst = ((18.697374558 + 24.06570982441908 * d) % 24) * 15 + LON;
-                var ha = lst * R - ra;
-                var alt = Math.asin(Math.sin(LAT * R) * Math.sin(dec) + Math.cos(LAT * R) * Math.cos(dec) * Math.cos(ha));
-                var az = Math.atan2(-Math.sin(ha), Math.tan(dec) * Math.cos(LAT * R) - Math.sin(LAT * R) * Math.cos(ha));
-                return { alt: alt / R, az: rev(az / R) };
-            }
-            function sun(ms) {
-                var d = days(ms);
-                var L = rev(280.460 + 0.9856474 * d), g = rev(357.528 + 0.9856003 * d) * R;
-                var lam = (L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * R;
-                var eps = (23.439 - 0.0000004 * d) * R;
-                var ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam));
-                var dec = Math.asin(Math.sin(eps) * Math.sin(lam));
-                var h = horizon(ra, dec, d);
-                return { alt: h.alt, az: h.az, lon: lam / R };
-            }
-            function moon(ms) {
-                var d = days(ms) + 1.5;                                           // Schlyter's day number (2000 Jan 0.0)
-                var N = rev(125.1228 - 0.0529538083 * d), i = 5.1454, w = rev(318.0634 + 0.1643573223 * d);
-                var e = 0.0549, M = rev(115.3654 + 13.0649929509 * d);
-                var E = M + (180 / Math.PI) * e * Math.sin(M * R) * (1 + e * Math.cos(M * R));
-                E = E - (E - (180 / Math.PI) * e * Math.sin(E * R) - M) / (1 - e * Math.cos(E * R));
-                var xv = Math.cos(E * R) - e, yv = Math.sqrt(1 - e * e) * Math.sin(E * R);
-                var v = Math.atan2(yv, xv) / R;
-                var xh = Math.cos(N * R) * Math.cos((v + w) * R) - Math.sin(N * R) * Math.sin((v + w) * R) * Math.cos(i * R);
-                var yh = Math.sin(N * R) * Math.cos((v + w) * R) + Math.cos(N * R) * Math.sin((v + w) * R) * Math.cos(i * R);
-                var zh = Math.sin((v + w) * R) * Math.sin(i * R);
-                var lon = rev(Math.atan2(yh, xh) / R), lat = Math.atan2(zh, Math.sqrt(xh * xh + yh * yh)) / R;
-                var Ms = rev(356.0470 + 0.9856002585 * d), Ls = rev(282.9404 + 4.70935e-5 * d + Ms);
-                var Lm = rev(N + w + M), Dm = rev(Lm - Ls), F = rev(Lm - N);
-                var s = function (x) { return Math.sin(x * R); };
-                lon += -1.274 * s(M - 2 * Dm) + 0.658 * s(2 * Dm) - 0.186 * s(Ms) - 0.059 * s(2 * M - 2 * Dm)
-                    - 0.057 * s(M - 2 * Dm + Ms) + 0.053 * s(M + 2 * Dm) + 0.046 * s(2 * Dm - Ms) + 0.041 * s(M - Ms)
-                    - 0.035 * s(Dm) - 0.031 * s(M + Ms) - 0.015 * s(2 * F - 2 * Dm) + 0.011 * s(M - 4 * Dm);
-                lat += -0.173 * s(F - 2 * Dm) - 0.055 * s(M - F - 2 * Dm) - 0.046 * s(M + F - 2 * Dm)
-                    + 0.033 * s(F + 2 * Dm) + 0.017 * s(2 * M + F);
-                var ecl = (23.4393 - 3.563e-7 * d) * R;
-                var xe = Math.cos(lon * R) * Math.cos(lat * R);
-                var ye = Math.sin(lon * R) * Math.cos(lat * R) * Math.cos(ecl) - Math.sin(lat * R) * Math.sin(ecl);
-                var ze = Math.sin(lon * R) * Math.cos(lat * R) * Math.sin(ecl) + Math.sin(lat * R) * Math.cos(ecl);
-                var h = horizon(Math.atan2(ye, xe), Math.atan2(ze, Math.sqrt(xe * xe + ye * ye)), days(ms));
-                h.alt -= 0.95 * Math.cos(h.alt * R);                              // parallax
-                var elong = rev(lon - sun(ms).lon);                               // 0 new, 180 full
-                return { alt: h.alt, az: h.az, lit: (1 - Math.cos(elong * R)) / 2, waxing: elong < 180, elong: elong };
-            }
-            return { sun: sun, moon: moon };
-        })();
-    </script>
-    <script>
-        // The lake is drawn in Detroit's light at this moment: day, dusk, or night,
-        // with the sun and moon where they actually are when they're in view.
-        (function () {
-            var lake = document.querySelector('.lake');
-            if (!lake || !window.ASTRO) return;
-            var sun = document.getElementById('sun');
-            var moon = document.getElementById('moon');
-            var lit = moon.querySelector('.moonlit');
-            var glint = document.getElementById('glint');
-
-            // The view looks west-southwest across the water: azimuth 205 at the left edge, 295 at the right.
-            var AZ0 = 205, AZ1 = 295, W = 1200, HZ = 205, TOP = 30;
-
-            // Ground color by the sun's height: afternoon, golden hour, sunset, blue hour, night.
-            var SKY = [
-                { alt: 8,   c: [239, 236, 230] },
-                { alt: 2,   c: [238, 229, 214] },
-                { alt: -1,  c: [229, 206, 180] },
-                { alt: -2.5, c: [196, 180, 190] },
-                { alt: -4,  c: [141, 148, 168] },
-                { alt: -7,  c: [46, 56, 80] },
-                { alt: -10, c: [20, 28, 46] }
-            ];
-            var INK = [20, 20, 20], PALE = [214, 210, 199];
-
-            function mix(a, b, t) { return [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); }); }
-            function rgb(c) { return 'rgb(' + c.join(',') + ')'; }
-            function clamp(x) { return Math.max(0, Math.min(1, x)); }
-            function place(az, alt) { return { x: (az - AZ0) / (AZ1 - AZ0) * W, y: HZ - alt * (HZ / TOP) }; }
-            function inView(p) { return p.x > -30 && p.x < W + 30; }
-            function ground(alt) {
-                if (alt >= SKY[0].alt) return SKY[0].c;
-                for (var i = 1; i < SKY.length; i++) {
-                    if (alt >= SKY[i].alt) return mix(SKY[i - 1].c, SKY[i].c, (SKY[i - 1].alt - alt) / (SKY[i - 1].alt - SKY[i].alt));
-                }
-                return SKY[SKY.length - 1].c;
-            }
-            function lum(c) { return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
-
-            // ?at=HH:MM or ?at=YYYY-MM-DDTHH:MM shows another Detroit time (for checking the drawing)
-            var shift = 0;
-            var at = /[?&]at=([^&]+)/.exec(location.search);
-            if (at) {
-                var m = /^(?:(\d{4})-(\d\d)-(\d\d)T)?(\d\d?):(\d\d)$/.exec(decodeURIComponent(at[1]));
-                if (m) {
-                    var base = m[1] ? Date.UTC(+m[1], +m[2] - 1, +m[3], 17) : Date.now();
-                    var parts = {};
-                    new Intl.DateTimeFormat('en-US', { timeZone: 'America/Detroit', hour12: false, hour: 'numeric', minute: 'numeric' })
-                        .formatToParts(new Date(base)).forEach(function (p) { parts[p.type] = parseInt(p.value, 10); });
-                    shift = base - Date.now() + ((+m[4] * 60 + +m[5]) - ((parts.hour % 24) * 60 + parts.minute)) * 60000;
-                }
-            }
-
-            function paint() {
-                var now = Date.now() + shift;
-                var s = ASTRO.sun(now), mo = ASTRO.moon(now);
-                var g = ground(s.alt);
-                var dark = clamp((0.62 - lum(g)) / 0.22);              // lines turn pale as the ground darkens
-                var l = mix(INK, PALE, dark);
-                var lamps = clamp((-1 - s.alt) / 5);                    // lights come on after sunset
-                var night = clamp((-7 - s.alt) / 5);
-                var st = lake.style;
-                st.setProperty('--g', rgb(g));
-                st.setProperty('--l', rgb(l));
-                st.setProperty('--glass', lamps > 0.4 ? '#F0B54A' : rgb(g));
-                st.setProperty('--moon', 'rgba(236, 232, 220,' + (0.9 * dark).toFixed(2) + ')');
-                st.setProperty('--starA', (night * 0.85).toFixed(2));
-                st.setProperty('--navA', lamps.toFixed(2));
-                st.setProperty('--lampA', (0.35 + 0.65 * lamps).toFixed(2));
-                st.setProperty('--refA', (0.85 * lamps * dark).toFixed(2));
-
-                var sp = place(s.az, s.alt);
-                var sunUp = s.alt > -1 && inView(sp);
-                sun.setAttribute('cx', sunUp ? sp.x.toFixed(1) : -50);
-                sun.setAttribute('cy', sunUp ? sp.y.toFixed(1) : -50);
-
-                var mp = place(mo.az, mo.alt);
-                var moonUp = mo.alt > -1 && inView(mp) && mo.lit > 0.03;
-                moon.setAttribute('transform', 'translate(' + (moonUp ? mp.x.toFixed(1) + ' ' + mp.y.toFixed(1) : '-50 -50') + ')');
-                moon.style.opacity = moonUp ? (0.45 + 0.55 * dark).toFixed(2) : 0;
-                var r = 9, k = mo.lit, rx = Math.abs(1 - 2 * k) * r, side = mo.waxing ? 1 : 0;
-                lit.setAttribute('d', 'M0 ' + -r + 'A' + r + ' ' + r + ' 0 0 ' + side + ' 0 ' + r +
-                    'A' + rx.toFixed(2) + ' ' + r + ' 0 0 ' + (k > 0.5 ? side : 1 - side) + ' 0 ' + -r + 'Z');
-
-                // light on the water under whichever is low in the sky
-                var orb = sunUp && s.alt < 25 ? { p: sp, a: 1 - s.alt / 25 }
-                        : moonUp && dark > 0.5 && mo.alt < 30 ? { p: mp, a: 0.6 * mo.lit } : null;
-                glint.setAttribute('transform', 'translate(' + (orb ? orb.p.x.toFixed(1) : -100) + ' 0)');
-                st.setProperty('--glintA', orb ? clamp(orb.a).toFixed(2) : 0);
-            }
-
-            paint();
-            setInterval(paint, 30000);
-            document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
-        })();
-
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
