@@ -1,7 +1,67 @@
-/* Peninsular identity. Archivo and Inter Tight, SIL Open Font License 1.1. */
-@font-face { font-family: Archivo; src: url('../fonts/archivo-latin.ttf') format('truetype'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
-:root { --ground: #F1EEE6; --ink: #1B2926; --ink-2: #5E665F; --rule: #CBCDC2; --pine: #234B40; --brick: #C45136; --lake: #BCCDCB; --steel: #1B2926; --display: Archivo, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-.mark-line { width: 222px; height: auto; }
-h1,h2,h3 { font-family: var(--display); font-variation-settings: 'wdth' 94; }
-@media (max-width:640px) { .mark-line { width: 196px; } }
-@media (max-width:380px) { .mark-line { width: 178px; } }
+/* The Peninsular Company identity: type and color.
+   Archivo and Inter Tight are served from fonts/ under the SIL Open Font License 1.1. */
+
+/* Display. Archivo at width 94, weights 500 to 700 (fonts/archivo-display.woff2 is cut to exactly that). */
+@font-face {
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: 500 700;
+    font-display: swap;
+    src: url(../fonts/archivo-display.woff2) format('woff2');
+}
+
+/* Reading and labels. */
+@font-face {
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url(../fonts/inter-tight-latin.woff2) format('woff2');
+}
+
+/* Until the fonts arrive, Helvetica or Arial stands in at their width and height,
+   so no line rewraps and nothing moves when they load. */
+@font-face {
+    font-family: 'Inter Tight Fallback';
+    font-weight: 400;
+    src: local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('ArialMT'), local('Roboto');
+    size-adjust: 95.6%;
+    ascent-override: 101.3%;
+    descent-override: 25.2%;
+    line-gap-override: 0%;
+}
+@font-face {
+    font-family: 'Inter Tight Fallback';
+    font-weight: 600;
+    src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+    size-adjust: 93%;
+    ascent-override: 104.2%;
+    descent-override: 25.9%;
+    line-gap-override: 0%;
+}
+@font-face {
+    font-family: 'Archivo Fallback';
+    font-weight: 500 700;
+    src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+    size-adjust: 90.1%;
+    ascent-override: 97.7%;
+    descent-override: 23.3%;
+    line-gap-override: 0%;
+}
+
+:root {
+    /* Limestone and ink do most of the work. Pine identifies the company. */
+    --ground: #F1EEE6;      /* limestone */
+    --ink: #1B2926;
+    --ink-2: #5E665F;       /* secondary text on limestone */
+    --rule: #CBCDC2;        /* dividers */
+    --pine: #234B40;
+    --brick: #C45136;
+    --lake: #BCCDCB;
+    --night: #141C2E;
+
+    --display: Archivo, 'Archivo Fallback', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3 { font-family: var(--display); }

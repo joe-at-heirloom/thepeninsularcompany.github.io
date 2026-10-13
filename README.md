@@ -1,20 +1,30 @@
 # thepeninsularcompany.com
 
-Company site for The Peninsular Company, LLC: a privately held company in Detroit, Michigan, for new ventures in technology and beyond. It is the page Apple, banks, vendors, and anyone checking on the business should land on. [joelint.com](https://joelint.com) stays the personal site.
+Company site for The Peninsular Company, LLC, a privately held company in Detroit, Michigan: strategy, design, and technology for businesses, and ventures of its own. It is the page clients, Apple, banks, vendors, and anyone checking on the business should land on. [joelint.com](https://joelint.com) stays the personal site.
 
 **Live site:** [thepeninsularcompany.com](https://thepeninsularcompany.com)
 
 ## What's on the page
 
-- **Identity**: a solid pine-green block (#234B40) with an optically spaced Archivo wordmark. The compact and stacked signatures are supplied as outlines. Large green fields can hold the name alone. The icon keeps the block visible on a limestone tile.
-- **The lake**: a line drawing across the full width of the page, looking across the water at the east end of Belle Isle. On the left is the William Livingstone Memorial Lighthouse (Albert Kahn, architect; Géza Maróti, sculptor; 1930), drawn from measured proportions. In the middle is a freighter; to the right is open water. The drawing is pinned to its left edge and never taller than half its width, so a phone still shows the lighthouse and the whole freighter. It follows the real light in Detroit: afternoon, golden hour, sunset, blue hour, and night, with the sun and moon placed where they actually are. After dark the lighthouse lamp blinks the way the Coast Guard lists it (occulting white, 4 s).
-- **Works**: everything the company runs, numbered, with status, platform, and each one's own support, privacy, and terms links.
-- **Contact**: email, one line about client work, and a link to joelint.com.
-- **Footer**: legal name, Detroit, and the state motto.
+The home page says each thing once, in this order:
+
+- **Header**: the compact signature (a solid pine-green block, #234B40, with the Archivo wordmark) and five links. On a phone the links take their own row; there is no menu button.
+- **Hero**: the headline, one statement, one link to Contact.
+- **The lake**: a line drawing across the full width of the page, directly under the hero, looking across the water at the east end of Belle Isle. On the left is the William Livingstone Memorial Lighthouse (Albert Kahn, architect; Géza Maróti, sculptor; 1930), drawn from measured proportions. In the middle is a freighter; to the right is open water. The drawing is pinned to its left edge and never taller than half its width, so a phone still shows the lighthouse and the whole freighter. It follows the real light in Detroit: afternoon, golden hour, sunset, blue hour, and night, with the sun and moon placed where they actually are. After dark the lighthouse lamp blinks the way the Coast Guard lists it (occulting white, 4 s). It carries no caption.
+- **Work**: three client projects, each a small screenshot, the name, the industry, and one sentence giving scope and credit. Each links to its page under `work/`.
+- **Services**: one statement and three services, a sentence each.
+- **Auction houses**: one statement and six areas, a sentence each.
+- **Ventures**: the company's own products, numbered, with status, platform, and each one's own support, privacy, and terms links.
+- **Contact**: one question, the email address, and a link to joelint.com.
+- **Footer**: the page's one pine field, holding the white signature, the legal name, Detroit, the state motto, and links to Privacy, Terms, and Brand.
+
+Keep it this spare. A new sentence should replace one, not join it. Screenshots stay small on the home page; the project pages are where they get room.
 
 ## Adding a work
 
-Copy an `<li class="work">` in `index.html`, give it the next number and a color in `style="--c: #..."`, and fill in its links. Each small link carries an `aria-label` naming the work ("Support for The Ollin Tuner"), so change those to the new name too. Use `class="no outlined small"` for a very light color so the marker still shows.
+**A venture:** copy an `<li class="work">` in `index.html`, give it the next number and a color in `style="--c: #..."`, and fill in its links. Each small link carries an `aria-label` naming the venture ("Support for Heirloom"), so change those to the new name too. Use `class="no outlined small"` for a very light color so the marker still shows.
+
+**A client project:** copy a folder under `work/`, change its title, facts, summary, three points, and images, and add an `<li class="card">` to the Work list in `index.html`. Each project needs three images in `images/portfolio/`: `name-website.jpg` (1280 × 860), `name-website-768.jpg` (the same, 768 × 516, for the home page card), and `name-mobile.jpg` (390 × 844). Keep the credit accurate: say whose work it was and in what role. Add the page to `sitemap.xml`.
 
 ## The apps' legal pages
 
@@ -24,7 +34,7 @@ Copy an `<li class="work">` in `index.html`, give it the next number and a color
 
 `brand/` holds six signature variants, icons, lake illustrations, social covers, letterhead, a two-sided business card, email signatures, and a six-page identity standard. The interactive guide at `/brand/` is linked from the footer and marked `noindex`. The ZIP includes a working offline guide, the licensed fonts, source vectors, and usage notes.
 
-`brand/source/` is the source of truth for the solid block and outlined signatures. `index.html` owns the lake drawing and its sky behavior. Shared identity tokens and display typography live in `styles/brand.css`; the homepage layout lives in `styles/site.css`.
+`brand/source/` is the source of truth for the solid block and outlined signatures. `index.html` owns the lake drawing and its sky behavior. Shared identity tokens and display typography live in `styles/brand.css`; every page's layout lives in `styles/site.css`.
 
 ```sh
 python3 scripts/brand-kit.py
@@ -36,35 +46,28 @@ The supplied colors are RGB. Letterhead is US Letter; cards are 3.5 × 2 inches,
 
 ## How the page is built
 
-The site is static HTML, with shared identity CSS and self-hosted fonts. The home page contains the business introduction, portfolio, services, advisory, ventures, and contact. Detailed project pages live under `work/`.
+The site is static HTML with two shared stylesheets and self-hosted fonts. No build step.
 
-- The logos are outlined paths, so they do not depend on the web font.
-- The lake is one inline SVG. The High Lift Pumping Station at Water Works Park was taken out of it on October 2, 2026; leave it out.
-- Two scripts sit in the `<head>`, above the page. `ASTRO` works out where the sun and moon are over Detroit (NOAA low-precision sun, Schlyter moon, checked against the April 8, 2024 solar eclipse and the March 14, 2025 lunar eclipse). `LAKE` turns that into the lake's colors and sets them before the page first draws, so a visitor at night never sees a flash of the day drawing. It runs again right after the drawing, to place the sun and moon, and every 30 seconds after that.
+- `styles/brand.css` is the identity: the two font families, their stand-ins, and the colors (limestone, ink, pine, brick, lake, night).
+- `styles/site.css` is everything else, for every page: the home page, the project pages under `work/`, `privacy/`, `terms/`, and `404.html`. No page carries its own pasted copy of the styles. `brand/index.html`, the brand guide, is the exception: it is self-contained so it also works from the ZIP.
+- The header signature is outlined paths pasted into each page (the generator keeps them equal to `brand/source/`). The footer's white signature is the kit's own file, `brand/logo/peninsular-logo-line-white.svg`.
+- The lake is one inline SVG in `index.html`. The High Lift Pumping Station at Water Works Park was taken out of it on October 2, 2026; leave it out.
+- Two scripts sit in the `<head>` of `index.html`. `ASTRO` works out where the sun and moon are over Detroit (NOAA low-precision sun, Schlyter moon, checked against the April 8, 2024 solar eclipse and the March 14, 2025 lunar eclipse). `LAKE` turns that into the lake's colors and sets them before the page first draws, so a visitor at night never sees a flash of the day drawing. It runs again right after the drawing, to place the sun and moon, and every 30 seconds after that. By day the lake's ground is the page's limestone and its line is the page's ink.
 
-`privacy/` and `terms/` carry the same base, header, and footer styles as the home page, plus their own "Legal pages" block, and nothing for the hero, lake, or Works. Shared identity adjustments belong in `styles/brand.css`; the generator synchronizes signature artwork across the home, legal, error, and case-study pages.
-
-The stylesheet ends with three blocks worth knowing about:
+`site.css` ends with three blocks worth knowing about:
 
 - **Touch** gives the small links a full-size tap target on phones and tablets without moving anything.
-- **High contrast** hands the logo and the lake the system's colors when Windows high contrast (or any forced-color theme) is on. Without it the logo would be black on black.
-- **Paper** is the print version, for anyone who files the page as a PDF: white ground, the lake as the day drawing, Works starting on page two, and a footer that reads without its dark panel.
+- **High contrast** hands the signature and the lake the system's colors when Windows high contrast (or any forced-color theme) is on.
+- **Paper** is the print version, for anyone who files the page as a PDF: white ground, the lake as the day drawing, the name and the lake on page one, work and services on page two, and a footer that reads without its pine field.
 
-Until Inter Tight loads, the text is set in Helvetica or Arial scaled to Inter Tight's width (the `Inter Tight Fallback` faces at the top of the stylesheet), to reduce shifts while it loads. Archivo is the display face; both fonts are served locally with their SIL licenses.
-
-To see the lake at another time, add `?at=` to the address:
-
-```
-index.html?at=19:30              today at 7:30 PM, Detroit time
-index.html?at=2026-10-14T20:15   a given date and time
-```
+**Fonts.** Archivo is the display face, used only at width 94 and weights 500 to 700, so the site serves `fonts/archivo-display.woff2`, cut to exactly that (30 KB). `fonts/archivo-latin.ttf` is the full file; the brand kit generator and the ZIP use it, the site does not. Inter Tight is for reading and labels. Until either font loads, Helvetica or Arial stands in at its width (the `Fallback` faces in `brand.css`), so lines do not rewrap when it arrives. Neither font has arrow glyphs, so the site does not use arrows.
 
 ## Tech stack
 
 | Layer | What |
 |-------|------|
 | Markup | Static HTML5 pages, inline SVG |
-| Styles | Shared brand and home CSS; page-specific styles |
+| Styles | `styles/brand.css` (identity) and `styles/site.css` (every page) |
 | Scripts | Vanilla JS, all inline: sun and moon positions, lake colors |
 | Fonts | Archivo and Inter Tight, served from `fonts/` under SIL Open Font License; logos are outlines |
 | Analytics | None. No cookies, no tracking |
