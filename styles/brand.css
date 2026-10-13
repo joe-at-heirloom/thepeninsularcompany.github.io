@@ -1,0 +1,7 @@
+/* Peninsular identity. Archivo and Inter Tight, SIL Open Font License 1.1. */
+@font-face { font-family: Archivo; src: url('../fonts/archivo-latin.ttf') format('truetype'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+:root { --ground: #F1EEE6; --ink: #1B2926; --ink-2: #5E665F; --rule: #CBCDC2; --pine: #234B40; --brick: #C45136; --lake: #BCCDCB; --steel: #1B2926; --display: Archivo, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.mark-line { width: 222px; height: auto; }
+h1,h2,h3 { font-family: var(--display); font-variation-settings: 'wdth' 94; }
+@media (max-width:640px) { .mark-line { width: 196px; } }
+@media (max-width:380px) { .mark-line { width: 178px; } }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Brand · The Peninsular Company</title>
+    <meta name="description" content="The Peninsular Company identity: wordmarks, colors, typography, and files for print and screen.">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://thepeninsularcompany.com/brand/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#F1EEE6">
+    <meta name="color-scheme" content="light">
+    <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        @font-face { font-family: Archivo; src: url(/fonts/archivo-latin.ttf) format('truetype'); font-weight: 100 900; font-display: swap; }
+
+        @font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/fonts/inter-tight-latin.woff2) format('woff2'); }
+        :root { --ground: #F1EEE6; --ink: #1B2926; --muted: #5E665F; --rule: #CBCDC2; --pine: #234B40; --night: #141C2E; --gutter: 40px; --measure: 1200px; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.5 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3,p,figure,ul { margin: 0; }
+        a { color: inherit; text-underline-offset: 4px; }
+        a:hover { text-decoration-color: var(--pine); }
+        a:focus-visible,button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+        button { font: inherit; color: inherit; cursor: pointer; }
+        img { display: block; max-width: 100%; height: auto; }
+        ::selection { color: #fff; background: var(--pine); }
+        .wrap { width: min(100%, calc(var(--measure) + 2 * var(--gutter))); padding-inline: var(--gutter); margin-inline: auto; }
+        .small { font-size: 13px; line-height: 1.5; }
+        .muted { color: var(--muted); }
+        .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; }
+        .skip { position: absolute; top: -100px; left: 16px; z-index: 10; padding: 12px 20px; color: #fff; background: var(--pine); }
+        .skip:focus { top: 12px; }
+        header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding-block: 28px; }
+        .home img { width: 242px; }
+        .nav { display: flex; flex-wrap: wrap; gap: 10px 30px; }
+        .nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+        .nav a:hover { color: var(--pine); }
+        .hero { display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; align-items: center; padding-block: 78px 80px; }
+        .hero > * { min-width: 0; }
+        .hero .eyebrow { color: var(--pine); }
+        h1 { margin-top: 22px; max-width: 600px; font-size: clamp(48px, 5.7vw, 80px); line-height: 1.02; letter-spacing: -.045em; font-weight: 500; }
+        .intro { max-width: 420px; margin-top: 26px; color: var(--muted); font-size: 19px; line-height: 1.5; text-wrap: pretty; }
+        .download { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 48px; margin-top: 28px; border-bottom: 1px solid var(--pine); color: var(--pine); font-size: 14px; font-weight: 500; text-decoration: none; }
+        .download:hover { color: var(--ink); }
+        .hero-mark { width: 100%; min-height: 380px; aspect-ratio: 1.2; position: relative; background: var(--pine); display: grid; place-items: center; color: var(--ground); }
+        .hero-mark > img { width: 44%; }
+        .hero-mark .caption { position: absolute; left: 28px; right: 28px; bottom: 24px; display: flex; justify-content: space-between; gap: 12px; font-size: 11px; letter-spacing: .05em; }
+        .principles { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); gap: 48px; padding-block: 24px 28px; }
+        .principles p { font-size: 14px; color: var(--muted); margin-top: 6px; max-width: 280px; }
+        .principles h2 { font-size: 15px; font-weight: 500; }
+        section { padding-top: 100px; scroll-margin-top: 24px; }
+        .section-head { display: grid; grid-template-columns: 1fr 3fr; gap: 24px; margin-bottom: 32px; }
+        .section-head > .eyebrow { padding-top: 7px; color: var(--muted); }
+        h2 { font-size: 32px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+        .section-head .description { max-width: 570px; margin-top: 12px; color: var(--muted); }
+        .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; padding-block: 14px; border-top: 1px solid var(--ink); }
+        .control { border: 0; padding: 0; margin: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 3px; }
+        .control legend { float: left; margin-right: 18px; font-size: 12px; color: var(--muted); line-height: 44px; }
+        .control button { border: 0; background: transparent; min-height: 44px; padding: 8px 14px; font-size: 13px; }
+        .control button[aria-pressed="true"] { box-shadow: inset 0 -2px var(--pine); color: var(--pine); font-weight: 600; }
+        .control button:hover { background: #dedbd3; }
+        .swatch-dot { width: 10px; height: 10px; display: inline-block; margin-right: 7px; background: var(--dot); box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
+        .logo-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 420px; padding: 48px; background: #F8F6F1; border: 1px solid var(--rule); }
+        .logo-stage img { width: 344px; max-height: 250px; object-fit: contain; }
+        .logo-stage[data-arrangement="line"] img { width: min(600px, 100%); }
+        .logo-stage[data-surface="pine"] { background: var(--pine); border-color: var(--pine); }
+        .logo-stage[data-surface="ink"] { background: var(--ink); border-color: var(--ink); }
+        .stage-caption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 12px; }
+        .stage-caption a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+        .stage-caption .downloads { display: flex; gap: 22px; }
+        .logo-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+        .clearspace { min-height: 250px; display: grid; place-items: center; padding: 18px; }
+        .clearspace svg { display: block; width: 340px; max-width: 100%; height: auto; }
+        .rules { list-style: none; padding: 0; border-top: 1px solid var(--rule); }
+        .rules li { padding: 14px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 108px minmax(0, 1fr); gap: 16px; font-size: 13px; }
+        .rules strong { font-weight: 500; }
+        .rules span { color: var(--muted); }
+        .mark-study { display: grid; grid-template-columns: 1.1fr 1fr; margin-top: 48px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+        .mark-study > div { padding: 30px 0; }
+        .mark-study > div + div { padding-left: 44px; border-left: 1px solid var(--rule); }
+        .sizes { display: flex; align-items: end; flex-wrap: wrap; gap: 24px; margin-top: 24px; }
+        .sizes figure { display: grid; gap: 12px; text-align: center; }
+        .sizes img { flex: none; }
+        .sizes figcaption { font-size: 11px; color: var(--muted); }
+        .avatar { display: flex; gap: 28px; align-items: center; margin-top: 24px; }
+        .avatar img { width: 84px; border-radius: 50%; }
+        .avatar p { max-width: 280px; font-size: 13px; color: var(--muted); }
+        .palette { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; }
+        .chip { height: 156px; background: var(--color); border: 1px solid rgba(0,0,0,.08); }
+        .swatch h3 { font-size: 15px; font-weight: 500; margin-top: 12px; }
+        .swatch code { font: 12px/1.6 ui-monospace, 'SFMono-Regular', Consolas, monospace; color: var(--muted); }
+        .swatch p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+        .secondary-colors { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px 36px; font-size: 12px; color: var(--muted); }
+        .type-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 52px; border-top: 1px solid var(--ink); padding-top: 24px; }
+        .specimen { font-size: clamp(62px, 9vw, 120px); line-height: 1.05; letter-spacing: -.06em; margin: 18px 0 14px; font-weight: 500; }
+        .type-note { color: var(--muted); font-size: 13px; max-width: 380px; }
+        .type-scale { padding: 0; list-style: none; }
+        .type-scale li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+        .type-scale li:first-child { padding-top: 0; }
+        .type-scale p { margin-top: 8px; }
+        .type-display { font-size: 28px; line-height: 1.15; letter-spacing: -.02em; font-weight: 500; }
+        .type-body { font-size: 17px; line-height: 1.5; }
+        .type-label { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+        .lake-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .lake-pair figure { min-width: 0; }
+        .lake-pair img { width: 100%; aspect-ratio: 2; object-fit: cover; object-position: 22% center; }
+        .lake-pair figcaption { border-top: 1px solid var(--rule); margin-top: 12px; padding-top: 10px; font-size: 13px; display: flex; justify-content: space-between; gap: 16px; }
+        .lake-note { color: var(--muted); margin-top: 24px; max-width: 680px; font-size: 14px; }
+        .applications { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .letterhead { padding: 38px 56px; background: #DEDAD0; }
+        .letterhead img { width: 100%; box-shadow: 0 4px 15px rgba(20,20,20,.06); }
+        .application-caption { margin-top: 12px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; }
+        .application-caption a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+        .signature { display: flex; align-items: center; min-height: 300px; background: #fff; padding: 40px; }
+        .signature .name { font-size: 16px; font-weight: 600; }
+        .signature .role { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+        .signature img { width: 242px; margin-bottom: 20px; }
+        .signature .details { font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; }
+        .app-social { margin-top: 38px; }
+        .app-social img { width: 100%; }
+        .downloads-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .downloads-table th { font-size: 12px; text-align: left; font-weight: 500; color: var(--muted); border-bottom: 1px solid var(--ink); padding: 0 16px 14px 0; }
+        .downloads-table td { padding: 18px 24px 18px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+        .downloads-table td:first-child { width: 34%; font-weight: 500; }
+        .downloads-table td:last-child { color: var(--muted); }
+        .download-links { display: flex; gap: 14px; flex-wrap: wrap; }
+        .download-links a { min-height: 30px; display: inline-flex; align-items: center; text-decoration-color: var(--rule); }
+        .bundle { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 36px; padding: 28px 32px; background: var(--pine); color: var(--ground); }
+        .bundle p { font-size: 14px; max-width: 620px; }
+        .bundle a { display: inline-flex; min-height: 44px; align-items: center; gap: 24px; text-decoration: none; border-bottom: 1px solid #8AA99B; font-size: 14px; }
+        .bundle a:hover { border-color: var(--ground); }
+        footer { margin-top: 100px; padding-block: 32px; border-top: 1px solid var(--rule); }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; font-size: 12px; color: var(--muted); }
+        footer a { text-decoration: none; }
+        footer .legal { display: flex; gap: 24px; }
+        @media(max-width: 1000px) { .hero { gap: 40px; } .hero-mark { min-height: 320px; } .section-head { grid-template-columns: 1fr 2fr; } .rules li { grid-template-columns: 90px minmax(0,1fr); } .letterhead { padding: 28px; } }
+        @media(max-width: 760px) { :root { --gutter: 24px; } .hero { padding-block: 44px 48px; grid-template-columns: 1fr; gap: 36px; } .hero-mark { min-height: 260px; aspect-ratio: auto; width: 100%; } .hero-mark > img { width: 32%; } h1 { font-size: 60px; } .principles { gap: 24px; } section { padding-top: 72px; } .section-head { grid-template-columns: 1fr; gap: 12px; } .logo-notes { gap: 24px; } .mark-study { grid-template-columns: 1fr; } .mark-study > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); } .type-layout { gap: 32px; } .applications { gap: 24px; } .signature { padding: 26px; } .downloads-table td:first-child { width: 30%; } }
+        @media(max-width: 560px) { :root { --gutter: 20px; } header { padding-block: 20px; gap: 10px; } .home img { width: 218px; } .nav { width: 100%; gap: 28px; } h1 { font-size: 52px; } .intro { font-size: 17px; } .principles { grid-template-columns: 1fr; gap: 20px; } .principles p { max-width: none; } .logo-stage { padding: 36px 26px; height: 300px; } .toolbar { gap: 0 24px; } .control { gap: 0; } .control legend { margin-right: 8px; width: 76px; } .control button { padding-inline: 10px; } .logo-notes,.type-layout,.lake-pair,.applications { grid-template-columns: 1fr; } .clearspace { padding: 0 16px; min-height: 230px; } .palette { gap: 14px; grid-template-columns: repeat(3,minmax(0,1fr)); } .chip { height: 108px; } .swatch p { font-size: 12px; } .swatch h3 { font-size: 14px; } .secondary-colors { gap: 10px 24px; } .sizes { gap: 20px; } .type-layout { margin-top: 40px; } .applications { gap: 38px; } .letterhead { padding: 30px 44px; } .signature { min-height: 300px; } .downloads-table thead { display: none; } .downloads-table tr { display: block; border-top: 1px solid var(--rule); padding: 14px 0 18px; } .downloads-table td { display: block; border: 0; width: auto !important; padding: 0; } .downloads-table td + td { margin-top: 6px; } .bundle { padding: 24px; } footer { margin-top: 72px; } }
+        @media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media(forced-colors: active) { .hero-mark,.logo-stage,.signature,.letterhead { forced-color-adjust: none; } button[aria-pressed="true"] { border-bottom: 2px solid ButtonText; } }
+        @media print { :root { --gutter: 0px; } body { background: #fff; font-size: 11pt; } header,.toolbar,.download,.bundle,footer { display: none; } .hero { padding-top: 0; } section { padding-top: 36px; } figure,.logo-stage,.logo-notes { break-inside: avoid; } }
+
+        h1,h2,h3,.specimen,.type-display { font-family:Archivo,'Helvetica Neue',Arial,sans-serif; font-variation-settings:'wdth' 94; }
+        h1 { font-weight:620; letter-spacing:-.04em; }h2 { font-weight:570; }header { border-bottom:1px solid var(--ink); }.hero-mark { background:#234B40; }.hero-mark > img { width:78%; }
+        .home img { width:222px; }.palette { grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:18px; }.contrast-note { margin-top:24px; max-width:840px; }.specimen { font-weight:580; font-size:100px; }.card-pair { display:grid;gap:24px;padding:32px;background:#DBDDD3; }.card-pair img { width:100%; }.standards-cover { background:#DBDDD3;padding:32px 72px; }.standards-cover img { width:100%; }.voice-panel { display:grid;grid-template-columns:1fr 1fr;gap:64px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:32px 0;margin-top:48px; }.voice-panel h3 { font-size:32px;line-height:1.1;font-weight:570;margin-top:14px; }.voice-panel p + p { margin-top:18px; }.references { margin-top:24px;max-width:900px; }.logo-stage[data-arrangement="line"] img { width:min(560px,100%); }.clearspace { min-height:210px; }
+        @media(max-width:760px) { .palette { grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 18px; }.palette .swatch:first-child { grid-column:span 1; }.specimen { font-size:76px; }.standards-cover { padding:28px; } }
+        @media(max-width:560px) { .palette { grid-template-columns:repeat(2,minmax(0,1fr)); }.palette .swatch:first-child { grid-column:1/-1; }.palette .swatch:first-child .chip { height:90px; }.voice-panel { grid-template-columns:1fr;gap:24px; }.card-pair { padding:22px;gap:20px; }.standards-cover { padding:30px 48px; }.hero-mark > img { width:80%; }.home img { width:196px; } }
+    </style>
+</head>
+<body>
+    <a class="skip" href="#content">Skip to content</a>
+    <div class="wrap">
+        <header>
+            <a class="home" href="/"><img src="logo/peninsular-logo-line.svg" width="242" height="56" alt="The Peninsular Company home"></a>
+            <nav class="nav small" aria-label="Brand sections"><a href="#identity">Identity</a><a href="#applications">Applications</a><a href="#downloads">Downloads</a></nav>
+        </header>
+    </div>
+    <main id="content" class="wrap">
+        <div class="hero">
+            <div>
+                <p class="eyebrow">The Peninsular Company / Visual identity</p>
+                <h1>Good ideas.<br>Put to work.</h1>
+                <p class="intro">A solid green block, a clear name, and a practical point of view. A Michigan identity for independent ventures and useful work.</p>
+                <a class="download" href="peninsular-brand-kit.zip" download>Download the brand kit <span aria-hidden="true">↗</span></a>
+            </div>
+            <figure class="hero-mark">
+                <img src="source/peninsular-wordmark-white.svg" width="400" height="104" alt="The Peninsular Company wordmark on a pine green field">
+                <figcaption class="caption"><span>THE PENINSULAR COMPANY</span><span>DETROIT, MI</span></figcaption>
+            </figure>
+        </div>
+        <div class="principles">
+            <div><h2>Clear in its purpose.</h2><p>Make the company clear. Show the work. Give every element a useful role.</p></div>
+            <div><h2>Grounded in its place.</h2><p>Limestone, pine, brick, and lake. Michigan’s material warmth and open space.</p></div>
+            <div><h2>Considered in its details.</h2><p>Steady type, open space, and a few useful elements, used consistently.</p></div>
+        </div>
+
+        <section id="identity" aria-labelledby="identity-title">
+            <div class="section-head"><p class="eyebrow">01 / Identity</p><div><h2 id="identity-title">A name with room to breathe.</h2><p class="description">A solid green block gives the name a quiet, recognizable anchor. The optically spaced wordmark carries the character. At a larger scale, the block becomes the field holding the name.</p></div></div>
+            <div class="toolbar">
+                <fieldset class="control"><legend>Arrangement</legend><button type="button" data-arrangement="stacked" aria-pressed="true" aria-controls="logo-stage">Stacked</button><button type="button" data-arrangement="line" aria-pressed="false" aria-controls="logo-stage">Horizontal</button></fieldset>
+                <fieldset class="control"><legend>Surface</legend><button type="button" data-surface="paper" aria-pressed="true" aria-controls="logo-stage"><span class="swatch-dot" style="--dot:#F1EEE6" aria-hidden="true"></span>Paper</button><button type="button" data-surface="pine" aria-pressed="false" aria-controls="logo-stage"><span class="swatch-dot" style="--dot:#234B40" aria-hidden="true"></span>Pine</button><button type="button" data-surface="ink" aria-pressed="false" aria-controls="logo-stage"><span class="swatch-dot" style="--dot:#1B2926" aria-hidden="true"></span>Ink</button></fieldset>
+            </div>
+            <div id="logo-stage" class="logo-stage" data-arrangement="stacked" data-surface="paper"><img id="preview-logo" src="logo/peninsular-logo-stacked.svg" alt="The Peninsular Company stacked wordmark on paper"></div>
+            <div class="stage-caption small"><p id="preview-caption" class="muted" aria-live="polite">Stacked wordmark / Full color</p><div class="downloads"><a id="preview-svg" href="logo/peninsular-logo-stacked.svg" download aria-label="Download the displayed logo as SVG">Download SVG</a><a id="preview-png" href="logo/peninsular-logo-stacked.png" download aria-label="Download the displayed logo as PNG">PNG</a></div></div>
+            <div class="logo-notes">
+                <figure class="clearspace"><svg viewBox="0 0 430 150" role="img" aria-label="Leave half a block width around the signature"><rect x="10" y="10" width="410" height="130" fill="none" stroke="#5E665F" stroke-dasharray="3 5"/><rect x="36" y="36" width="358" height="78" fill="none" stroke="#CBCDC2"/><image href="logo/peninsular-logo-line.svg" x="36" y="36" width="358" height="78"/><path d="M10 22H36M23 10V36" stroke="#C45136" fill="none"/></svg></figure>
+                <ul class="rules"><li><strong>Clear space</strong><span>Leave half the block's width on every side. Give the name a quiet background.</span></li><li><strong>Minimum size</strong><span>Stacked: 160 px wide. Horizontal: 180 px. Below that, use the icon.</span></li><li><strong>Contrast</strong><span>Full color on paper or white. Use the white version on pine, ink, or a dark photograph.</span></li><li><strong>Keep it intact</strong><span>Use the supplied artwork. Keep its proportions, spacing, and colors.</span></li></ul>
+            </div>
+            <div class="mark-study">
+                <div><p class="eyebrow muted">One mark, from large to small</p><div class="sizes"><figure><img src="icon/peninsular-icon.svg" width="96" height="96" alt="Green block at 96 pixels"><figcaption>96 px</figcaption></figure><figure><img src="icon/peninsular-icon.svg" width="48" height="48" alt="Green block at 48 pixels"><figcaption>48 px</figcaption></figure><figure><img src="icon/peninsular-icon.svg" width="32" height="32" alt="Green block at 32 pixels"><figcaption>32 px</figcaption></figure><figure><img src="icon/peninsular-icon.svg" width="16" height="16" alt="Green block at 16 pixels"><figcaption>16 px</figcaption></figure></div></div>
+                <div><p class="eyebrow muted">A little more room for a circle</p><div class="avatar"><img src="social/peninsular-avatar.svg" width="84" height="84" alt="Green block inset inside a circular avatar"><p>The profile version is optically centered and inset, so all four corners of the block stay visible in a circular crop.</p></div></div>
+            </div>
+        </section>
+
+        <section id="color" aria-labelledby="color-title">
+            <div class="section-head"><p class="eyebrow">02 / Color &amp; type</p><div><h2 id="color-title">Warm ground. Clear contrast.</h2><p class="description">Limestone and ink do most of the work. Pine identifies the company. Brick brings warmth to one strong field; lake gives a quieter composition room. Use one accent at a time.</p></div></div>
+            <div class="palette"><div class="swatch"><div class="chip" style="--color:#F1EEE6"></div><h3>Limestone</h3><code>#F1EEE6</code><p>The primary ground.</p></div><div class="swatch"><div class="chip" style="--color:#1B2926"></div><h3>Ink</h3><code>#1B2926</code><p>Type and structure.</p></div><div class="swatch"><div class="chip" style="--color:#234B40"></div><h3>Pine</h3><code>#234B40</code><p>The signature.</p></div><div class="swatch"><div class="chip" style="--color:#C45136"></div><h3>Brick</h3><code>#C45136</code><p>A single warm field.</p></div><div class="swatch"><div class="chip" style="--color:#BCCDCB"></div><h3>Lake</h3><code>#BCCDCB</code><p>Room and quiet.</p></div></div>
+            <div class="secondary-colors"><span><span class="swatch-dot" style="--dot:#5E665F" aria-hidden="true"></span>Secondary text · #5E665F</span><span><span class="swatch-dot" style="--dot:#CBCDC2" aria-hidden="true"></span>Rules · #CBCDC2</span><span><span class="swatch-dot" style="--dot:#141C2E" aria-hidden="true"></span>Lake at night · #141C2E</span></div>
+            <p class="contrast-note small muted">For reading: ink on limestone or lake, limestone on pine, and #5E665F for secondary text on limestone. Use brick for large graphics; captions on brick use white. Print colors require a stock-specific proof.</p>
+            <div class="type-layout"><div><p class="eyebrow muted">Archivo / Display</p><p class="specimen" aria-hidden="true">Aa 0123</p><p class="type-note">Archivo supplies the headlines and the outlined wordmark. Inter Tight handles reading and labels. Use weights 570–620 for display and 400–500 for text. The wordmark is optically spaced artwork at weight 650 and width 94.</p><p class="type-note" style="margin-top:12px">Both families use the SIL Open Font License: <a href="/fonts/Archivo-OFL.txt">Archivo</a> and <a href="/fonts/OFL.txt">Inter Tight</a>. Helvetica Neue, Helvetica, and Arial are the fallbacks.</p></div><ul class="type-scale"><li><span class="eyebrow muted">Display / Archivo 620</span><p class="type-display">Good ideas. Put to work.</p></li><li><span class="eyebrow muted">Reading / Inter Tight 400</span><p class="type-body">A company in Detroit, Michigan, building independent ventures and helping businesses work better.</p></li><li><span class="eyebrow muted">Labels / Inter Tight 500</span><p class="type-label">Detroit, Michigan · The Peninsular Company</p></li></ul></div>
+        </section>
+
+        <section id="place" aria-labelledby="place-title">
+            <div class="section-head"><p class="eyebrow">03 / A sense of place</p><div><h2 id="place-title">The view from here.</h2><p class="description">The place is present in the structure: Michigan Modern’s economy, the Guardian’s material warmth, the Penobscot’s clear silhouette, the Mackinac Bridge’s sense of connection, and the open space of Lake Michigan.</p></div></div>
+            <div class="lake-pair"><figure><img src="lake/peninsular-lake-day.svg" width="1200" height="360" alt="Belle Isle lighthouse and a freighter in the day palette"><figcaption><span>Day / Paper and ink</span><a href="lake/peninsular-lake-day.svg" download aria-label="Download day lake illustration as SVG">SVG</a></figcaption></figure><figure><img src="lake/peninsular-lake-night.svg" width="1200" height="360" alt="Belle Isle lighthouse lit against a dark blue night sky"><figcaption><span>Night / The light stays on</span><a href="lake/peninsular-lake-night.svg" download aria-label="Download night lake illustration as SVG">SVG</a></figcaption></figure></div>
+            <p class="lake-note">The original Belle Isle drawing remains the companion illustration: Livingstone Lighthouse, a freighter, and open water. Keep it wide, on covers or quiet transitions. The block and wordmark stand on their own at smaller sizes.</p>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-title">
+            <div class="section-head"><p class="eyebrow">04 / In use</p><div><h2 id="applications-title">Made for the everyday.</h2><p class="description">The same spacing, colors, and proportions carry into a letter, an email, or a profile. Each file below uses the current identity.</p></div></div>
+            <div class="applications"><figure><div class="letterhead"><img src="stationery/peninsular-letterhead.png" width="1700" height="2200" alt="US Letter stationery with the refined stacked wordmark, contact details, and a fine footer rule"></div><figcaption class="application-caption"><span>Letterhead / US Letter</span><a href="stationery/peninsular-letterhead.pdf" download>Download PDF</a></figcaption></figure><div><figure><div class="signature"><div><p class="name">Joe Lint</p><p class="role">Principal</p><img src="logo/peninsular-logo-line.svg" width="242" height="56" alt="The Peninsular Company"><p class="details">hello@thepeninsularcompany.com<br>thepeninsularcompany.com<br><span class="muted">Detroit, Michigan</span></p></div></div><figcaption class="application-caption"><span>Email signature</span><a href="stationery/peninsular-email-signature.html">Open signature</a></figcaption></figure><figure class="app-social"><img src="social/peninsular-x-header-night.png" width="1500" height="500" alt="Night lake drawing composed as a social profile cover"><figcaption class="application-caption"><span>Profile cover / After dark</span><a href="social/peninsular-x-header-night.png" download>Download PNG</a></figcaption></figure></div></div>
+        </section>
+
+        <section id="system" aria-labelledby="system-title">
+            <div class="section-head"><p class="eyebrow">05 / The system</p><div><h2 id="system-title">A small set of decisions, carried through.</h2><p class="description">Clear margins, square edges, and the same solid block. The parent company stays recognizable while each venture keeps its own identity.</p></div></div>
+            <div class="applications"><figure><div class="card-pair"><img src="stationery/peninsular-business-card-front.png" width="1200" height="686" alt="Business card front for Joe Lint, Principal"><img src="stationery/peninsular-business-card-back.png" width="1200" height="686" alt="Pine business card reverse with the company wordmark"></div><figcaption class="application-caption"><span>Business card / 3.5 × 2 in</span><a href="stationery/peninsular-business-card.pdf" download>Two-sided PDF</a></figcaption></figure><figure><div class="standards-cover"><img src="standards/peninsular-brand-standards-cover.png" width="1082" height="1400" alt="The Peninsular Company identity standard cover"></div><figcaption class="application-caption"><span>Identity standard / Six pages</span><a href="standards/peninsular-brand-standards.pdf" download>Download PDF</a></figcaption></figure></div>
+            <div class="voice-panel"><div><p class="eyebrow">The voice</p><h3>Say what helps.<br>Show what is real.</h3></div><div><p>“We get to know your business. Then we build what helps.”</p><p class="small muted">Plain words, specific work, and accurate credit. Lead with what changes for the customer. Keep client and venture identities intact.</p></div></div>
+            <p class="references small muted">Reference points: <a href="https://cranbrookartmuseum.org/exhibition/michigan-modern-design-that-shaped-america/">Cranbrook’s Michigan Modern</a>, <a href="https://www.guardianbuilding.com/history">the Guardian Building</a>, <a href="https://www.mackinacbridge.org/history/facts-figures/">the Mackinac Bridge</a>, and <a href="https://www.knoll.com/knollnewsdetail/herbert-matter-defining-knoll">Knoll’s graphic history</a>. The compositions are original; historic artwork is not reproduced.</p>
+        </section>
+
+        <section id="downloads" aria-labelledby="downloads-title">
+            <div class="section-head"><p class="eyebrow">06 / Files</p><div><h2 id="downloads-title">The working files.</h2><p class="description">SVG and PDF keep the logos sharp at any size. Logo PNG files have transparent backgrounds. The full kit includes the reversed and single-color versions.</p></div></div>
+            <table class="downloads-table"><thead><tr><th scope="col">Asset</th><th scope="col">Formats</th><th scope="col">Use</th></tr></thead><tbody>
+                <tr><td>Stacked wordmark</td><td><div class="download-links"><a href="logo/peninsular-logo-stacked.svg" download aria-label="Download stacked wordmark SVG">SVG</a><a href="logo/peninsular-logo-stacked.png" download aria-label="Download stacked wordmark PNG">PNG</a><a href="logo/peninsular-logo-stacked.pdf" download aria-label="Download stacked wordmark PDF">PDF</a></div></td><td>Opening pages, documents, larger placements.</td></tr>
+                <tr><td>Horizontal signature</td><td><div class="download-links"><a href="logo/peninsular-logo-line.svg" download aria-label="Download horizontal signature SVG">SVG</a><a href="logo/peninsular-logo-line.png" download aria-label="Download horizontal signature PNG">PNG</a><a href="logo/peninsular-logo-line.pdf" download aria-label="Download horizontal signature PDF">PDF</a></div></td><td>Headers, email, compact placements.</td></tr>
+                <tr><td>Square icon</td><td><div class="download-links"><a href="icon/peninsular-icon.svg" download aria-label="Download square icon SVG">SVG</a><a href="icon/peninsular-icon-1024.png" download aria-label="Download square icon 1024 pixel PNG">1024</a><a href="icon/peninsular-icon-512.png" download aria-label="Download square icon 512 pixel PNG">512</a><a href="icon/peninsular-icon-180.png" download aria-label="Download square icon 180 pixel PNG">180</a></div></td><td>Favicons, listings, billing profiles.</td></tr>
+                <tr><td>Profile avatar</td><td><div class="download-links"><a href="social/peninsular-avatar.svg" download aria-label="Download profile avatar SVG">SVG</a><a href="social/peninsular-avatar.png" download aria-label="Download profile avatar PNG">PNG</a></div></td><td>Social profiles and circular crops.</td></tr>
+                <tr><td>Lake illustration</td><td><div class="download-links"><a href="lake/peninsular-lake-day.svg" download>Day SVG</a><a href="lake/peninsular-lake-day.png" download>Day PNG</a><a href="lake/peninsular-lake-night.svg" download>Night SVG</a><a href="lake/peninsular-lake-night.png" download>Night PNG</a></div></td><td>Covers and wide compositions.</td></tr>
+                <tr><td>Social covers</td><td><div class="download-links"><a href="social/peninsular-x-header.png" download>X / Day</a><a href="social/peninsular-x-header-night.png" download>X / Night</a><a href="social/peninsular-linkedin-cover.png" download>LinkedIn</a></div></td><td>Sized for the supplied profile formats.</td></tr>
+                <tr><td>Letterhead</td><td><div class="download-links"><a href="stationery/peninsular-letterhead.pdf" download aria-label="Download letterhead PDF">PDF</a><a href="stationery/peninsular-letterhead.png" download aria-label="Download letterhead PNG">PNG</a></div></td><td>8.5 × 11 in. PNG at 200 dpi.</td></tr>
+                <tr><td>Email signature</td><td><div class="download-links"><a href="stationery/peninsular-email-signature.html">Open and copy</a></div></td><td>Company-only and named versions.</td></tr>
+                <tr><td>Business card</td><td><div class="download-links"><a href="stationery/peninsular-business-card.pdf" download>Two-sided PDF</a></div></td><td>3.5 × 2 in, no bleed. Proof before production.</td></tr>
+                <tr><td>Identity standard</td><td><div class="download-links"><a href="standards/peninsular-brand-standards.pdf" download>Six-page PDF</a></div></td><td>Idea, voice, marks, colors, type, and use.</td></tr>
+                <tr><td>Company cover</td><td><div class="download-links"><a href="social/peninsular-company-cover.png" download>PNG</a></div></td><td>1500 × 500 px, with name and symbol.</td></tr>
+            </tbody></table>
+            <div class="bundle"><p>The complete identity: six wordmark variants, icons, covers, original lake illustrations, stationery, source vectors, and the six-page identity standard.</p><a href="peninsular-brand-kit.zip" download>Download all files <span aria-hidden="true">↗</span></a></div>
+        </section>
+    </main>
+    <footer><div class="wrap footer-inner"><p>The Peninsular Company, LLC<br>Detroit, Michigan</p><p>If you seek a pleasant peninsula, look about you.</p><div class="legal"><a href="/">Company website</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div></div></footer>
+    <script>
+        const state = { arrangement: 'stacked', surface: 'paper' };
+        const stage = document.getElementById('logo-stage');
+        function updatePreview() {
+            const reversed = state.surface !== 'paper';
+            const file = `logo/peninsular-logo-${state.arrangement}${reversed ? '-white' : ''}`;
+            const arrangement = state.arrangement === 'stacked' ? 'Stacked' : 'Horizontal';
+            stage.dataset.arrangement = state.arrangement;
+            stage.dataset.surface = state.surface;
+            const logo = document.getElementById('preview-logo');
+            logo.src = `${file}.svg`;
+            logo.alt = `The Peninsular Company ${arrangement.toLowerCase()} wordmark on ${state.surface}`;
+            document.getElementById('preview-caption').textContent = `${arrangement} wordmark / ${reversed ? 'White' : 'Full color'}`;
+            document.getElementById('preview-svg').href = `${file}.svg`;
+            document.getElementById('preview-png').href = `${file}.png`;
+            document.querySelectorAll('button[data-arrangement]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.arrangement === state.arrangement)));
+            document.querySelectorAll('button[data-surface]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.surface === state.surface)));
+        }
+        document.querySelectorAll('button[data-arrangement]').forEach(button => button.addEventListener('click', () => { state.arrangement = button.dataset.arrangement; updatePreview(); }));
+        document.querySelectorAll('button[data-surface]').forEach(button => button.addEventListener('click', () => { state.surface = button.dataset.surface; updatePreview(); }));
+    </script>
+</body>
+</html>
