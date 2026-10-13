@@ -277,26 +277,54 @@
 
         /* ---------- Selected work ---------- */
         #portfolio { padding-top: 48px; }
-        .portfolio-list { list-style: none; margin: 36px 0 0; padding: 0; border-top: 1px solid var(--ink); }
-        .portfolio-item {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-            gap: 24px 32px;
-            align-items: start;
-            padding: 28px 0;
-            border-bottom: 1px solid var(--rule);
-        }
-        .portfolio-preview { display: block; border: 1px solid var(--rule); }
-        .portfolio-preview:hover { border-color: var(--pine); }
-        .portfolio-preview img { display: block; width: 100%; height: auto; }
+        .portfolio-list { grid-column: 1 / -1; list-style: none; margin: 44px 0 0; padding: 0; }
+        .portfolio-item { padding: 0 0 56px; border-bottom: 1px solid var(--rule); }
+        .portfolio-item + .portfolio-item { margin-top: 56px; }
+        .portfolio-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 24px; }
+        .portfolio-heading h3 { font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.025em; }
         .portfolio-industry { margin-bottom: 10px; }
-        .portfolio-description { margin-top: 12px; color: var(--ink-2); text-wrap: pretty; }
-        .portfolio-scope { margin-top: 16px; color: var(--pine); }
-        .portfolio-credit { margin-top: 8px; }
-        .portfolio-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; text-underline-offset: 4px; }
-        .portfolio-link:hover { color: var(--pine); }
-        .portfolio-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; }
-        .portfolio-project { font-weight: 600; }
+        .portfolio-live { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
+        .portfolio-preview {
+            display: block;
+            position: relative;
+            aspect-ratio: 1.9;
+            overflow: hidden;
+            background: var(--stage);
+            border: 1px solid rgba(20, 20, 20, 0.05);
+        }
+        .portfolio-desktop, .portfolio-mobile { display: block; position: absolute; overflow: hidden; }
+        .portfolio-desktop {
+            left: 5%; top: 7%; width: 80%; aspect-ratio: 1.6;
+            border-radius: 4px;
+            box-shadow: 0 22px 50px rgba(20, 20, 20, 0.16), 0 2px 8px rgba(20, 20, 20, 0.1);
+        }
+        .portfolio-desktop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .portfolio-mobile {
+            right: 4%; bottom: 5%; width: 20%; max-width: 230px;
+            border: 4px solid #fff; border-radius: 12px;
+            box-shadow: 0 18px 40px rgba(20, 20, 20, 0.22), 0 2px 8px rgba(20, 20, 20, 0.1);
+        }
+        .portfolio-mobile img { display: block; width: 100%; height: auto; border-radius: 8px; }
+        .portfolio-body { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px 64px; padding-top: 28px; }
+        .portfolio-description { max-width: 640px; font-size: 20px; line-height: 1.45; text-wrap: pretty; }
+        .portfolio-scope { color: var(--pine); }
+        .portfolio-credit { margin-top: 12px; }
+        .portfolio-project { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-weight: 600; text-underline-offset: 4px; }
+        .portfolio-live:hover, .portfolio-project:hover { color: var(--pine); }
+
+        @media (max-width: 640px) {
+            .portfolio-list { margin-top: 36px; }
+            .portfolio-item { padding-bottom: 36px; }
+            .portfolio-item + .portfolio-item { margin-top: 36px; }
+            .portfolio-heading { display: block; margin-bottom: 16px; }
+            .portfolio-live { margin-top: 4px; }
+            .portfolio-preview { aspect-ratio: 1.16; }
+            .portfolio-desktop { left: 5%; top: 8%; width: 86%; border-radius: 3px; box-shadow: 0 12px 26px rgba(20, 20, 20, 0.16); }
+            .portfolio-mobile { right: 4%; bottom: 5%; width: 28%; border-width: 3px; border-radius: 8px; box-shadow: 0 12px 24px rgba(20, 20, 20, 0.22); }
+            .portfolio-mobile img { border-radius: 5px; }
+            .portfolio-body { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-top: 22px; }
+            .portfolio-description { font-size: 18px; }
+        }
 
         /* ---------- Contact ---------- */
         .email {
@@ -375,7 +403,6 @@
             .work .links { grid-column: 1 / -1; grid-row: 3; gap: 0 22px; margin-top: 0; }
             .work .links a { padding: 8px 0; }
             .service { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-            .portfolio-item { grid-template-columns: minmax(0, 1fr); }
             footer { margin-top: 112px; }
             footer .grid > div { grid-column: 1 / -1; }
         }
@@ -430,7 +457,8 @@
             li, .contact, footer { break-inside: avoid; }
             #advisory { break-before: page; padding-top: 0; }
             .service { padding: 16px 0; }
-            .portfolio-item { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 18px 0; }
+            .portfolio-item { padding: 18px 0; }
+            .portfolio-preview { aspect-ratio: 1.9; }
             .work { padding: 16px 0 18px; }                 /* keep the works together on one page */
             .work h3 a::after { content: attr(href); margin-left: 12px; font-size: 13.5px; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
             footer { margin-top: 64px; border-top: 1px solid var(--ink); background: none; color: var(--ink); }
@@ -631,58 +659,74 @@
                 <div class="section-body">
                     <h2 id="portfolio-title" class="section-title">Selected work</h2>
                     <p class="section-intro">Branding, websites, and marketing by Joe Lint, across independent client work and his role at Lotus International.</p>
-
-                    <ul class="portfolio-list" role="list">
-                        <li class="portfolio-item">
-                            <a class="portfolio-preview" href="work/lotus-international/" aria-label="Explore the Lotus International project">
-                                <img src="images/portfolio/lotus-international-website.jpg" alt="Lotus International website showing its manufacturing facility and capabilities." width="1280" height="860" loading="lazy" decoding="async">
-                            </a>
-                            <div class="portfolio-body">
-                                <p class="portfolio-industry small muted">Contract manufacturing</p>
-                                <h3>Lotus International</h3>
-                                <p class="portfolio-description">A clear way into a business that spans manufacturing, assembly, warehousing, and repair, from finding the right capability to starting an informed inquiry.</p>
-                                <p class="portfolio-scope small">Branding &middot; Web design &amp; development &middot; Marketing</p>
-                                <p class="portfolio-credit small muted">In-house work as Business Development &amp; Marketing Specialist.</p>
-                                <div class="portfolio-actions">
-                                    <a class="portfolio-link portfolio-project small" href="work/lotus-international/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
-                                    <a class="portfolio-link small muted" href="https://licus.com/">licus.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="portfolio-item">
-                            <a class="portfolio-preview" href="work/clark-waterproofing/" aria-label="Explore the Clark Basement Waterproofing project">
-                                <img src="images/portfolio/clark-waterproofing-website.jpg" alt="Clark Basement Waterproofing website with its red and cream identity and illustrated basement mascot." width="1280" height="860" loading="lazy" decoding="async">
-                            </a>
-                            <div class="portfolio-body">
-                                <p class="portfolio-industry small muted">Home services</p>
-                                <h3>Clark Basement Waterproofing</h3>
-                                <p class="portfolio-description">Branding, a website, and ongoing marketing that bring a family company’s experience and character into the way homeowners find and choose it.</p>
-                                <p class="portfolio-scope small">Branding &middot; Web design &amp; development &middot; Marketing</p>
-                                <p class="portfolio-credit small muted">Independent client work.</p>
-                                <div class="portfolio-actions">
-                                    <a class="portfolio-link portfolio-project small" href="work/clark-waterproofing/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
-                                    <a class="portfolio-link small muted" href="https://www.clarkwaterproofing.com/">clarkwaterproofing.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="portfolio-item">
-                            <a class="portfolio-preview" href="work/trialassure/" aria-label="Explore the TrialAssure project">
-                                <img src="images/portfolio/trialassure-website.jpg" alt="TrialAssure website introducing its clinical trial software with a product illustration." width="1280" height="860" loading="lazy" decoding="async">
-                            </a>
-                            <div class="portfolio-body">
-                                <p class="portfolio-industry small muted">Life sciences</p>
-                                <h3>TrialAssure</h3>
-                                <p class="portfolio-description">A brand and website that connect a technical product offering to the teams using it, with clearer product stories and routes to the right information.</p>
-                                <p class="portfolio-scope small">Branding &middot; Web design &amp; development &middot; Marketing input</p>
-                                <p class="portfolio-credit small muted">Work for Lotus International&rsquo;s sister company.</p>
-                                <div class="portfolio-actions">
-                                    <a class="portfolio-link portfolio-project small" href="work/trialassure/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
-                                    <a class="portfolio-link small muted" href="https://trialassure.com/">trialassure.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
+                <ul class="portfolio-list" role="list">
+                    <li class="portfolio-item" style="--stage: #DCE2E5">
+                        <div class="portfolio-heading">
+                            <div>
+                                <p class="portfolio-industry small muted">01 &middot; Contract manufacturing</p>
+                                <h3>Lotus International</h3>
+                            </div>
+                            <a class="portfolio-live small muted" href="https://licus.com/">licus.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
+                        </div>
+                        <a class="portfolio-preview" href="work/lotus-international/" aria-label="Explore the Lotus International project">
+                            <span class="portfolio-desktop"><img src="images/portfolio/lotus-international-website.jpg" alt="Desktop view of the Lotus International website." width="1280" height="860" loading="lazy" decoding="async"></span>
+                            <span class="portfolio-mobile"><img src="images/portfolio/lotus-international-mobile.jpg" alt="Mobile view of the Lotus International website." width="390" height="844" loading="lazy" decoding="async"></span>
+                        </a>
+                        <div class="portfolio-body">
+                            <p class="portfolio-description">A clear way into a business that spans manufacturing, assembly, warehousing, and repair, from finding the right capability to starting an informed inquiry.</p>
+                            <div>
+                                <p class="portfolio-scope small">Branding · Website design &amp; development · Marketing</p>
+                                <p class="portfolio-credit small muted">In-house work by Joe Lint as Business Development &amp; Marketing Specialist at Lotus International.</p>
+                                <a class="portfolio-project small" href="work/lotus-international/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="portfolio-item" style="--stage: #E9D9C8">
+                        <div class="portfolio-heading">
+                            <div>
+                                <p class="portfolio-industry small muted">02 &middot; Home services</p>
+                                <h3>Clark Basement Waterproofing</h3>
+                            </div>
+                            <a class="portfolio-live small muted" href="https://www.clarkwaterproofing.com/">clarkwaterproofing.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
+                        </div>
+                        <a class="portfolio-preview" href="work/clark-waterproofing/" aria-label="Explore the Clark Basement Waterproofing project">
+                            <span class="portfolio-desktop"><img src="images/portfolio/clark-waterproofing-website.jpg" alt="Desktop view of the Clark Basement Waterproofing website." width="1280" height="860" loading="lazy" decoding="async"></span>
+                            <span class="portfolio-mobile"><img src="images/portfolio/clark-waterproofing-mobile.jpg" alt="Mobile view of the Clark Basement Waterproofing website." width="390" height="844" loading="lazy" decoding="async"></span>
+                        </a>
+                        <div class="portfolio-body">
+                            <p class="portfolio-description">Branding, a website, and ongoing marketing that bring a family company’s experience and character into the way homeowners find and choose it.</p>
+                            <div>
+                                <p class="portfolio-scope small">Branding · Website design &amp; development · Paid advertising · Direct mail</p>
+                                <p class="portfolio-credit small muted">Independent client work by Joe Lint, including ongoing website maintenance, paid campaigns, and direct mail design and coordination.</p>
+                                <a class="portfolio-project small" href="work/clark-waterproofing/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="portfolio-item" style="--stage: #DBE5EA">
+                        <div class="portfolio-heading">
+                            <div>
+                                <p class="portfolio-industry small muted">03 &middot; Life sciences</p>
+                                <h3>TrialAssure</h3>
+                            </div>
+                            <a class="portfolio-live small muted" href="https://trialassure.com/">trialassure.com <span aria-hidden="true">&nbsp;&nearr;</span></a>
+                        </div>
+                        <a class="portfolio-preview" href="work/trialassure/" aria-label="Explore the TrialAssure project">
+                            <span class="portfolio-desktop"><img src="images/portfolio/trialassure-website.jpg" alt="Desktop view of the TrialAssure website." width="1280" height="860" loading="lazy" decoding="async"></span>
+                            <span class="portfolio-mobile"><img src="images/portfolio/trialassure-mobile.jpg" alt="Mobile view of the TrialAssure website." width="390" height="844" loading="lazy" decoding="async"></span>
+                        </a>
+                        <div class="portfolio-body">
+                            <p class="portfolio-description">A brand and website that connect a technical product offering to the teams using it, with clearer product stories and routes to the right information.</p>
+                            <div>
+                                <p class="portfolio-scope small">Branding · Website design &amp; development · Marketing input</p>
+                                <p class="portfolio-credit small muted">Brand and website work by Joe Lint for Lotus International’s sister company, with input on marketing and messaging.</p>
+                                <a class="portfolio-project small" href="work/trialassure/">Explore the project <span aria-hidden="true">&nbsp;&rarr;</span></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </section>
 
