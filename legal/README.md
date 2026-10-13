@@ -23,7 +23,9 @@ in HTML or Markdown.
 Only the marked facts are shared. Everything else on a legal page, above all
 what each app does with data, is that app's own text and is edited in its own
 repo. This site's own `/privacy/` and `/terms/` are not synced: edit them by
-hand in the same commit when a fact changes.
+hand in the same commit when a fact changes. Inkblotter's pages under
+`app/inkblotter/` are not synced either: rebuild them from the Inkblotter
+project, whose build script reads `company.json`.
 
 ## How the sites carry the facts
 

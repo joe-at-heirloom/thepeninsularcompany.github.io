@@ -30,6 +30,10 @@ Keep it this spare. A new sentence should replace one, not join it. Screenshots 
 
 `legal/company.json` holds the company facts every app's privacy policy and terms share (legal name, where, which law governs). Change it and push: the **Legal sync** workflow updates and publishes every app site. See [legal/README.md](legal/README.md). `_config.yml` keeps `legal/` and `scripts/` off the published site.
 
+## Inkblotter's pages
+
+`app/inkblotter/` is Inkblotter's own site: the app's page and press kit, with its support, privacy, and terms pages. It keeps the app's look (a black notebook, with the Bodoni and Hoefler faces already on the reader's device) and loads nothing from outside this site. It is the one generated part of the site. The sources and the script are in the Inkblotter project (`Launch/press-kit/`), and `python3 Launch/press-kit/build.py` rewrites the whole folder, so change the pages there, not here. The script takes the legal name, place, and governing law from `legal/company.json`. The legal sync does not reach these pages: rebuild them when a fact changes.
+
 ## Brand kit
 
 `brand/` holds six signature variants, icons, lake illustrations, social covers, letterhead, a two-sided business card, email signatures, and a six-page identity standard. The interactive guide at `/brand/` is linked from the footer and marked `noindex`. The ZIP includes a working offline guide, the licensed fonts, source vectors, and usage notes.
@@ -46,7 +50,7 @@ The supplied colors are RGB. Letterhead is US Letter; cards are 3.5 × 2 inches,
 
 ## How the page is built
 
-The site is static HTML with two shared stylesheets and self-hosted fonts. No build step.
+The site is static HTML with two shared stylesheets and self-hosted fonts. No build step, except for `app/inkblotter/` (see above).
 
 - `styles/brand.css` is the identity: the two font families, their stand-ins, and the colors (limestone, ink, pine, brick, lake, night).
 - `styles/site.css` is everything else, for every page: the home page, the project pages under `work/`, `privacy/`, `terms/`, and `404.html`. No page carries its own pasted copy of the styles. `brand/index.html`, the brand guide, is the exception: it is self-contained so it also works from the ZIP.
