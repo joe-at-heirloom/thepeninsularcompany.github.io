@@ -10,7 +10,11 @@ The home page says each thing once, in this order:
 
 - **Header**: the compact signature (a solid pine-green block, #234B40, with the Archivo wordmark) and five links. On a phone the links take their own row; there is no menu button.
 - **Hero**: the headline, one statement, one link to Contact.
-- **The lake**: a line drawing across the full width of the page, directly under the hero, looking across the water at the east end of Belle Isle. On the left is the William Livingstone Memorial Lighthouse (Albert Kahn, architect; Géza Maróti, sculptor; 1930), drawn from measured proportions. In the middle is a freighter; to the right is open water. The drawing is pinned to its left edge and never taller than half its width, so a phone still shows the lighthouse and the whole freighter. It follows the real light in Detroit: afternoon, golden hour, sunset, blue hour, and night, with the sun and moon placed where they actually are. After dark the lighthouse lamp blinks the way the Coast Guard lists it (occulting white, 4 s). It carries no caption.
+- **The lake**: a line drawing across the full width of the page, directly under the hero, looking across the water at the east end of Belle Isle. On the left is the William Livingstone Memorial Lighthouse (Albert Kahn, architect; Géza Maróti, sculptor; 1930), drawn from measured proportions. In the middle is a freighter; to the right is open water. The drawing is pinned to its left edge and never taller than half its width, so a phone still shows the lighthouse and the whole freighter. It is drawn as the place is at that moment, and it carries no caption:
+  - **The hour.** Afternoon, golden hour, sunset, blue hour, and night, with the sun and moon placed where they actually are. After dark the lighthouse lamp blinks the way the Coast Guard lists it (occulting white, 4 s).
+  - **The sky.** After sunset the stars are the real ones in that direction: the 419 stars of the Yale Bright Star Catalogue down to magnitude 4.0 (about what a city sky shows), plus Mercury, Venus, Mars, Jupiter, and Saturn. Each appears when the sky is dark enough for it, Venus first. Planet positions were checked against NASA JPL Horizons on four dates and agree within 0.03°.
+  - **The year.** The island's trees are in leaf from mid-May to late October and bare from mid-November to mid-April, with a few weeks of change between. Ice sets in through January, is solid in February, and is gone by late March (a typical year; it goes by the calendar, not by measurement). The freighter is absent while the Soo Locks are closed, from 11:59 pm on January 15 to 12:01 am on March 25.
+  - **The weather.** Wind breaks the water lines into chop, fog fades the far shore and the freighter, cloud draws a few long lines across the sky and dims the sun, moon, and stars, and rain and snow fall. The reading is the National Weather Service's latest observation at Detroit City Airport (station KDET), fetched by the visitor's browser from api.weather.gov and kept for ten minutes. If it fails or is more than three hours old, the lake is calm and clear. This is the site's one outside request, and the privacy policy says so.
 - **Work**: three client projects, each a small screenshot, the name, the industry, and one sentence giving scope and credit. Each links to its page under `work/`.
 - **Services**: one statement and three services, a sentence each.
 - **Auction houses**: one statement and six areas, a sentence each.
@@ -56,7 +60,7 @@ The site is static HTML with two shared stylesheets and self-hosted fonts. No bu
 - `styles/site.css` is everything else, for every page: the home page, the project pages under `work/`, `privacy/`, `terms/`, and `404.html`. No page carries its own pasted copy of the styles. `brand/index.html`, the brand guide, is the exception: it is self-contained so it also works from the ZIP.
 - The header signature is outlined paths pasted into each page (the generator keeps them equal to `brand/source/`). The footer's white signature is the kit's own file, `brand/logo/peninsular-logo-line-white.svg`.
 - The lake is one inline SVG in `index.html`. The High Lift Pumping Station at Water Works Park was taken out of it on October 2, 2026; leave it out.
-- Two scripts sit in the `<head>` of `index.html`. `ASTRO` works out where the sun and moon are over Detroit (NOAA low-precision sun, Schlyter moon, checked against the April 8, 2024 solar eclipse and the March 14, 2025 lunar eclipse). `LAKE` turns that into the lake's colors and sets them before the page first draws, so a visitor at night never sees a flash of the day drawing. It runs again right after the drawing, to place the sun and moon, and every 30 seconds after that. By day the lake's ground is the page's limestone and its line is the page's ink.
+- Three scripts sit in the `<head>` of `index.html`. `ASTRO` works out where the sun and moon are over Detroit (NOAA low-precision sun, Schlyter moon, checked against the April 8, 2024 solar eclipse and the March 14, 2025 lunar eclipse). `SKY` holds the star catalogue and the planets' orbits. `LAKE` turns the hour, the date, and the weather into the lake's colors and settings and sets them before the page first draws, so a visitor at night never sees a flash of the day drawing. It runs again right after the drawing, to place the sun, moon, and stars and to break the water lines, and every 30 seconds after that. The drawing's parts are grouped by name (`isle`, `tower`, `ship`, `water`, `bare`, `clouds`, `rain`, `snow`) so the script and the stylesheet can address them. By day the lake's ground is the page's limestone and its line is the page's ink.
 
 `site.css` ends with three blocks worth knowing about:
 
@@ -66,6 +70,17 @@ The site is static HTML with two shared stylesheets and self-hosted fonts. No bu
 
 **Fonts.** Archivo is the display face, used only at width 94 and weights 500 to 700, so the site serves `fonts/archivo-display.woff2`, cut to exactly that (30 KB). `fonts/archivo-latin.ttf` is the full file; the brand kit generator and the ZIP use it, the site does not. Inter Tight is for reading and labels. Until either font loads, Helvetica or Arial stands in at its width (the `Fallback` faces in `brand.css`), so lines do not rewrap when it arrives. Neither font has arrow glyphs, so the site does not use arrows.
 
+**Previewing the lake.** Add `?at=` or `?wx=` to the address to see another time or other weather. With either one, the live weather is not fetched.
+
+```
+index.html?at=19:30                     today at 7:30 PM, Detroit time
+index.html?at=2027-02-10T14:00          a given date and time (here: ice, bare trees, no freighter)
+index.html?wx=wind:35,rain              wind in km/h, with rain
+index.html?wx=fog:0.8                   fog, from 0 to 1
+index.html?wx=snow&at=2027-01-20T15:30  snow on a January afternoon
+index.html?wx=cloud:1                   overcast; wx=clear for none of it
+```
+
 ## Tech stack
 
 | Layer | What |
@@ -74,7 +89,7 @@ The site is static HTML with two shared stylesheets and self-hosted fonts. No bu
 | Styles | `styles/brand.css` (identity) and `styles/site.css` (every page) |
 | Scripts | Vanilla JS, all inline: sun and moon positions, lake colors |
 | Fonts | Archivo and Inter Tight, served from `fonts/` under SIL Open Font License; logos are outlines |
-| Analytics | None. No cookies, no tracking |
+| Analytics | None. No cookies, no tracking. One outside request: the weather, from api.weather.gov |
 | Hosting | GitHub Pages |
 | Domain | thepeninsularcompany.com via `CNAME` (DNS on Cloudflare) |
 

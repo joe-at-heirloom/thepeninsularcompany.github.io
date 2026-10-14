@@ -18,10 +18,10 @@
     <meta property="og:url" content="https://thepeninsularcompany.com/">
     <meta property="og:title" content="The Peninsular Company">
     <meta property="og:description" content="Helping businesses work better and grow. Strategy, design, and technology from Detroit, Michigan, and ventures of our own.">
-    <meta property="og:image" content="https://thepeninsularcompany.com/og-image.png?v=3">
+    <meta property="og:image" content="https://thepeninsularcompany.com/og-image.png?v=4">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Peninsular Company logo above a line drawing of the Livingstone Memorial Lighthouse on Belle Isle, seen across the water.">
+    <meta property="og:image:alt" content="The Peninsular Company: Helping businesses work better and grow. Below, a line drawing of the Livingstone Memorial Lighthouse on Belle Isle, seen across the water.">
     <meta name="twitter:card" content="summary_large_image">
 
     <script type="application/ld+json">
@@ -96,21 +96,102 @@
                 var elong = rev(lon - sun(ms).lon);                               // 0 new, 180 full
                 return { alt: h.alt, az: h.az, lit: (1 - Math.cos(elong * R)) / 2, waxing: elong < 180, elong: elong };
             }
-            return { sun: sun, moon: moon };
+            return { sun: sun, moon: moon, horizon: horizon, days: days };
         })();
     </script>
     <script>
-        // The lake is drawn in Detroit's light at this moment: day, dusk, or night,
-        // with the sun and moon where they actually are when they're in view.
-        // The colors are set here in the head, before the page first draws, so the
-        // lake never shows the wrong hour. LAKE.paint() runs again once the drawing
-        // exists, to place the sun and moon.
+        // The real sky over Detroit: the stars a city can see, and the five naked-eye planets.
+        // Stars are the Yale Bright Star Catalogue to magnitude 4.0 (419 of them), packed as
+        // right ascension, declination, and brightness. Planets use Paul Schlyter's elements,
+        // good to a fraction of a degree. Both are checked against JPL Horizons.
+        var SKY = (function () {
+            var R = Math.PI / 180;
+            function rev(x) { return ((x % 360) + 360) % 360; }
+            var PACKED = '7td5nk0gi88fa9ljn9xq963xahs962f6b8a8uz7cib6un7ilcmyy7mne5bm87vej334wlffj6630f8z593vgqkp4nqgny4afsgbqh7v9h82q4pjikbo42yj69s7fnj6al95hj6hh6uojpme3bkjexjb9gk3xwasikcsxbpjk89i4wpklas4aikfyoaqzkke93mkk6xoaevk7o787kl7ds5k4l8rp9ellay669yl2gb8r6liic8y0l2xfdtyllwe4wyl0ua5k1l6kn6sml05u96tl1cf9oyl6pi675lgbz44zlh6kco0lkcl7wwlqab3bsm3moa3smdoe82hmnksa1umakk3ldm0s5bb2m6ek6x6mi13907mkrnax1m9bu3uwm2e2a7ln06dbibnfiab6lnjhi4arngw03owniiw576ncrmbamn0i93ohnp5p7pgnkhu3xlnqoy940ojvj5qcodrqb35oonxbrvo8ke4omoo1f9kdo13ebmooqpn849o3il79dod058j0oj8h64no6f25kioe6z5lapm1h4n0pbyj8h4phot67yp6xt9tdpimg5ezp27m8jtp6jv4bdpejw550pi7r7fvp1nlblcpg3n8d4phbz3m7p5q99i5pk9p42ep8fl42yph2l917pl8l4n5pmvs7rhpisn6nrpizcbovpffz441qh6o5pgq6gy6hlqj3o8lpqkij7apqi1f3rnq5xs6jvqk9hazaq9el52iqjbc9dsqldf4zeqj7l4rmq097846qf367sgq6by5ccq4il9ekq4dz8syqmuwafdqp7o5p7q7dy8ojq8rp9elq4l6a15qihv4xhqixe4yxqm6g5bmq8mj7l1qeyx9wgqowx6ijq3kcb2nrqaj99yr4lb5whregr5o4rpkp6x4r7si8vtrbau8s1r5tpabqrky14lirm3f80ir2hz9n7r6ih8kqre31576rfet55nr4atamrrcx2admrpcg428r7c44mir85s53trgtm9wfrkle3ujr2os6pqrg043o1rc06a5arhrechjrm8ec5yrjip40brml093ornjx5syrabt7ejscj55p1sl6943ws6rq46nsatm9ljshcf3p2saegangsjys8v0sjys9s9s5wva4js7o83m0sb1taxksjugc0jslpp4v1s5la7hcs5w557vsjmq7o2sojz99zskmy434srdocxnshru3t3snd76vqsouwce0s3ft3u2sive6kzslyy9gts8nz3lqsl8t6pyt0rb9bqtgbr4vwtk3m50ktqim5q2t78c8ojthfu4zsthubbhtt19w3c8t61b5ozte6qbcftm4i4t5tjws3lwt91w50ytd0884vtktc66vtpo7bfot69c6rct7tg7xut9udbmotmhd76ntfpr6wcthsr3hvt27gbuvta5t7futeym77gt3kl9xwt56l863tq9h7s3t1pd3lot26j986tg023q7tiir3zctkkl930uo0sbpsu0y4bemubw98r2um406kgu1bn65qubwja97ulss9iou35f770u4n57wpu84v4sfuhns9ijun4h8g5ud369hxujyi81zuqfe8ucu20a5pquheda27ulcq3ebuly35bdu9kt7njub7l7phubpr88kuqf6c1wu56j8fau8hn8n2uibg6ohujcg9y4upnr7f8u4b166wu6gq7pludd94hiukeg5r8u6oy5suugkt3e2u0di69iu4z34c4ud3s5syuhs545au1w2ap3u8yj8tsujj040eul8mck1unhv5z6u8g887yugtg9adui2q4ruu1md6bav3y87n3v64k6f0v6n857nv7yo9kcvahjal0vb0c3tlv8z340jvbs15zpvdpj72wv1rj84nvjkl3ocvqnoa7lv3a291qv4f58stvnvf82kv50f85fveoy6tzvgaebwuv0pob3qvi3u4navqsw5b7vb0wbt6vi9384uva3m4dtveoy6tzvhwc96vvp2u5nqv3uk59kv5m87dkvqy9774v4c68szvksg979v6vi5unvdmbamqvica7agvn237ftv5oc74sv6xob4svh3g739voefac1vola9vpv25e65av43v67qv93x3tavkz47okv3zv7p1votj57rvqh76cyv5u2a44wixw8f7wkll75jwkpibbzwq0xbgaw3ajb9aw52l8aqwplj8wew4cea8awm2x59mwmbkb29wnwv867wo2g67mwq2eatow86j8j5w8lj938wmkbaxpwnetajuw3nlaemwbefbi0wbyj8h4wi167rawi167rawkfrahtw6j96qsw6rz5c0wc2s5n8w5bd4l4was39s8wj4573iwmwl8dhwrcfaj2w4bs9fpwclp9l2wg653p2wkz995wwmx4cd7w56i86cwa1k3cfwdc5calwi6p8z2wlag8mhwpvp6u5w7dd4d4w8dy4vnwbuw3p0wc7g7nvwig785iwlig6b4w4we3ojwkre9thwl3k5biw13f9wyw3pe4phw4cu8tpw5d65uaw6e047hw7zl52uwej9cbvwg6f3hkw06j3exwaoz74fwbfn8y9wfn83wjwh186iawigi4ovw3ej69awe9u6w5wiweainwn2s9ngw9r56n5wn0470twqtj3gbw4ov7enwa5b3e4wb6o6uuwi1o5sxwjoj9bxxom07clx5bw6opx8wb67hxmeq5kfx0i73koxa4d8cfxd6y7r9xo91a4dx3d0b0kx7nh5gixfiab6kxice4clxqcz8rhx53d4bix6xf3n2x7wm4fpx8y34plxine5clx6s39yrxa1747xxafga62xkug765xmg93t6xq103l6xr2a5e6x2dqcj6x78b6glxng3amjx2bc5bgxh0h411x';
+            var stars = [], epoch = null;
+
+            // J2000 positions, carried forward to the year in question (precession moves them about 0.4 degrees by 2026).
+            function catalog(ms) {
+                var years = (ms - 946728000000) / 31557600000;
+                if (epoch !== null && Math.abs(years - epoch) < 0.5) return stars;
+                epoch = years; stars = [];
+                for (var i = 0; i < PACKED.length; i += 7) {
+                    var ra = parseInt(PACKED.substr(i, 3), 36) / 100, dec = parseInt(PACKED.substr(i + 3, 3), 36) / 100 - 90;
+                    var mag = parseInt(PACKED.charAt(i + 6), 36) / 6 - 1.5;
+                    var dra = (0.012812 + 0.005567 * Math.sin(ra * R) * Math.tan(dec * R)) * years;
+                    var ddec = 0.005567 * Math.cos(ra * R) * years;
+                    stars.push({ ra: (ra + dra) * R, dec: (dec + ddec) * R, mag: mag });
+                }
+                return stars;
+            }
+
+            // name: N, i, w, a, e, M at day 0 and their daily change; then the magnitude at 1 AU and its phase term.
+            var EL = {
+                mercury: [48.3313, 3.24587e-5, 7.0047, 5.00e-8, 29.1241, 1.01444e-5, 0.387098, 0.205635, 5.59e-10, 168.6562, 4.0923344368, -0.36, 0.027],
+                venus:   [76.6799, 2.46590e-5, 3.3946, 2.75e-8, 54.8910, 1.38374e-5, 0.723330, 0.006773, -1.302e-9, 48.0052, 1.6021302244, -4.34, 0.013],
+                mars:    [49.5574, 2.11081e-5, 1.8497, -1.78e-8, 286.5016, 2.92961e-5, 1.523688, 0.093405, 2.516e-9, 18.6021, 0.5240207766, -1.51, 0.016],
+                jupiter: [100.4542, 2.76854e-5, 1.3030, -1.557e-7, 273.8777, 1.64505e-5, 5.20256, 0.048498, 4.469e-9, 19.8950, 0.0830853001, -9.25, 0.014],
+                saturn:  [113.6634, 2.38980e-5, 2.4886, -1.081e-7, 339.3939, 2.97661e-5, 9.55475, 0.055546, -9.499e-9, 316.9670, 0.0334442282, -9.0, 0.044]
+            };
+            function kepler(M, e) {
+                var E = M + e / R * Math.sin(M * R) * (1 + e * Math.cos(M * R));
+                for (var k = 0; k < 6; k++) E = E - (E - e / R * Math.sin(E * R) - M) / (1 - e * Math.cos(E * R));
+                return E;
+            }
+            function planets(ms) {
+                var d = ms / 86400000 - 10957.5 + 1.5;                                 // Schlyter's day number (2000 Jan 0.0)
+                var ecl = (23.4393 - 3.563e-7 * d) * R;
+                var Ms = rev(356.0470 + 0.9856002585 * d), ws = 282.9404 + 4.70935e-5 * d, es = 0.016709 - 1.151e-9 * d;
+                var Es = kepler(Ms, es), xs = Math.cos(Es * R) - es, ys = Math.sqrt(1 - es * es) * Math.sin(Es * R);
+                var rs = Math.sqrt(xs * xs + ys * ys), ls = (Math.atan2(ys, xs) / R + ws) * R;
+                var sx = rs * Math.cos(ls), sy = rs * Math.sin(ls);
+                var Mj = rev(EL.jupiter[9] + EL.jupiter[10] * d), Msat = rev(EL.saturn[9] + EL.saturn[10] * d);
+                var out = [];
+                for (var name in EL) {
+                    var q = EL[name];
+                    var N = (q[0] + q[1] * d) * R, i = (q[2] + q[3] * d) * R, w = (q[4] + q[5] * d) * R, a = q[6], e = q[7] + q[8] * d, M = rev(q[9] + q[10] * d);
+                    var E = kepler(M, e), xv = a * (Math.cos(E * R) - e), yv = a * Math.sqrt(1 - e * e) * Math.sin(E * R);
+                    var v = Math.atan2(yv, xv), r = Math.sqrt(xv * xv + yv * yv);
+                    var xh = r * (Math.cos(N) * Math.cos(v + w) - Math.sin(N) * Math.sin(v + w) * Math.cos(i));
+                    var yh = r * (Math.sin(N) * Math.cos(v + w) + Math.cos(N) * Math.sin(v + w) * Math.cos(i));
+                    var zh = r * Math.sin(v + w) * Math.sin(i);
+                    if (name === 'jupiter' || name === 'saturn') {                        // each one tugs on the other
+                        var lon = Math.atan2(yh, xh) / R, lat = Math.atan2(zh, Math.sqrt(xh * xh + yh * yh)) / R;
+                        var s = function (x) { return Math.sin(x * R); }, c = function (x) { return Math.cos(x * R); };
+                        if (name === 'jupiter') lon += -0.332 * s(2 * Mj - 5 * Msat - 67.6) - 0.056 * s(2 * Mj - 2 * Msat + 21) + 0.042 * s(3 * Mj - 5 * Msat + 21) - 0.036 * s(Mj - 2 * Msat) + 0.022 * c(Mj - Msat) + 0.023 * s(2 * Mj - 3 * Msat + 52) - 0.016 * s(Mj - 5 * Msat - 69);
+                        else { lon += 0.812 * s(2 * Mj - 5 * Msat - 67.6) - 0.229 * c(2 * Mj - 4 * Msat - 2) + 0.119 * s(Mj - 2 * Msat - 3) + 0.046 * s(2 * Mj - 6 * Msat - 69) + 0.014 * s(Mj - 3 * Msat + 32); lat += -0.020 * c(2 * Mj - 4 * Msat - 2) + 0.018 * s(2 * Mj - 6 * Msat - 49); }
+                        xh = r * c(lon) * c(lat); yh = r * s(lon) * c(lat); zh = r * s(lat);
+                    }
+                    var xg = xh + sx, yg = yh + sy, zg = zh;
+                    var ye = yg * Math.cos(ecl) - zg * Math.sin(ecl), ze = yg * Math.sin(ecl) + zg * Math.cos(ecl);
+                    var dist = Math.sqrt(xg * xg + yg * yg + zg * zg);
+                    var phase = Math.acos(Math.max(-1, Math.min(1, (r * r + dist * dist - rs * rs) / (2 * r * dist)))) / R;
+                    var mag = q[11] + 5 * Math.log(r * dist) / Math.LN10 + q[12] * phase;
+                    if (name === 'venus') mag += 4.2e-7 * phase * phase * phase;
+                    if (name === 'mercury') mag += 2.2e-13 * Math.pow(phase, 6);
+                    out.push({ name: name, ra: Math.atan2(ye, xg), dec: Math.atan2(ze, Math.sqrt(xg * xg + ye * ye)), mag: mag, planet: true });
+                }
+                return out;
+            }
+            return { stars: catalog, planets: planets };
+        })();
+    </script>
+    <script>
+        // The lake is drawn as it is in Detroit at this moment.
+        //   The hour:    day, dusk, or night, with the sun and moon where they actually are.
+        //   The sky:     the real stars and planets in that direction, coming out as it darkens.
+        //   The year:    leaves from May to October and bare trees after; ice from January into March;
+        //                no freighter while the Soo Locks are closed (January 15 to March 25).
+        //   The weather: wind on the water, fog, cloud, rain, and snow, from the National Weather
+        //                Service's latest observation at Detroit City Airport.
+        // The colors and the season are set here in the head, before the page first draws, so the
+        // lake never shows the wrong hour. LAKE.paint() runs again once the drawing exists.
         var LAKE = (function () {
             // The view looks west-southwest across the water: azimuth 205 at the left edge, 295 at the right.
             var AZ0 = 205, AZ1 = 295, W = 1200, HZ = 205, TOP = 30;
 
             // Ground color by the sun's height: afternoon, golden hour, sunset, blue hour, night.
-            var SKY = [
+            var LIGHT = [
                 { alt: 8,   c: [241, 238, 230] },
                 { alt: 2,   c: [238, 229, 214] },
                 { alt: -1,  c: [229, 206, 180] },
@@ -120,67 +201,199 @@
                 { alt: -10, c: [20, 28, 46] }
             ];
             var INK = [27, 41, 38], PALE = [214, 210, 199];
+            var STATION = 'https://api.weather.gov/stations/KDET/observations/latest';
 
             function mix(a, b, t) { return [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); }); }
             function rgb(c) { return 'rgb(' + c.join(',') + ')'; }
             function clamp(x) { return Math.max(0, Math.min(1, x)); }
+            function ramp(x, a, b) { return clamp((x - a) / (b - a)); }
+            function lerp(a, b, t) { return a + (b - a) * t; }
+            function chance(i, j) { var v = Math.sin(i * 12.9898 + (j || 0) * 78.233) * 43758.5453; return v - Math.floor(v); }
             function place(az, alt) { return { x: (az - AZ0) / (AZ1 - AZ0) * W, y: HZ - alt * (HZ / TOP) }; }
             function inView(p) { return p.x > -30 && p.x < W + 30; }
             function ground(alt) {
-                if (alt >= SKY[0].alt) return SKY[0].c;
-                for (var i = 1; i < SKY.length; i++) {
-                    if (alt >= SKY[i].alt) return mix(SKY[i - 1].c, SKY[i].c, (SKY[i - 1].alt - alt) / (SKY[i - 1].alt - SKY[i].alt));
+                if (alt >= LIGHT[0].alt) return LIGHT[0].c;
+                for (var i = 1; i < LIGHT.length; i++) {
+                    if (alt >= LIGHT[i].alt) return mix(LIGHT[i - 1].c, LIGHT[i].c, (LIGHT[i - 1].alt - alt) / (LIGHT[i - 1].alt - LIGHT[i].alt));
                 }
-                return SKY[SKY.length - 1].c;
+                return LIGHT[LIGHT.length - 1].c;
             }
             function lum(c) { return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
 
-            // ?at=HH:MM or ?at=YYYY-MM-DDTHH:MM shows another Detroit time (for checking the drawing)
-            var shift = 0;
+            var clock = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Detroit', hour12: false, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+            function detroit(ms) {
+                var t = {};
+                clock.formatToParts(new Date(ms)).forEach(function (p) { t[p.type] = parseInt(p.value, 10); });
+                t.hour = t.hour % 24;
+                return t;
+            }
+
+            // To check the drawing at another time or in other weather:
+            //   ?at=HH:MM or ?at=YYYY-MM-DDTHH:MM   another Detroit time
+            //   ?wx=wind:35,rain,fog:0.6,cloud:1    weather; also snow and clear
+            var shift = 0, fixed = null;
             var at = /[?&]at=([^&]+)/.exec(location.search);
             if (at) {
                 var m = /^(?:(\d{4})-(\d\d)-(\d\d)T)?(\d\d?):(\d\d)$/.exec(decodeURIComponent(at[1]));
                 if (m) {
                     var base = m[1] ? Date.UTC(+m[1], +m[2] - 1, +m[3], 17) : Date.now();
-                    var parts = {};
-                    new Intl.DateTimeFormat('en-US', { timeZone: 'America/Detroit', hour12: false, hour: 'numeric', minute: 'numeric' })
-                        .formatToParts(new Date(base)).forEach(function (p) { parts[p.type] = parseInt(p.value, 10); });
-                    shift = base - Date.now() + ((+m[4] * 60 + +m[5]) - ((parts.hour % 24) * 60 + parts.minute)) * 60000;
+                    var t0 = detroit(base);
+                    shift = base - Date.now() + ((+m[4] * 60 + +m[5]) - (t0.hour * 60 + t0.minute)) * 60000;
                 }
+            }
+            var asked = /[?&]wx=([^&]+)/.exec(location.search);
+            if (asked) {
+                fixed = { wind: 0, fog: 0, cloud: 0, rain: 0, snow: 0 };
+                decodeURIComponent(asked[1]).split(',').forEach(function (part) {
+                    var kv = part.split(':');
+                    if (kv[0] in fixed) fixed[kv[0]] = kv.length > 1 ? parseFloat(kv[1]) : (kv[0] === 'wind' ? 30 : 0.7);
+                });
+                if (fixed.rain || fixed.snow) fixed.cloud = Math.max(fixed.cloud, 0.9);
+            }
+
+            // ---------- The year ----------
+            function year(ms) {
+                var t = detroit(ms), minutes = t.hour * 60 + t.minute;
+                var day = (Date.UTC(t.year, t.month - 1, t.day) - Date.UTC(t.year, 0, 1)) / 86400000 + 1 + minutes / 1440;
+                var winter = (day + 6) % 365;                                             // days since December 26
+                var closed = (t.month === 1 && (t.day > 15 || (t.day === 15 && minutes >= 1439))) || t.month === 2 ||
+                             (t.month === 3 && (t.day < 25 || (t.day === 25 && minutes < 1)));
+                return {
+                    leaf: Math.min(ramp(day, 105, 130), 1 - ramp(day, 293, 319)),         // out from mid-April to mid-May, down from late October to mid-November
+                    ice: Math.min(ramp(winter, 0, 37), 1 - ramp(winter, 62, 85)),         // sets in through January, solid in February, gone by late March
+                    ship: !closed                                                         // the Soo Locks close at 11:59 pm on January 15 and reopen at 12:01 am on March 25
+                };
+            }
+
+            // ---------- The weather ----------
+            var wx = fixed || { wind: 0, fog: 0, cloud: 0, rain: 0, snow: 0 };
+            function read(p) {
+                if (!p || !p.timestamp || Date.now() - Date.parse(p.timestamp) > 3 * 3600000) return null;   // a stale reading is no reading
+                var val = function (q) { return q && q.value != null ? q.value : 0; };
+                var words = ((p.textDescription || '') + ' ' + (p.presentWeather || []).map(function (w) { return (w.intensity || '') + ' ' + (w.weather || ''); }).join(' ')).toLowerCase();
+                var amount = /heavy/.test(words) ? 1 : /light/.test(words) ? 0.45 : 0.7;
+                var cover = { SKC: 0, CLR: 0, FEW: 0.2, SCT: 0.45, BKN: 0.8, OVC: 1, VV: 1 }, cloud = 0;
+                (p.cloudLayers || []).forEach(function (layer) { cloud = Math.max(cloud, cover[layer.amount] || 0); });
+                var vis = p.visibility && p.visibility.value != null ? p.visibility.value : 16000;                // metres
+                var w = {
+                    wind: Math.max(val(p.windSpeed), 0.7 * val(p.windGust)),                                      // km/h
+                    fog: Math.max(clamp((8000 - vis) / 7500), /fog/.test(words) ? 0.8 : 0, /mist|haze|smoke/.test(words) ? 0.3 : 0),
+                    cloud: cloud,
+                    rain: /rain|shower|thunder/.test(words) ? amount : /drizzle/.test(words) ? 0.3 : 0,
+                    snow: /snow|sleet|ice_pellets|flurr/.test(words) ? amount : 0
+                };
+                if (w.rain || w.snow) w.cloud = Math.max(w.cloud, 0.8);
+                return w;
+            }
+            function ask() {
+                if (fixed || shift || !window.fetch || document.hidden) return;         // no live weather while looking at another time
+                try {
+                    var kept = JSON.parse(sessionStorage.getItem('lake-weather'));
+                    if (kept && Date.now() - kept.at < 600000) { wx = kept.wx; return; }
+                } catch (e) {}
+                fetch(STATION, { headers: { Accept: 'application/geo+json' } })
+                    .then(function (r) { return r.ok ? r.json() : null; })
+                    .then(function (j) {
+                        var w = j && read(j.properties);
+                        if (!w) return;
+                        wx = w;
+                        try { sessionStorage.setItem('lake-weather', JSON.stringify({ at: Date.now(), wx: w })); } catch (e) {}
+                        paint();
+                    })
+                    .catch(function () {});                                               // no weather: the lake stays calm and clear
+            }
+
+            // Wind breaks the water lines into chop; ice breaks them into floes. Near lines break longer than far ones.
+            var watered = '';
+            function water(ice, wind) {
+                var chop = ramp(wind, 8, 45), key = ice.toFixed(2) + '/' + chop.toFixed(2);
+                var lines = document.querySelectorAll('.lake .water path');
+                if (!lines.length || key === watered) return;
+                watered = key;
+                for (var i = 0; i < lines.length; i++) {
+                    var y = /M[-\d.]+ ([\d.]+)H/.exec(lines[i].getAttribute('d'));
+                    var dash = [];
+                    if (y && (ice > 0.02 || chop > 0.02)) {
+                        var depth = clamp((+y[1] - HZ) / 116);
+                        for (var j = 0; j < 4; j++) {
+                            if (ice > 0.02) dash.push(lerp(22, 150, depth) * (0.55 + 0.9 * chance(i, j)), lerp(4, 30, depth) * ice * (0.5 + chance(i, j + 9)));
+                            else dash.push(lerp(lerp(70, 9, chop), lerp(200, 30, chop), depth) * (0.55 + 0.9 * chance(i, j)), lerp(2.2, 7, depth) * (0.5 + chop) * (0.6 + 0.8 * chance(i, j + 9)));
+                        }
+                    }
+                    if (dash.length) {
+                        lines[i].setAttribute('stroke-dasharray', dash.map(function (v) { return v.toFixed(1); }).join(' '));
+                        lines[i].setAttribute('stroke-dashoffset', (chance(i, 5) * 80).toFixed(1));
+                    } else {
+                        lines[i].removeAttribute('stroke-dasharray');
+                        lines[i].removeAttribute('stroke-dashoffset');
+                    }
+                }
+            }
+
+            // Each star appears when the sky is dark enough for it: Venus at sunset, the faint ones last.
+            function stars(now, sunAlt) {
+                var field = document.querySelector('.lake .stars');
+                if (!field || !window.SKY) return;
+                var d = ASTRO.days(now), dots = '';
+                if (sunAlt < 1) {
+                    SKY.planets(now).concat(SKY.stars(now)).forEach(function (b) {
+                        var h = ASTRO.horizon(b.ra, b.dec, d);
+                        if (h.alt < 1.5 || h.az < AZ0 - 1 || h.az > AZ1 + 1) return;
+                        var p = place(h.az, h.alt);
+                        if (p.x < 300 && p.y > 176) return;                                // behind the island's trees
+                        var seen = ramp(Math.min(-0.5, -(3 + 1.8 * b.mag)) - sunAlt, 0, 2.5) * Math.pow(ramp(h.alt, 1.5, 9), 0.7);
+                        if (seen < 0.03) return;
+                        var r = Math.max(0.55, Math.min(1.7, 1.2 - 0.19 * b.mag));
+                        dots += '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + r.toFixed(2) + '" opacity="' + seen.toFixed(2) + '"/>';
+                    });
+                }
+                field.innerHTML = dots;
             }
 
             function paint() {
                 var now = Date.now() + shift;
-                var s = ASTRO.sun(now), mo = ASTRO.moon(now);
+                var s = ASTRO.sun(now), mo = ASTRO.moon(now), yr = year(now);
                 var g = ground(s.alt);
                 var dark = clamp((0.62 - lum(g)) / 0.22);              // lines turn pale as the ground darkens
                 var l = mix(INK, PALE, dark);
                 var lamps = clamp((-1 - s.alt) / 5);                    // lights come on after sunset
-                var night = clamp((-7 - s.alt) / 5);
-                var st = document.documentElement.style;
+                var far = 1 - 0.85 * wx.fog, near = 1 - 0.45 * wx.fog;  // fog takes the far shore first
+                var clear = (1 - 0.9 * wx.cloud) * (1 - wx.fog);
+                var root = document.documentElement, st = root.style;
                 st.setProperty('--g', rgb(g));
                 st.setProperty('--l', rgb(l));
                 st.setProperty('--glass', lamps > 0.4 ? '#F0B54A' : rgb(g));
                 st.setProperty('--moon', 'rgba(236, 232, 220,' + (0.9 * dark).toFixed(2) + ')');
-                st.setProperty('--starA', (night * 0.85).toFixed(2));
-                st.setProperty('--navA', lamps.toFixed(2));
+                st.setProperty('--starA', clear.toFixed(2));
+                st.setProperty('--navA', (lamps * far).toFixed(2));
                 st.setProperty('--lampA', (0.35 + 0.65 * lamps).toFixed(2));
-                st.setProperty('--refA', (0.85 * lamps * dark).toFixed(2));
+                st.setProperty('--refA', (0.85 * lamps * dark * (1 - yr.ice)).toFixed(2));
+                st.setProperty('--leaf', yr.leaf.toFixed(2));
+                st.setProperty('--bareA', ((1 - yr.leaf) * far).toFixed(2));
+                st.setProperty('--farA', far.toFixed(2));
+                st.setProperty('--nearA', near.toFixed(2));
+                st.setProperty('--cloudA', (0.6 * wx.cloud).toFixed(2));
+                st.setProperty('--rainA', (0.55 * wx.rain).toFixed(2));
+                st.setProperty('--snowA', (0.7 * wx.snow).toFixed(2));
+                root.setAttribute('data-ship', yr.ship ? 'in' : 'out');
+                root.setAttribute('data-falling', wx.snow ? 'snow' : wx.rain ? 'rain' : 'none');
 
                 var sun = document.getElementById('sun');
                 var moon = document.getElementById('moon');
                 var glint = document.getElementById('glint');
                 if (!sun || !moon || !glint) return;                    // the drawing isn't on the page yet
 
+                var veil = (1 - 0.8 * wx.cloud) * (1 - 0.7 * wx.fog);  // cloud and fog dim the sun and moon
                 var sp = place(s.az, s.alt);
                 var sunUp = s.alt > -1 && inView(sp);
                 sun.setAttribute('cx', sunUp ? sp.x.toFixed(1) : -50);
                 sun.setAttribute('cy', sunUp ? sp.y.toFixed(1) : -50);
+                sun.style.opacity = veil.toFixed(2);
 
                 var mp = place(mo.az, mo.alt);
                 var moonUp = mo.alt > -1 && inView(mp) && mo.lit > 0.03;
                 moon.setAttribute('transform', 'translate(' + (moonUp ? mp.x.toFixed(1) + ' ' + mp.y.toFixed(1) : '-50 -50') + ')');
-                moon.style.opacity = moonUp ? (0.45 + 0.55 * dark).toFixed(2) : 0;
+                moon.style.opacity = moonUp ? ((0.45 + 0.55 * dark) * veil).toFixed(2) : 0;
                 var r = 9, k = mo.lit, rx = Math.abs(1 - 2 * k) * r, side = mo.waxing ? 1 : 0;
                 moon.querySelector('.moonlit').setAttribute('d', 'M0 ' + -r + 'A' + r + ' ' + r + ' 0 0 ' + side + ' 0 ' + r +
                     'A' + rx.toFixed(2) + ' ' + r + ' 0 0 ' + (k > 0.5 ? side : 1 - side) + ' 0 ' + -r + 'Z');
@@ -189,12 +402,17 @@
                 var orb = sunUp && s.alt < 25 ? { p: sp, a: 1 - s.alt / 25 }
                         : moonUp && dark > 0.5 && mo.alt < 30 ? { p: mp, a: 0.6 * mo.lit } : null;
                 glint.setAttribute('transform', 'translate(' + (orb ? orb.p.x.toFixed(1) : -100) + ' 0)');
-                st.setProperty('--glintA', orb ? clamp(orb.a).toFixed(2) : 0);
+                st.setProperty('--glintA', orb ? (clamp(orb.a) * veil * (1 - yr.ice)).toFixed(2) : 0);
+
+                stars(now, s.alt);
+                water(yr.ice, wx.wind);
             }
 
             paint();
+            ask();
             setInterval(paint, 30000);
-            document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
+            setInterval(ask, 600000);
+            document.addEventListener('visibilitychange', function () { if (!document.hidden) { ask(); paint(); } });
             window.addEventListener('pageshow', paint);                 // coming back with the back button
             return { paint: paint };
         })();
@@ -233,15 +451,22 @@
 <defs>
 <clipPath id="sky"><rect width="1200" height="205"/></clipPath>
 <radialGradient id="halo"><stop offset="0" stop-color="#FFE2A0" stop-opacity="0.55"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0"/></radialGradient>
+<pattern id="rain" width="90" height="120" patternUnits="userSpaceOnUse"><path class="drop" d="M70 8l-3.5 14M22 30l-3.5 14M48 62l-3.5 14M84 78l-3.5 14M12 96l-3.5 14"/></pattern>
+<pattern id="snow" width="80" height="80" patternUnits="userSpaceOnUse"><circle class="flake" cx="12" cy="9" r="0.7"/><circle class="flake" cx="51" cy="24" r="0.6"/><circle class="flake" cx="31" cy="47" r="0.75"/><circle class="flake" cx="70" cy="58" r="0.6"/><circle class="flake" cx="8" cy="70" r="0.65"/></pattern>
 </defs>
 <rect class="ground" width="1200" height="360"/>
 <g class="stars"><circle cx="609.72" cy="8.43" r="0.55"/><circle cx="738.47" cy="140.39" r="0.7"/><circle cx="1142.6" cy="41.78" r="0.9"/><circle cx="665.55" cy="151.34" r="0.7"/><circle cx="466.18" cy="65.99" r="0.9"/><circle cx="152.79" cy="52.23" r="0.9"/><circle cx="878.86" cy="97.9" r="0.55"/><circle cx="611.4" cy="133.51" r="0.55"/><circle cx="176.04" cy="80.93" r="0.7"/><circle cx="216.92" cy="77.15" r="0.9"/><circle cx="414.43" cy="21.01" r="0.7"/><circle cx="690.29" cy="67.57" r="0.9"/><circle cx="620.38" cy="82.02" r="0.55"/><circle cx="1051.25" cy="90.47" r="0.7"/><circle cx="714.21" cy="82.8" r="0.9"/><circle cx="575.27" cy="103.31" r="0.55"/><circle cx="16.69" cy="11.29" r="0.55"/><circle cx="883.41" cy="165.6" r="0.55"/><circle cx="130.66" cy="121.72" r="0.7"/><circle cx="844.07" cy="120.15" r="0.7"/><circle cx="533.39" cy="13.75" r="0.9"/><circle cx="50.05" cy="157.42" r="0.7"/><circle cx="428.99" cy="107.54" r="0.7"/><circle cx="122.36" cy="78.8" r="0.7"/><circle cx="185.36" cy="59.81" r="0.55"/><circle cx="1043.77" cy="120.29" r="0.9"/><circle cx="957.04" cy="17.17" r="0.9"/><circle cx="994.68" cy="77.18" r="0.55"/><circle cx="661.19" cy="68.94" r="0.55"/><circle cx="364.07" cy="74.2" r="0.9"/><circle cx="1147.29" cy="99.55" r="0.55"/><circle cx="74.81" cy="150.13" r="0.9"/><circle cx="1045.26" cy="140.76" r="0.55"/><circle cx="397.07" cy="131.99" r="0.7"/><circle cx="335.81" cy="55.45" r="0.9"/><circle cx="1079.18" cy="102.65" r="0.7"/><circle cx="366.71" cy="42.64" r="0.7"/><circle cx="813.47" cy="110.88" r="0.55"/><circle cx="821.93" cy="114.77" r="0.7"/><circle cx="1153.35" cy="84.63" r="0.55"/><circle cx="1062.65" cy="79.17" r="0.9"/><circle cx="514.5" cy="138.02" r="0.55"/><circle cx="1159.31" cy="142.98" r="0.9"/><circle cx="907.56" cy="107.25" r="0.7"/><circle cx="952.42" cy="92.67" r="0.7"/><circle cx="511.94" cy="13.25" r="0.9"/></g>
 <g clip-path="url(#sky)"><circle id="sun" class="orb" cx="-50" cy="-50" r="11"/><g id="moon"><circle class="orb" r="9"/><path class="moonlit"/></g></g>
 <g class="glint" id="glint"><path d="M-8 209.6h16"/><path d="M-3 214.2h12"/><path d="M-14 220.4h20"/><path d="M-3 229.6h10"/><path d="M-11 242h18"/><path d="M0 260h8"/></g>
+<g class="clouds" opacity="0"><path d="M96 44H402M448 44H506M642 58H1004M24 76H236M290 76H372M806 97H1176M418 118H702M196 132H330M930 139H1090"/></g>
+<g class="bare" opacity="0"><path d="M1.6 202V187.58M1.6 192.22l-1.94 -3.13M1.6 194.46l2.21 -3.56M4.75 202V181.95M4.75 188.64l-2.67 -4.31M4.75 192.5l4.18 -6.74M4.75 194.63l-2.98 -4.81M9.5 202V187.52M9.5 192.21l-2.93 -4.73M9.5 194.8l2.05 -3.31M9.5 196.63l-2.32 -3.74M13.5 202V183.65M13.5 190.48l-3.14 -5.06M13.5 192.14l2.65 -4.27M13.5 196.22l-3.09 -4.98M16.19 202V184.87M16.19 190.86l3.3 -5.32M16.19 192.9l-2.15 -3.47M19.06 202V184.95M19.06 191.3l2.67 -4.31M19.06 193.16l-2.21 -3.57M19.06 195.78l2.99 -4.82M19.06 198.37l-2.51 -4.05M22.36 202V183.61M22.36 190.14l3.47 -5.6M22.36 193.5l-3.22 -5.19M22.36 196.01l2.79 -4.51M27.49 202V186.51M27.49 191.31l2 -3.22M27.49 194.17l-3.09 -4.99M27.49 197.27l2.63 -4.25M31.2 202V185.27M31.2 191.42l3.29 -5.31M31.2 192.97l-2.88 -4.64M31.2 196.54l2.65 -4.28M33.81 202V182.93M33.81 188.74l3.91 -6.31M33.81 192.46l-2.49 -4.02M33.81 196.24l2.92 -4.7M37.71 202V179.66M37.71 186.87l-3.06 -4.93M37.71 190.97l3.96 -6.38M41.81 202V181.29M41.81 188.73l4.21 -6.8M41.81 192.04l-2.99 -4.82M41.81 195l3.09 -4.99M46.33 202V184.62M46.33 190.72l2.31 -3.72M46.33 193.49l-2.9 -4.68M46.33 196.68l3.4 -5.48M50.57 202V179.52M50.57 186.5l-3.82 -6.16M50.57 189.9l3.03 -4.89M50.57 194.4l-4.42 -7.12M53.22 202V181.18M53.22 187.53l4.22 -6.81M53.22 191.46l-2.97 -4.79M53.22 194.62l4.36 -7.04M53.22 198.24l-3.07 -4.96M56.92 202V183.27M56.92 189.2l3.24 -5.23M56.92 192.41l-3.38 -5.45M60.43 202V180.27M60.43 187.64l4.01 -6.46M60.43 190.69l-3.65 -5.89M60.43 194.68l3.32 -5.35M63.66 202V184.28M63.66 190.22l-3.47 -5.6M63.66 193.09l3.73 -6.02M67.47 202V182.1M67.47 188.32l3.72 -5.99M67.47 191.78l-3.74 -6.03M67.47 194.5l2.85 -4.6M67.47 198.71l-2.81 -4.53M70.94 202V184.45M70.94 189.75l3.67 -5.93M70.94 193.78l-3.44 -5.55M70.94 196.59l3.3 -5.33M75.87 202V181.91M75.87 188.15l2.87 -4.63M75.87 192.46l-4.21 -6.79M75.87 195.87l2.66 -4.29M75.87 198.52l-3.78 -6.09M80.59 202V183.56M80.59 190.01l-3.37 -5.43M80.59 192.67l2.65 -4.28M80.59 195.91l-2.29 -3.7M80.59 199.26l3.39 -5.47M84.3 202V182.51M84.3 189.59l-2.7 -4.36M84.3 192.96l3.43 -5.53M89.39 202V184.81M89.39 190.23l-2.24 -3.62M89.39 193.31l3.54 -5.71M89.39 196.32l-3.23 -5.21M93.1 202V186.54M93.1 191.39l-2.76 -4.45M93.1 194.63l2.82 -4.55M93.1 197.08l-2.55 -4.11M93.1 199.37l2.72 -4.39M97.76 202V184.99M97.76 190.22l3.23 -5.21M97.76 193.42l-3.31 -5.35M101.51 202V184.5M101.51 191.14l3.38 -5.46M101.51 193.91l-2.18 -3.51M101.51 195.79l2.82 -4.55M106.64 202V188.02M106.64 192.29l-1.95 -3.14M106.64 194.91l2.86 -4.62M110.3 202V187.04M110.3 192.49l2.27 -3.65M110.3 194.58l-2.98 -4.8M110.3 197.45l2.01 -3.24M110.3 199.72l-2.02 -3.25M114.33 202V186.18M114.33 191.42l2.34 -3.78M114.33 194.16l-3.11 -5.02M118.38 202V182.17M118.38 189.31l-2.5 -4.04M118.38 191.67l3.6 -5.81M121.61 202V183.72M121.61 190.43l2.65 -4.27M121.61 192.72l-2.84 -4.58M121.61 196.42l2.85 -4.59M125.25 202V186.82M125.25 191.98l-2.56 -4.12M125.25 194.99l2.51 -4.04M130.39 202V188.39M130.39 192.64l-2.19 -3.53M130.39 194.65l2.05 -3.31M130.39 197.56l-2.13 -3.44M132.99 202V189.1M132.99 193.37l-2.16 -3.49M132.99 195.9l2.45 -3.96M132.99 197.76l-2.68 -4.32M137.78 202V187.03M137.78 192.35l2.81 -4.53M137.78 194.69l-1.97 -3.18M142.05 202V185.94M142.05 191.96l2.38 -3.84M142.05 194.27l-2.76 -4.46M142.05 196.9l3 -4.84M146.57 202V186.72M146.57 191.47l3.13 -5.05M146.57 194.07l-1.94 -3.12M146.57 197.26l2.36 -3.81M146.57 199.84l-2.54 -4.09M149.85 202V188.94M149.85 193.56l-1.73 -2.78M149.85 195.54l2.45 -3.94M153.93 202V187.81M153.93 192.48l-2.35 -3.78M153.93 194.59l2.58 -4.16M157.11 202V187.94M157.11 192.57l-2.2 -3.55M157.11 195.32l1.77 -2.85M157.11 196.72l-1.93 -3.12M157.11 199.22l2.57 -4.14M161.82 202V186.48M161.82 191.97l-2.6 -4.19M161.82 194.17l3.27 -5.27M161.82 197.17l-2.93 -4.73M161.82 198.91l2.05 -3.3M165.58 202V189.57M165.58 193.38l-2.26 -3.65M165.58 195.87l1.9 -3.06M165.58 197.73l-2.4 -3.87M169.69 202V190.33M169.69 193.88l1.55 -2.49M169.69 195.98l-2.32 -3.74M173.08 202V188.43M173.08 192.76l-2.02 -3.26M173.08 194.84l2.67 -4.31M173.08 197.09l-2.74 -4.41M176.08 202V188.76M176.08 193.17l1.81 -2.92M176.08 195.78l-1.84 -2.96M176.08 197.91l2.65 -4.28M176.08 199.95l-2.77 -4.46M180.97 202V190.59M180.97 194.29l-1.44 -2.33M180.97 196.46l1.82 -2.94M180.97 198.35l-2.22 -3.58M185.34 202V190.07M185.34 194l1.49 -2.41M185.34 196.23l-2.23 -3.6M189.76 202V192.37M189.76 195.57l1.67 -2.7M189.76 197.02l-1.54 -2.49M189.76 198.68l1.61 -2.6M193.08 202V192.5M193.08 195.81l1.51 -2.44M193.08 197.04l-1.85 -2.98M193.08 199.04l1.75 -2.82M193.08 200.28l-1.81 -2.92M196.25 202V192.21M196.25 195.39l1.89 -3.05M196.25 196.83l-1.94 -3.13M196.25 198.93l1.27 -2.05M196.25 199.99l-1.85 -2.99M199.24 202V192.81M199.24 195.94l-1.77 -2.85M199.24 197.59l1.86 -3M199.24 198.77l-1.38 -2.22M203.79 202V189.68M203.79 193.97l-2.37 -3.83M203.79 195.38l2.37 -3.83M206.49 202V190.9M206.49 194.76l-1.43 -2.3M206.49 196.27l2.16 -3.48M206.49 198.15l-2.32 -3.73M209.87 202V192.31M209.87 195.88l-1.87 -3.02M209.87 196.99l1.61 -2.6M213.21 202V190.8M213.21 194.8l2.3 -3.71M213.21 196.47l-1.85 -2.99M213.21 198.15l1.7 -2.75M213.21 199.95l-1.55 -2.49M217.3 202V192.28M217.3 195.28l1.22 -1.97M217.3 196.76l-1.66 -2.68M219.94 202V193.8M219.94 196.67l1.55 -2.5M219.94 198.03l-1.33 -2.14M224.33 202V193.35M224.33 196.31l-1.57 -2.53M224.33 197.9l1.08 -1.75M224.33 199.18l-1.48 -2.39M229.09 202V194.01M229.09 197.05l1.46 -2.35M229.09 198.29l-1.58 -2.54M229.09 198.99l1.04 -1.67M234.15 202V194.49M234.15 196.96l1.21 -1.96M234.15 198.2l-1.1 -1.78M234.15 199.29l1.43 -2.3M237.87 202V194.43M237.87 196.74l1.14 -1.83M237.87 198.44l-1.35 -2.18M242.73 202V192.53M242.73 196.05l-1.39 -2.25M242.73 196.91l1.91 -3.08M242.73 198.4l-1.44 -2.32M242.73 200.55l1.43 -2.31M245.4 202V194.36M245.4 197.24l-1.45 -2.34M245.4 198.23l1.42 -2.29M245.4 199.21l-0.96 -1.55M245.4 200.52l1.36 -2.2M249.5 202V194.07M249.5 196.99l1.01 -1.63M249.5 198.26l-1.28 -2.06M254.33 202V194.21M254.33 197.04l1.09 -1.76M254.33 198.13l-1.35 -2.17M254.33 199.59l1.52 -2.45M258.33 202V192.29M258.33 195.47l2.02 -3.26M258.33 196.96l-1.89 -3.05M261.62 202V193.99M261.62 196.93l-1.27 -2.06M261.62 198.23l1.04 -1.67M261.62 199.59l-1.03 -1.67M261.62 200.71l1.12 -1.81M266.48 202V194.03M266.48 196.91l1.11 -1.79M266.48 197.82l-1.63 -2.63M266.48 199.58l1.67 -2.69M269.6 202V194.5M269.6 197.24l1.56 -2.52M269.6 198.46l-1.28 -2.06M269.6 199.44l1.58 -2.55M274.41 202V194.43M274.41 196.72l1.35 -2.18M274.41 198.29l-1.17 -1.88M274.41 199.5l1.01 -1.63M278.64 202V193.65M278.64 196.36l1.69 -2.73M278.64 197.58l-1.49 -2.41M278.64 199.42l1.04 -1.67M281.61 202V194.97M281.61 197.37l1.19 -1.91M281.61 198.52l-1.08 -1.74M281.61 199.33l0.9 -1.46M285.69 202V196.54M285.69 198.54l0.73 -1.18M290.26 202V198.24M290.26 199.64l-0.74 -1.2"/></g>
 <g class="draw">
 <path d="M0 205H1200" stroke-width="1.2"/>
-<path d="M0 181.6 L0.4 181.53 L0.8 181.48 L1.2 181.43 L1.6 181.4 L2 181.37 L2.4 181.36 L2.8 181.35 L3.2 181.36 L3.6 181.37 L4 181.39 L4.4 181.43 L4.8 181.47 L5.2 181.53 L5.6 181.59 L6 181.67 L6.4 181.75 L6.8 181.85 L7.2 181.97 L7.6 182.1 L8 182.24 L8.4 182.4 L8.8 182.17 L9.2 181.95 L9.6 181.76 L10 181.6 L10.4 181.45 L10.8 181.32 L11.2 181.21 L11.6 181.12 L12 181.04 L12.4 180.97 L12.8 180.91 L13.2 180.87 L13.6 180.84 L14 180.82 L14.4 180.81 L14.8 180.81 L15.2 180.82 L15.6 180.85 L16 180.89 L16.4 180.93 L16.8 181 L17.2 181.07 L17.6 181.16 L18 181.26 L18.4 181.37 L18.8 181.51 L19.2 181.66 L19.6 181.84 L20 181.75 L20.4 181.65 L20.8 181.55 L21.2 181.47 L21.6 181.4 L22 181.34 L22.4 181.28 L22.8 181.24 L23.2 181.2 L23.6 181.17 L24 181.15 L24.4 181.14 L24.8 181.14 L25.2 181.15 L25.6 181.16 L26 181.18 L26.4 181.22 L26.8 181.26 L27.2 181.3 L27.6 181.36 L28 181.43 L28.4 181.51 L28.8 181.59 L29.2 181.69 L29.6 181.8 L30 181.92 L30.4 181.78 L30.8 181.37 L31.2 181.06 L31.6 180.79 L32 180.57 L32.4 180.37 L32.8 180.2 L33.2 180.06 L33.6 179.93 L34 179.82 L34.4 179.73 L34.8 179.65 L35.2 179.59 L35.6 179.53 L36 179.5 L36.4 179.47 L36.8 179.45 L37.2 179.45 L37.6 179.46 L38 179.48 L38.4 179.52 L38.8 179.56 L39.2 179.62 L39.6 179.69 L40 179.78 L40.4 179.88 L40.8 180 L41.2 180.14 L41.6 180.23 L42 180.01 L42.4 179.81 L42.8 179.65 L43.2 179.5 L43.6 179.38 L44 179.27 L44.4 179.18 L44.8 179.11 L45.2 179.05 L45.6 179 L46 178.97 L46.4 178.94 L46.8 178.93 L47.2 178.94 L47.6 178.95 L48 178.98 L48.4 179.02 L48.8 179.07 L49.2 179.14 L49.6 179.22 L50 179.31 L50.4 179.43 L50.8 179.56 L51.2 179.71 L51.6 179.88 L52 180.09 L52.4 180.19 L52.8 180.07 L53.2 179.97 L53.6 179.88 L54 179.8 L54.4 179.72 L54.8 179.66 L55.2 179.61 L55.6 179.57 L56 179.54 L56.4 179.52 L56.8 179.5 L57.2 179.5 L57.6 179.5 L58 179.51 L58.4 179.53 L58.8 179.56 L59.2 179.6 L59.6 179.65 L60 179.71 L60.4 179.78 L60.8 179.86 L61.2 179.95 L61.6 180.05 L62 180.16 L62.4 180.29 L62.8 180.43 L63.2 180.58 L63.6 180.68 L64 180.5 L64.4 180.34 L64.8 180.21 L65.2 180.09 L65.6 179.99 L66 179.91 L66.4 179.84 L66.8 179.78 L67.2 179.74 L67.6 179.71 L68 179.7 L68.4 179.7 L68.8 179.7 L69.2 179.73 L69.6 179.76 L70 179.81 L70.4 179.87 L70.8 179.94 L71.2 180.03 L71.6 180.14 L72 180.27 L72.4 180.41 L72.8 180.58 L73.2 180.61 L73.6 180.54 L74 180.48 L74.4 180.43 L74.8 180.39 L75.2 180.37 L75.6 180.35 L76 180.35 L76.4 180.36 L76.8 180.38 L77.2 180.41 L77.6 180.45 L78 180.51 L78.4 180.57 L78.8 180.65 L79.2 180.75 L79.6 180.86 L80 180.88 L80.4 180.77 L80.8 180.68 L81.2 180.59 L81.6 180.52 L82 180.46 L82.4 180.41 L82.8 180.37 L83.2 180.34 L83.6 180.32 L84 180.3 L84.4 180.3 L84.8 180.31 L85.2 180.33 L85.6 180.36 L86 180.4 L86.4 180.45 L86.8 180.5 L87.2 180.57 L87.6 180.66 L88 180.75 L88.4 180.86 L88.8 180.98 L89.2 181.11 L89.6 181.26 L90 181.43 L90.4 181.62 L90.8 181.84 L91.2 181.73 L91.6 181.58 L92 181.43 L92.4 181.31 L92.8 181.2 L93.2 181.1 L93.6 181.01 L94 180.93 L94.4 180.87 L94.8 180.81 L95.2 180.77 L95.6 180.73 L96 180.71 L96.4 180.69 L96.8 180.69 L97.2 180.69 L97.6 180.7 L98 180.73 L98.4 180.76 L98.8 180.8 L99.2 180.85 L99.6 180.92 L100 180.99 L100.4 181.07 L100.8 181.17 L101.2 181.28 L101.6 181.4 L102 181.54 L102.4 181.69 L102.8 181.87 L103.2 182.06 L103.6 182.28 L104 182.52 L104.4 182.42 L104.8 182.33 L105.2 182.24 L105.6 182.17 L106 182.11 L106.4 182.06 L106.8 182.01 L107.2 181.98 L107.6 181.96 L108 181.94 L108.4 181.93 L108.8 181.94 L109.2 181.95 L109.6 181.97 L110 181.99 L110.4 182.03 L110.8 182.08 L111.2 182.13 L111.6 182.2 L112 182.28 L112.4 182.37 L112.8 182.46 L113.2 182.57 L113.6 182.7 L114 182.84 L114.4 182.85 L114.8 182.73 L115.2 182.62 L115.6 182.52 L116 182.43 L116.4 182.35 L116.8 182.28 L117.2 182.22 L117.6 182.16 L118 182.12 L118.4 182.08 L118.8 182.05 L119.2 182.03 L119.6 182.02 L120 182.01 L120.4 182.01 L120.8 182.02 L121.2 182.04 L121.6 182.07 L122 182.1 L122.4 182.14 L122.8 182.19 L123.2 182.25 L123.6 182.31 L124 182.39 L124.4 182.47 L124.8 182.56 L125.2 182.67 L125.6 182.78 L126 182.91 L126.4 183.04 L126.8 183.19 L127.2 183.36 L127.6 183.54 L128 183.74 L128.4 183.96 L128.8 184.2 L129.2 184.47 L129.6 184.77 L130 185.12 L130.4 185.52 L130.8 185.56 L131.2 185.44 L131.6 185.33 L132 185.22 L132.4 185.14 L132.8 185.06 L133.2 184.99 L133.6 184.93 L134 184.88 L134.4 184.84 L134.8 184.81 L135.2 184.79 L135.6 184.77 L136 184.77 L136.4 184.77 L136.8 184.78 L137.2 184.8 L137.6 184.83 L138 184.87 L138.4 184.92 L138.8 184.98 L139.2 185.04 L139.6 185.12 L140 185.21 L140.4 185.31 L140.8 185.42 L141.2 185.54 L141.6 185.68 L142 185.83 L142.4 186 L142.8 186.18 L143.2 186.39 L143.6 186.62 L144 186.77 L144.4 186.67 L144.8 186.58 L145.2 186.51 L145.6 186.45 L146 186.4 L146.4 186.36 L146.8 186.33 L147.2 186.31 L147.6 186.3 L148 186.31 L148.4 186.32 L148.8 186.35 L149.2 186.38 L149.6 186.43 L150 186.49 L150.4 186.56 L150.8 186.64 L151.2 186.74 L151.6 186.85 L152 186.98 L152.4 187.12 L152.8 187.26 L153.2 187.06 L153.6 186.88 L154 186.73 L154.4 186.59 L154.8 186.46 L155.2 186.35 L155.6 186.26 L156 186.17 L156.4 186.1 L156.8 186.04 L157.2 185.99 L157.6 185.95 L158 185.92 L158.4 185.91 L158.8 185.9 L159.2 185.9 L159.6 185.91 L160 185.93 L160.4 185.97 L160.8 186.01 L161.2 186.06 L161.6 186.13 L162 186.2 L162.4 186.29 L162.8 186.39 L163.2 186.51 L163.6 186.64 L164 186.78 L164.4 186.95 L164.8 187.13 L165.2 187.21 L165.6 187.13 L166 187.05 L166.4 186.98 L166.8 186.93 L167.2 186.87 L167.6 186.83 L168 186.8 L168.4 186.77 L168.8 186.75 L169.2 186.74 L169.6 186.74 L170 186.75 L170.4 186.76 L170.8 186.78 L171.2 186.81 L171.6 186.85 L172 186.89 L172.4 186.95 L172.8 187.01 L173.2 187.08 L173.6 187.16 L174 187.25 L174.4 187.35 L174.8 187.46 L175.2 187.58 L175.6 187.71 L176 187.86 L176.4 188.02 L176.8 188.2 L177.2 188.12 L177.6 187.99 L178 187.88 L178.4 187.79 L178.8 187.7 L179.2 187.63 L179.6 187.57 L180 187.53 L180.4 187.5 L180.8 187.47 L181.2 187.46 L181.6 187.46 L182 187.47 L182.4 187.49 L182.8 187.53 L183.2 187.57 L183.6 187.63 L184 187.7 L184.4 187.78 L184.8 187.88 L185.2 187.99 L185.6 188.12 L186 188.27 L186.4 188.43 L186.8 188.62 L187.2 188.84 L187.6 189.09 L188 189.24 L188.4 189.18 L188.8 189.13 L189.2 189.08 L189.6 189.05 L190 189.02 L190.4 189 L190.8 188.99 L191.2 188.98 L191.6 188.98 L192 188.99 L192.4 189.01 L192.8 189.04 L193.2 189.07 L193.6 189.12 L194 189.17 L194.4 189.23 L194.8 189.29 L195.2 189.37 L195.6 189.46 L196 189.55 L196.4 189.66 L196.8 189.78 L197.2 189.91 L197.6 190.04 L198 189.88 L198.4 189.74 L198.8 189.61 L199.2 189.5 L199.6 189.39 L200 189.3 L200.4 189.22 L200.8 189.15 L201.2 189.09 L201.6 189.05 L202 189.01 L202.4 188.97 L202.8 188.95 L203.2 188.94 L203.6 188.94 L204 188.94 L204.4 188.96 L204.8 188.98 L205.2 189.01 L205.6 189.06 L206 189.11 L206.4 189.17 L206.8 189.24 L207.2 189.32 L207.6 189.42 L208 189.52 L208.4 189.64 L208.8 189.77 L209.2 189.92 L209.6 190.08 L210 190.26 L210.4 190.46 L210.8 190.69 L211.2 190.8 L211.6 190.68 L212 190.58 L212.4 190.49 L212.8 190.42 L213.2 190.36 L213.6 190.31 L214 190.28 L214.4 190.26 L214.8 190.25 L215.2 190.25 L215.6 190.26 L216 190.29 L216.4 190.33 L216.8 190.38 L217.2 190.44 L217.6 190.52 L218 190.61 L218.4 190.72 L218.8 190.84 L219.2 190.99 L219.6 191.15 L220 191.35 L220.4 191.57 L220.8 191.67 L221.2 191.57 L221.6 191.47 L222 191.39 L222.4 191.31 L222.8 191.25 L223.2 191.19 L223.6 191.14 L224 191.11 L224.4 191.08 L224.8 191.06 L225.2 191.05 L225.6 191.04 L226 191.05 L226.4 191.06 L226.8 191.08 L227.2 191.11 L227.6 191.15 L228 191.2 L228.4 191.26 L228.8 191.33 L229.2 191.41 L229.6 191.49 L230 191.59 L230.4 191.7 L230.8 191.82 L231.2 191.96 L231.6 192.11 L232 192.27 L232.4 192.46 L232.8 192.48 L233.2 192.31 L233.6 192.16 L234 192.04 L234.4 191.93 L234.8 191.84 L235.2 191.76 L235.6 191.69 L236 191.64 L236.4 191.6 L236.8 191.57 L237.2 191.56 L237.6 191.56 L238 191.56 L238.4 191.58 L238.8 191.62 L239.2 191.66 L239.6 191.72 L240 191.79 L240.4 191.88 L240.8 191.98 L241.2 192.09 L241.6 192.23 L242 192.34 L242.4 192.12 L242.8 191.92 L243.2 191.76 L243.6 191.61 L244 191.48 L244.4 191.37 L244.8 191.28 L245.2 191.19 L245.6 191.13 L246 191.07 L246.4 191.03 L246.8 191 L247.2 190.98 L247.6 190.97 L248 190.97 L248.4 190.98 L248.8 191.01 L249.2 191.04 L249.6 191.09 L250 191.15 L250.4 191.23 L250.8 191.32 L251.2 191.42 L251.6 191.54 L252 191.67 L252.4 191.83 L252.8 191.69 L253.2 191.55 L253.6 191.42 L254 191.31 L254.4 191.22 L254.8 191.14 L255.2 191.07 L255.6 191.02 L256 190.97 L256.4 190.94 L256.8 190.92 L257.2 190.91 L257.6 190.92 L258 190.93 L258.4 190.96 L258.8 190.99 L259.2 191.04 L259.6 191.1 L260 191.18 L260.4 191.26 L260.8 191.37 L261.2 191.48 L261.6 191.62 L262 191.77 L262.4 191.95 L262.8 192.15 L263.2 192.38 L263.6 192.38 L264 192.34 L264.4 192.3 L264.8 192.27 L265.2 192.24 L265.6 192.23 L266 192.23 L266.4 192.23 L266.8 192.25 L267.2 192.27 L267.6 192.3 L268 192.34 L268.4 192.4 L268.8 192.46 L269.2 192.53 L269.6 192.61 L270 192.7 L270.4 192.81 L270.8 192.92 L271.2 193.05 L271.6 193.2 L272 193.36 L272.4 193.46 L272.8 193.26 L273.2 193.08 L273.6 192.92 L274 192.78 L274.4 192.66 L274.8 192.56 L275.2 192.47 L275.6 192.39 L276 192.33 L276.4 192.27 L276.8 192.23 L277.2 192.21 L277.6 192.19 L278 192.18 L278.4 192.19 L278.8 192.2 L279.2 192.23 L279.6 192.27 L280 192.32 L280.4 192.38 L280.8 192.46 L281.2 192.55 L281.6 192.65 L282 192.77 L282.4 192.92 L282.8 193.08 L283.2 193.24 L283.6 193.39 L284 193.55 L284.4 193.72 L284.8 193.89 L285.2 194.07 L285.6 194.26 L286 194.44 L286.4 194.64 L286.8 194.84 L287.2 195.05 L287.6 195.27 L288 195.5 L288.4 195.74 L288.8 195.99 L289.2 196.25 L289.6 196.53 L290 196.83 L290.4 197.15 L290.8 197.5 L291.2 197.89 L291.6 198.34 L292 198.85 L292.4 199.5 L292.8 200.48 L293.2 202"/>
+<g class="isle">
+<path class="leafy" d="M0 181.6 L0.4 181.53 L0.8 181.48 L1.2 181.43 L1.6 181.4 L2 181.37 L2.4 181.36 L2.8 181.35 L3.2 181.36 L3.6 181.37 L4 181.39 L4.4 181.43 L4.8 181.47 L5.2 181.53 L5.6 181.59 L6 181.67 L6.4 181.75 L6.8 181.85 L7.2 181.97 L7.6 182.1 L8 182.24 L8.4 182.4 L8.8 182.17 L9.2 181.95 L9.6 181.76 L10 181.6 L10.4 181.45 L10.8 181.32 L11.2 181.21 L11.6 181.12 L12 181.04 L12.4 180.97 L12.8 180.91 L13.2 180.87 L13.6 180.84 L14 180.82 L14.4 180.81 L14.8 180.81 L15.2 180.82 L15.6 180.85 L16 180.89 L16.4 180.93 L16.8 181 L17.2 181.07 L17.6 181.16 L18 181.26 L18.4 181.37 L18.8 181.51 L19.2 181.66 L19.6 181.84 L20 181.75 L20.4 181.65 L20.8 181.55 L21.2 181.47 L21.6 181.4 L22 181.34 L22.4 181.28 L22.8 181.24 L23.2 181.2 L23.6 181.17 L24 181.15 L24.4 181.14 L24.8 181.14 L25.2 181.15 L25.6 181.16 L26 181.18 L26.4 181.22 L26.8 181.26 L27.2 181.3 L27.6 181.36 L28 181.43 L28.4 181.51 L28.8 181.59 L29.2 181.69 L29.6 181.8 L30 181.92 L30.4 181.78 L30.8 181.37 L31.2 181.06 L31.6 180.79 L32 180.57 L32.4 180.37 L32.8 180.2 L33.2 180.06 L33.6 179.93 L34 179.82 L34.4 179.73 L34.8 179.65 L35.2 179.59 L35.6 179.53 L36 179.5 L36.4 179.47 L36.8 179.45 L37.2 179.45 L37.6 179.46 L38 179.48 L38.4 179.52 L38.8 179.56 L39.2 179.62 L39.6 179.69 L40 179.78 L40.4 179.88 L40.8 180 L41.2 180.14 L41.6 180.23 L42 180.01 L42.4 179.81 L42.8 179.65 L43.2 179.5 L43.6 179.38 L44 179.27 L44.4 179.18 L44.8 179.11 L45.2 179.05 L45.6 179 L46 178.97 L46.4 178.94 L46.8 178.93 L47.2 178.94 L47.6 178.95 L48 178.98 L48.4 179.02 L48.8 179.07 L49.2 179.14 L49.6 179.22 L50 179.31 L50.4 179.43 L50.8 179.56 L51.2 179.71 L51.6 179.88 L52 180.09 L52.4 180.19 L52.8 180.07 L53.2 179.97 L53.6 179.88 L54 179.8 L54.4 179.72 L54.8 179.66 L55.2 179.61 L55.6 179.57 L56 179.54 L56.4 179.52 L56.8 179.5 L57.2 179.5 L57.6 179.5 L58 179.51 L58.4 179.53 L58.8 179.56 L59.2 179.6 L59.6 179.65 L60 179.71 L60.4 179.78 L60.8 179.86 L61.2 179.95 L61.6 180.05 L62 180.16 L62.4 180.29 L62.8 180.43 L63.2 180.58 L63.6 180.68 L64 180.5 L64.4 180.34 L64.8 180.21 L65.2 180.09 L65.6 179.99 L66 179.91 L66.4 179.84 L66.8 179.78 L67.2 179.74 L67.6 179.71 L68 179.7 L68.4 179.7 L68.8 179.7 L69.2 179.73 L69.6 179.76 L70 179.81 L70.4 179.87 L70.8 179.94 L71.2 180.03 L71.6 180.14 L72 180.27 L72.4 180.41 L72.8 180.58 L73.2 180.61 L73.6 180.54 L74 180.48 L74.4 180.43 L74.8 180.39 L75.2 180.37 L75.6 180.35 L76 180.35 L76.4 180.36 L76.8 180.38 L77.2 180.41 L77.6 180.45 L78 180.51 L78.4 180.57 L78.8 180.65 L79.2 180.75 L79.6 180.86 L80 180.88 L80.4 180.77 L80.8 180.68 L81.2 180.59 L81.6 180.52 L82 180.46 L82.4 180.41 L82.8 180.37 L83.2 180.34 L83.6 180.32 L84 180.3 L84.4 180.3 L84.8 180.31 L85.2 180.33 L85.6 180.36 L86 180.4 L86.4 180.45 L86.8 180.5 L87.2 180.57 L87.6 180.66 L88 180.75 L88.4 180.86 L88.8 180.98 L89.2 181.11 L89.6 181.26 L90 181.43 L90.4 181.62 L90.8 181.84 L91.2 181.73 L91.6 181.58 L92 181.43 L92.4 181.31 L92.8 181.2 L93.2 181.1 L93.6 181.01 L94 180.93 L94.4 180.87 L94.8 180.81 L95.2 180.77 L95.6 180.73 L96 180.71 L96.4 180.69 L96.8 180.69 L97.2 180.69 L97.6 180.7 L98 180.73 L98.4 180.76 L98.8 180.8 L99.2 180.85 L99.6 180.92 L100 180.99 L100.4 181.07 L100.8 181.17 L101.2 181.28 L101.6 181.4 L102 181.54 L102.4 181.69 L102.8 181.87 L103.2 182.06 L103.6 182.28 L104 182.52 L104.4 182.42 L104.8 182.33 L105.2 182.24 L105.6 182.17 L106 182.11 L106.4 182.06 L106.8 182.01 L107.2 181.98 L107.6 181.96 L108 181.94 L108.4 181.93 L108.8 181.94 L109.2 181.95 L109.6 181.97 L110 181.99 L110.4 182.03 L110.8 182.08 L111.2 182.13 L111.6 182.2 L112 182.28 L112.4 182.37 L112.8 182.46 L113.2 182.57 L113.6 182.7 L114 182.84 L114.4 182.85 L114.8 182.73 L115.2 182.62 L115.6 182.52 L116 182.43 L116.4 182.35 L116.8 182.28 L117.2 182.22 L117.6 182.16 L118 182.12 L118.4 182.08 L118.8 182.05 L119.2 182.03 L119.6 182.02 L120 182.01 L120.4 182.01 L120.8 182.02 L121.2 182.04 L121.6 182.07 L122 182.1 L122.4 182.14 L122.8 182.19 L123.2 182.25 L123.6 182.31 L124 182.39 L124.4 182.47 L124.8 182.56 L125.2 182.67 L125.6 182.78 L126 182.91 L126.4 183.04 L126.8 183.19 L127.2 183.36 L127.6 183.54 L128 183.74 L128.4 183.96 L128.8 184.2 L129.2 184.47 L129.6 184.77 L130 185.12 L130.4 185.52 L130.8 185.56 L131.2 185.44 L131.6 185.33 L132 185.22 L132.4 185.14 L132.8 185.06 L133.2 184.99 L133.6 184.93 L134 184.88 L134.4 184.84 L134.8 184.81 L135.2 184.79 L135.6 184.77 L136 184.77 L136.4 184.77 L136.8 184.78 L137.2 184.8 L137.6 184.83 L138 184.87 L138.4 184.92 L138.8 184.98 L139.2 185.04 L139.6 185.12 L140 185.21 L140.4 185.31 L140.8 185.42 L141.2 185.54 L141.6 185.68 L142 185.83 L142.4 186 L142.8 186.18 L143.2 186.39 L143.6 186.62 L144 186.77 L144.4 186.67 L144.8 186.58 L145.2 186.51 L145.6 186.45 L146 186.4 L146.4 186.36 L146.8 186.33 L147.2 186.31 L147.6 186.3 L148 186.31 L148.4 186.32 L148.8 186.35 L149.2 186.38 L149.6 186.43 L150 186.49 L150.4 186.56 L150.8 186.64 L151.2 186.74 L151.6 186.85 L152 186.98 L152.4 187.12 L152.8 187.26 L153.2 187.06 L153.6 186.88 L154 186.73 L154.4 186.59 L154.8 186.46 L155.2 186.35 L155.6 186.26 L156 186.17 L156.4 186.1 L156.8 186.04 L157.2 185.99 L157.6 185.95 L158 185.92 L158.4 185.91 L158.8 185.9 L159.2 185.9 L159.6 185.91 L160 185.93 L160.4 185.97 L160.8 186.01 L161.2 186.06 L161.6 186.13 L162 186.2 L162.4 186.29 L162.8 186.39 L163.2 186.51 L163.6 186.64 L164 186.78 L164.4 186.95 L164.8 187.13 L165.2 187.21 L165.6 187.13 L166 187.05 L166.4 186.98 L166.8 186.93 L167.2 186.87 L167.6 186.83 L168 186.8 L168.4 186.77 L168.8 186.75 L169.2 186.74 L169.6 186.74 L170 186.75 L170.4 186.76 L170.8 186.78 L171.2 186.81 L171.6 186.85 L172 186.89 L172.4 186.95 L172.8 187.01 L173.2 187.08 L173.6 187.16 L174 187.25 L174.4 187.35 L174.8 187.46 L175.2 187.58 L175.6 187.71 L176 187.86 L176.4 188.02 L176.8 188.2 L177.2 188.12 L177.6 187.99 L178 187.88 L178.4 187.79 L178.8 187.7 L179.2 187.63 L179.6 187.57 L180 187.53 L180.4 187.5 L180.8 187.47 L181.2 187.46 L181.6 187.46 L182 187.47 L182.4 187.49 L182.8 187.53 L183.2 187.57 L183.6 187.63 L184 187.7 L184.4 187.78 L184.8 187.88 L185.2 187.99 L185.6 188.12 L186 188.27 L186.4 188.43 L186.8 188.62 L187.2 188.84 L187.6 189.09 L188 189.24 L188.4 189.18 L188.8 189.13 L189.2 189.08 L189.6 189.05 L190 189.02 L190.4 189 L190.8 188.99 L191.2 188.98 L191.6 188.98 L192 188.99 L192.4 189.01 L192.8 189.04 L193.2 189.07 L193.6 189.12 L194 189.17 L194.4 189.23 L194.8 189.29 L195.2 189.37 L195.6 189.46 L196 189.55 L196.4 189.66 L196.8 189.78 L197.2 189.91 L197.6 190.04 L198 189.88 L198.4 189.74 L198.8 189.61 L199.2 189.5 L199.6 189.39 L200 189.3 L200.4 189.22 L200.8 189.15 L201.2 189.09 L201.6 189.05 L202 189.01 L202.4 188.97 L202.8 188.95 L203.2 188.94 L203.6 188.94 L204 188.94 L204.4 188.96 L204.8 188.98 L205.2 189.01 L205.6 189.06 L206 189.11 L206.4 189.17 L206.8 189.24 L207.2 189.32 L207.6 189.42 L208 189.52 L208.4 189.64 L208.8 189.77 L209.2 189.92 L209.6 190.08 L210 190.26 L210.4 190.46 L210.8 190.69 L211.2 190.8 L211.6 190.68 L212 190.58 L212.4 190.49 L212.8 190.42 L213.2 190.36 L213.6 190.31 L214 190.28 L214.4 190.26 L214.8 190.25 L215.2 190.25 L215.6 190.26 L216 190.29 L216.4 190.33 L216.8 190.38 L217.2 190.44 L217.6 190.52 L218 190.61 L218.4 190.72 L218.8 190.84 L219.2 190.99 L219.6 191.15 L220 191.35 L220.4 191.57 L220.8 191.67 L221.2 191.57 L221.6 191.47 L222 191.39 L222.4 191.31 L222.8 191.25 L223.2 191.19 L223.6 191.14 L224 191.11 L224.4 191.08 L224.8 191.06 L225.2 191.05 L225.6 191.04 L226 191.05 L226.4 191.06 L226.8 191.08 L227.2 191.11 L227.6 191.15 L228 191.2 L228.4 191.26 L228.8 191.33 L229.2 191.41 L229.6 191.49 L230 191.59 L230.4 191.7 L230.8 191.82 L231.2 191.96 L231.6 192.11 L232 192.27 L232.4 192.46 L232.8 192.48 L233.2 192.31 L233.6 192.16 L234 192.04 L234.4 191.93 L234.8 191.84 L235.2 191.76 L235.6 191.69 L236 191.64 L236.4 191.6 L236.8 191.57 L237.2 191.56 L237.6 191.56 L238 191.56 L238.4 191.58 L238.8 191.62 L239.2 191.66 L239.6 191.72 L240 191.79 L240.4 191.88 L240.8 191.98 L241.2 192.09 L241.6 192.23 L242 192.34 L242.4 192.12 L242.8 191.92 L243.2 191.76 L243.6 191.61 L244 191.48 L244.4 191.37 L244.8 191.28 L245.2 191.19 L245.6 191.13 L246 191.07 L246.4 191.03 L246.8 191 L247.2 190.98 L247.6 190.97 L248 190.97 L248.4 190.98 L248.8 191.01 L249.2 191.04 L249.6 191.09 L250 191.15 L250.4 191.23 L250.8 191.32 L251.2 191.42 L251.6 191.54 L252 191.67 L252.4 191.83 L252.8 191.69 L253.2 191.55 L253.6 191.42 L254 191.31 L254.4 191.22 L254.8 191.14 L255.2 191.07 L255.6 191.02 L256 190.97 L256.4 190.94 L256.8 190.92 L257.2 190.91 L257.6 190.92 L258 190.93 L258.4 190.96 L258.8 190.99 L259.2 191.04 L259.6 191.1 L260 191.18 L260.4 191.26 L260.8 191.37 L261.2 191.48 L261.6 191.62 L262 191.77 L262.4 191.95 L262.8 192.15 L263.2 192.38 L263.6 192.38 L264 192.34 L264.4 192.3 L264.8 192.27 L265.2 192.24 L265.6 192.23 L266 192.23 L266.4 192.23 L266.8 192.25 L267.2 192.27 L267.6 192.3 L268 192.34 L268.4 192.4 L268.8 192.46 L269.2 192.53 L269.6 192.61 L270 192.7 L270.4 192.81 L270.8 192.92 L271.2 193.05 L271.6 193.2 L272 193.36 L272.4 193.46 L272.8 193.26 L273.2 193.08 L273.6 192.92 L274 192.78 L274.4 192.66 L274.8 192.56 L275.2 192.47 L275.6 192.39 L276 192.33 L276.4 192.27 L276.8 192.23 L277.2 192.21 L277.6 192.19 L278 192.18 L278.4 192.19 L278.8 192.2 L279.2 192.23 L279.6 192.27 L280 192.32 L280.4 192.38 L280.8 192.46 L281.2 192.55 L281.6 192.65 L282 192.77 L282.4 192.92 L282.8 193.08 L283.2 193.24 L283.6 193.39 L284 193.55 L284.4 193.72 L284.8 193.89 L285.2 194.07 L285.6 194.26 L286 194.44 L286.4 194.64 L286.8 194.84 L287.2 195.05 L287.6 195.27 L288 195.5 L288.4 195.74 L288.8 195.99 L289.2 196.25 L289.6 196.53 L290 196.83 L290.4 197.15 L290.8 197.5 L291.2 197.89 L291.6 198.34 L292 198.85 L292.4 199.5 L292.8 200.48 L293.2 202"/>
 <path d="M0 202 L318 202 L319.33 202.06 L320.67 202.22 L322 202.47 L323.33 202.78 L324.67 203.13 L326 203.5 L327.33 203.87 L328.67 204.22 L330 204.53 L331.33 204.78 L332.67 204.94 L334 205"/>
+</g>
+<g class="tower">
 <path d="M261.38 97 L261.38 85.25 L278.62 85.25 L278.62 97Z" class="glass"/>
 <path d="M262.62 97V85.25"/>
 <path d="M265 97V85.25"/>
@@ -279,6 +504,8 @@
 <path d="M246.25 195.75 L246.25 194.5 L293.75 194.5 L293.75 195.75Z" class="o"/>
 <path d="M249.38 194.5 L249.38 193.25 L290.62 193.25 L290.62 194.5Z" class="o"/>
 <path d="M252.5 193.25 L252.5 192 L287.5 192 L287.5 193.25Z" class="o"/>
+</g>
+<g class="ship">
 <path d="M563.9 205 L561.4 201.5 L560 197.3 L581 197.3 L582.4 198.9 L672 198.9 L699.6 198.6 L699.6 200.6 L697 205"/>
 <path d="M565.6 197.3 L565.6 194 L578.4 194 L578.4 197.3"/>
 <path d="M566.6 194 L566.6 190.4 L577.6 190.4 L577.6 194"/>
@@ -304,6 +531,8 @@
 <path d="M676 194.6 L676 192 L693 192 L693 194.6"/>
 <path d="M685.6 192 L686.4 185.4 L691.6 185.4 L691.8 192"/>
 <path d="M686.2 187H691.7"/>
+</g>
+<g class="water">
 <path d="M243.5 207.3H259.2"/>
 <path d="M262.8 207.3H297.5"/>
 <path d="M249.38 209.8H275.2"/>
@@ -354,9 +583,12 @@
 <path d="M259.2 213.4V217"/>
 <path d="M280.6 222.8V225.4"/>
 </g>
+</g>
 <g class="nav"><circle cx="571.8" cy="186.2" r="0.9"/><circle cx="688.9" cy="184.6" r="0.9"/></g>
 <g class="lampref"><path d="M267 209.8h4"/><path d="M269 215.1h5"/><path d="M265 221.6h6"/><path d="M268.5 231.8h5"/><path d="M265 246.6h7"/><path d="M267.5 268.4h6"/></g>
 <g class="lamp"><circle cx="270" cy="91.12" r="16" fill="url(#halo)"/><circle class="core" cx="270" cy="91.12" r="1.7"/></g>
+<rect class="rain" opacity="0" x="0" y="-360" width="1300" height="720" fill="url(#rain)"/>
+<rect class="snow" opacity="0" x="0" y="-240" width="1290" height="600" fill="url(#snow)"/>
 </svg>
         </figure>
         <script>window.LAKE && LAKE.paint();</script>
@@ -371,19 +603,19 @@
                     </div>
                     <ul class="projects" role="list">
                         <li class="card">
-                            <span class="shot"><img src="images/portfolio/lotus-international-website-768.jpg" srcset="images/portfolio/lotus-international-website-768.jpg 768w, images/portfolio/lotus-international-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
+                            <span class="shot" style="--tone: #2E3844"><img src="images/portfolio/lotus-international-website-768.jpg" srcset="images/portfolio/lotus-international-website-768.jpg 768w, images/portfolio/lotus-international-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
                             <h3><a href="work/lotus-international/">Lotus International</a></h3>
                             <p class="kind small muted">Contract manufacturing</p>
                             <p class="note">Branding, website, and marketing, in-house at Lotus International.</p>
                         </li>
                         <li class="card">
-                            <span class="shot"><img src="images/portfolio/clark-waterproofing-website-768.jpg" srcset="images/portfolio/clark-waterproofing-website-768.jpg 768w, images/portfolio/clark-waterproofing-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
+                            <span class="shot" style="--tone: #B44A4B"><img src="images/portfolio/clark-waterproofing-website-768.jpg" srcset="images/portfolio/clark-waterproofing-website-768.jpg 768w, images/portfolio/clark-waterproofing-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
                             <h3><a href="work/clark-waterproofing/">Clark Basement Waterproofing</a></h3>
                             <p class="kind small muted">Home services</p>
                             <p class="note">Branding, website, paid advertising, and direct mail for an independent client.</p>
                         </li>
                         <li class="card">
-                            <span class="shot"><img src="images/portfolio/trialassure-website-768.jpg" srcset="images/portfolio/trialassure-website-768.jpg 768w, images/portfolio/trialassure-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
+                            <span class="shot" style="--tone: #586A80"><img src="images/portfolio/trialassure-website-768.jpg" srcset="images/portfolio/trialassure-website-768.jpg 768w, images/portfolio/trialassure-website.jpg 1280w" sizes="(max-width: 520px) 100vw, (max-width: 760px) 45vw, (max-width: 1280px) 31vw, 384px" alt="" width="768" height="516" loading="lazy" decoding="async"></span>
                             <h3><a href="work/trialassure/">TrialAssure</a></h3>
                             <p class="kind small muted">Life sciences</p>
                             <p class="note">Branding and website, with marketing input, for Lotus International&rsquo;s sister company.</p>
@@ -399,6 +631,7 @@
                     <p class="section-label">Services</p>
                     <div class="section-body">
                         <h2 id="consulting-title" class="section-title">We get to know your business. Then we build what helps.</h2>
+                        <p class="section-intro">Every engagement has a fixed scope and a fixed price. We build it, hand it over, and it keeps running.</p>
                         <ul class="items" role="list">
                             <li class="item">
                                 <h3>Branding &amp; websites</h3>

@@ -428,17 +428,46 @@ https://thepeninsularcompany.com
 
 
 def build_share_image():
-    """A name-first card with the same solid block and quiet place illustration."""
-    logo = logo_svg('mark-line', INK, PINE)
-    logo = re.sub(r'width="[^"]+" height="[^"]+"', 'x="70" y="68" width="865" height="196"', logo, count=1)
+    """The link preview says what the home page says: the signature, the headline, and the lake under it.
+    The company cover for social profiles stays name-first."""
     lake = re.sub(r'<svg[^>]*>', '<svg x="0" y="326" width="1200" height="304" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMid slice">', lake_svg(False), count=1)
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">'
-           '<rect width="1200" height="630" fill="%s"/>%s%s</svg>' % (GROUND, lake, logo))
-    render(svg, ROOT / 'og-image.png', 1200, 630)
-    render(svg.replace('width="1200" height="630" viewBox="0 0 1200 630"',
-                       'width="1500" height="500" viewBox="0 0 1200 400"'),
-           OUT / 'social' / 'peninsular-company-cover.png', 1500, 500)
 
+    # The share card is set in the site's own Archivo, so Chrome draws it from the same font file the page serves.
+    logo = re.sub(r' width="[^"]+" height="[^"]+"', '', logo_svg('mark-line', INK, PINE), count=1)
+    card_lake = re.sub(r'<svg x="0" y="326" width="1200" height="304"', '<svg class="lake" width="1200" height="304"', lake, count=1)
+    page = """<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face { font-family: Archivo; font-weight: 500 700; src: url(%(font)s) format('woff2'); }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: %(ground)s; }
+.logo { position: absolute; left: 72px; top: 60px; width: 286px; }
+.logo svg { display: block; width: 100%%; height: auto; }
+h1 { position: absolute; left: 72px; top: 172px; margin: 0; color: %(ink)s;
+     font: 620 70px/0.99 Archivo, 'Helvetica Neue', Arial, sans-serif; letter-spacing: -0.045em; }
+.lake { position: absolute; left: 0; top: 326px; display: block; }
+</style></head><body>
+<div class="logo">%(logo)s</div>
+<h1>Helping businesses<br>work better and grow.</h1>
+%(lake)s
+</body></html>""" % {'font': (ROOT / 'fonts' / 'archivo-display.woff2').as_uri(), 'ground': GROUND, 'ink': INK, 'logo': logo, 'lake': card_lake}
+    out = ROOT / 'og-image.png'
+    with tempfile.TemporaryDirectory() as tmp:
+        src, shot = Path(tmp) / 'share.html', Path(tmp) / 'share@2x.png'
+        src.write_text(page)
+        try:
+            subprocess.run([CHROME, '--headless', '--disable-gpu', '--hide-scrollbars', '--virtual-time-budget=3000',
+                            '--user-data-dir=' + str(Path(tmp) / 'profile'),
+                            '--window-size=1200,630', '--force-device-scale-factor=2',
+                            '--screenshot=' + str(shot), src.as_uri()],
+                           check=True, timeout=45, stderr=subprocess.DEVNULL)
+        except subprocess.TimeoutExpired:
+            if not shot.exists():
+                raise
+        # Drawn at twice the size and brought down, so the lake's hairlines stay crisp.
+        Image.open(shot).convert('RGB').resize((1200, 630), Image.LANCZOS).save(out, optimize=True)
+
+    logo = re.sub(r'width="[^"]+" height="[^"]+"', 'x="70" y="68" width="865" height="196"', logo_svg('mark-line', INK, PINE), count=1)
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1200 400">'
+           '<rect width="1200" height="630" fill="%s"/>%s%s</svg>' % (GROUND, lake, logo))
+    render(svg, OUT / 'social' / 'peninsular-company-cover.png', 1500, 500)
 
 if __name__ == '__main__':
     sync_identity()
