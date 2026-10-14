@@ -32,7 +32,7 @@ Keep it this spare. A new sentence should replace one, not join it. Screenshots 
 
 ## Inkblotter's pages
 
-`app/inkblotter/` is Inkblotter's own site: the app's page and press kit, with its support, privacy, and terms pages. It keeps the app's look (a black notebook, with the Bodoni and Hoefler faces already on the reader's device) and loads nothing from outside this site. It is the one generated part of the site. The sources and the script are in the Inkblotter project (`Launch/press-kit/`), and `python3 Launch/press-kit/build.py` rewrites the whole folder, so change the pages there, not here. The script takes the legal name, place, and governing law from `legal/company.json`. The legal sync does not reach these pages: rebuild them when a fact changes.
+`app/inkblotter/` is Inkblotter's own site: the app's page and press kit, with its support, privacy, and terms pages. It keeps the app's look (a blue-black notebook and its own Bodoni, Bodoni Moda, served from `app/inkblotter/fonts/` under the SIL Open Font License) and loads nothing from outside this site. It is the one generated part of the site. The sources and the script are in the Inkblotter project (`Launch/press-kit/`), and `python3 Launch/press-kit/build.py` rewrites the whole folder, so change the pages there, not here. The script takes the legal name, place, and governing law from `legal/company.json`. The legal sync does not reach these pages: rebuild them when a fact changes.
 
 ## Brand kit
 

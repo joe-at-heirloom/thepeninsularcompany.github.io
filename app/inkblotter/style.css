@@ -1,20 +1,24 @@
-/* Layout: a plain black notebook cover for the hero, like the app's cover, then the paper page:
+@font-face { font-family: "Bodoni Moda"; src: url("/app/inkblotter/fonts/bodoni-moda.woff") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url("/app/inkblotter/fonts/bodoni-moda-italic.woff") format("woff"); font-weight: 400 700; font-style: italic; font-display: swap; }
+/* The Blotter identity: blue-black ink on cream paper, azure beside it, Bodoni set light and large.
+   Layout: a plain blue-black notebook cover for the hero, like the app's cover, then the paper page:
    the fold in six plates, the ten plates, the story in three parts, the facts, the files. */
 :root {
   --paper: #F3EFE4;
   --paper-deep: #E8E2D3;
-  --ink: #1F1C17;
-  --ink-soft: #5E574C;
-  --cover: #1A1918;
-  --cover-deep: #0F0E0E;
-  --stamp: #DAD5CA;
-  --print: #A29D94;
-  --crimson: #B01729;
-  --desk: #453F3B;
+  --ink: #17233B;
+  --ink-soft: #4F5F80;
+  --cover: #17233B;
+  --cover-deep: #0E172A;
+  --stamp: #DFE6EE;
+  --print: #8693AD;
+  --azure: #C6D2DD;
+  --accent: #4F5F80;
+  --desk: #212B40;
   --todo: #F3DE9C;
-  /* The faces already on the reader's device: the company site serves no outside fonts. */
-  --display: "Hoefler Text", "Bodoni Moda", Didot, "Bodoni MT", Georgia, serif;
-  --text: "Libre Bodoni", "Bodoni 72", "Bodoni MT", Georgia, serif;
+  /* Bodoni Moda comes from this site's own fonts/ folder; the device's Bodoni stands in until it arrives. */
+  --display: "Bodoni Moda", "Bodoni 72", Didot, "Bodoni MT", Georgia, serif;
+  --text: "Bodoni Moda", "Libre Bodoni", "Bodoni 72", "Bodoni MT", Georgia, serif;
   color-scheme: light;
 }
 
@@ -28,8 +32,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--crimson); text-underline-offset: 3px; }
-a:focus-visible, video:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
+a { color: var(--ink); text-decoration-color: var(--print); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible, video:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .caps {
   font-size: 13px;
@@ -44,13 +49,13 @@ a:focus-visible, video:focus-visible { outline: 2px solid var(--crimson); outlin
   font-style: normal;
 }
 
-/* The cover: matte black cloth, a groove by the spine, nothing printed on it but the name */
+/* The cover: matte blue-black cloth, a groove by the spine, nothing printed on it but the name */
 
 .cover {
   position: relative;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0, rgba(0, 0, 0, 0) 10px, rgba(0, 0, 0, 0) 20px, rgba(0, 0, 0, 0.5) 23px, rgba(255, 255, 255, 0.05) 25px, rgba(0, 0, 0, 0) 30px),
-    radial-gradient(ellipse at 50% 30%, #252422 0%, var(--cover) 55%, var(--cover-deep) 100%);
+    radial-gradient(ellipse at 50% 30%, #24324F 0%, var(--cover) 55%, var(--cover-deep) 100%);
   padding-inline: 16px;
   isolation: isolate;
 }
@@ -95,17 +100,22 @@ a:focus-visible, video:focus-visible { outline: 2px solid var(--crimson); outlin
   font-size: 17px;
   text-decoration: none;
 }
-.cta:hover { background: var(--stamp); color: var(--cover); }
+.cta:hover { background: var(--azure); color: var(--cover); }
 .cta:focus-visible { outline-color: var(--stamp); }
 
 h1 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 900;
+  font-weight: 400;
   font-size: clamp(56px, 12vw, 136px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
+
+/* The wordmark: the name beside a hairline, and across it the mirror image a blotter keeps. */
+.wordmark { display: flex; align-items: center; justify-content: center; gap: 0.11em; font-size: clamp(30px, 7.2vw, 104px); line-height: 1.1; }
+.wordmark .ghost { transform: scaleX(-1); opacity: 0.2; }
+.wordmark .fold { width: 1px; align-self: stretch; background: currentColor; }
 
 .tagline {
   margin: 0;
@@ -149,7 +159,8 @@ main {
 h2 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 900;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   font-size: clamp(32px, 5vw, 52px);
   line-height: 1.08;
   text-wrap: balance;
@@ -158,20 +169,25 @@ h2 {
 h3 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 900;
+  font-weight: 500;
   font-size: 24px;
   line-height: 1.2;
 }
 
-/* Hoefler Text's own figures are old-style, which turns "1.0" into "I.o". */
+/* Lining figures, so "1.0" does not read as "I.o" where the face's own figures are old-style. */
 h1, h2, h3 { font-variant-numeric: lining-nums; }
+
+/* Text is set from the sturdy end of Bodoni Moda's optical sizes, so its hairlines hold up on any screen;
+   titles take the cut for the size they are set at. */
+body { font-variation-settings: "opsz" 12; }
+h1, h2, h3, .tagline, .masthead .name { font-variation-settings: normal; }
 
 .lede { display: grid; gap: 20px; max-width: 46rem; }
 .lede p { margin: 0; font-size: clamp(19px, 2.2vw, 22px); }
 
 .section-head { display: grid; gap: 14px; margin-bottom: 28px; }
 .section-head p { margin: 0; }
-.section-head .caps { color: var(--crimson); }
+.section-head .caps { color: var(--accent); }
 
 .plates {
   display: grid;
@@ -196,8 +212,8 @@ h1, h2, h3 { font-variant-numeric: lining-nums; }
 .plates img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 .plates figcaption { display: grid; gap: 2px; font-size: 16px; line-height: 1.5; }
-.plates .numeral { color: var(--crimson); font-weight: 700; letter-spacing: 0.12em; font-size: 13px; }
-.plates strong { font-family: var(--display); font-weight: 900; font-size: 19px; }
+.plates .numeral { color: var(--accent); font-weight: 700; letter-spacing: 0.12em; font-size: 13px; }
+.plates strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
 
 .plates.pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
 .lede + .plates { margin-top: 32px; }
@@ -211,7 +227,7 @@ h1, h2, h3 { font-variant-numeric: lining-nums; }
 .parts article { display: grid; gap: 10px; align-content: start; min-width: 0; }
 .parts p { margin: 0; }
 
-.fleuron { text-align: center; color: var(--ink-soft); font-size: 22px; margin: 0; }
+.crease { width: 1px; height: 72px; margin: 0 auto; border: 0; background: var(--print); }
 
 .facts-and-contact {
   display: grid;
@@ -263,7 +279,7 @@ footer .maker img { display: block; width: 134px; height: auto; }
 .masthead .frame { padding: 22px 16px; gap: 4px; }
 .masthead a { text-decoration: none; }
 .masthead a:focus-visible { outline-color: var(--stamp); }
-.masthead .name { font-family: var(--display); font-weight: 900; font-size: 34px; line-height: 1; }
+.masthead .name { font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1; }
 
 .prose { max-width: 42rem; margin: 0 auto; padding: 56px 16px 72px; display: grid; gap: 18px; }
 .prose h1 { font-size: clamp(36px, 6vw, 52px); color: var(--ink); }
@@ -283,4 +299,4 @@ footer .maker img { display: block; width: 134px; height: auto; }
   * { scroll-behavior: auto !important; }
 }
 
-.parts .caps { color: var(--crimson); }
+.parts .caps { color: var(--accent); }

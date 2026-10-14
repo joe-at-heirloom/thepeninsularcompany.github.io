@@ -10,7 +10,7 @@
 <link rel="icon" href="/app/inkblotter/images/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/app/inkblotter/images/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Inkblotter">
-<meta name="theme-color" content="#1A1918">
+<meta name="theme-color" content="#17233B">
 <meta name="color-scheme" content="light">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Inkblotter">
@@ -20,19 +20,20 @@
 <meta property="og:image" content="https://thepeninsularcompany.com/app/inkblotter/images/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A symmetrical inkblot, black above and crimson below, pressed across two facing pages.">
+<meta property="og:image:alt" content="A symmetrical inkblot, blue-black above and sepia below, pressed across two facing pages.">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/app/inkblotter/fonts/bodoni-moda.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="/app/inkblotter/style.css">
 </head>
 <body>
 <header class="cover hero">
   <div class="frame">
     <p class="caps">For iPhone Duo · iPhone · iPad</p>
-    <h1 class="stamped">Inkblotter</h1>
+    <h1 class="stamped wordmark"><span class="ghost" aria-hidden="true">Inkblotter</span><span class="fold"></span><span>Inkblotter</span></h1>
     <p class="tagline">The ink blot test you fold</p>
     <p class="caps">On the App Store October 23, 2026</p>
     <figure class="film">
-      <video id="fold-film" src="/app/inkblotter/inkblotter-fold.mp4" poster="/app/inkblotter/images/05-revealed.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Inkblotter on iPhone Duo: the black cover, the marbled endpapers, inking a page, closing the phone, the revealed blot and its reading"></video>
+      <video id="fold-film" src="/app/inkblotter/inkblotter-fold.mp4" poster="/app/inkblotter/images/05-revealed.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Inkblotter on iPhone Duo: the blue-black cover, the marbled endpapers, inking a page, closing the phone, the revealed blot and its reading"></video>
       <figcaption>27 seconds on iPhone Duo, recorded in the simulator. No sound.</figcaption>
     </figure>
   </div>
@@ -52,11 +53,11 @@
     </div>
     <ol class="plates">
       <li><figure>
-        <div class="print"><img src="/app/inkblotter/images/01-cover.jpg" alt="The closed iPhone Duo's outer screen as a plain black notebook cover, with The Ink Blot Test pressed faintly into it and Open to begin at the foot" loading="lazy"></div>
-        <figcaption><span class="numeral">FIG. 1</span><strong>The cover</strong>Shut, the outer screen is a plain black notebook. The title is pressed in, without foil.</figcaption>
+        <div class="print"><img src="/app/inkblotter/images/01-cover.jpg" alt="The closed iPhone Duo's outer screen as a plain blue-black notebook cover, with Inkblotter pressed faintly into it and Open to begin at the foot" loading="lazy"></div>
+        <figcaption><span class="numeral">FIG. 1</span><strong>The cover</strong>Shut, the outer screen is a plain blue-black notebook. The name is pressed in, without foil.</figcaption>
       </figure></li>
       <li><figure>
-        <div class="print"><img src="/app/inkblotter/images/02-endpaper.jpg" alt="The open phone filled edge to edge with a stone-marbled endpaper: crimson, cream, blue and ochre spots on black" loading="lazy"></div>
+        <div class="print"><img src="/app/inkblotter/images/02-endpaper.jpg" alt="The open phone filled edge to edge with a stone-marbled endpaper: blue, slate, cream and ochre spots on blue-black" loading="lazy"></div>
         <figcaption><span class="numeral">FIG. 2</span><strong>The endpapers</strong>Open it and marbled endpapers give way as three leaves turn to a fresh page.</figcaption>
       </figure></li>
       <li><figure>
@@ -64,15 +65,15 @@
         <figcaption><span class="numeral">FIG. 3</span><strong>The directions</strong>An engraved plate shows the fold. The hinge in the drawing closes as yours does.</figcaption>
       </figure></li>
       <li><figure>
-        <div class="print"><img src="/app/inkblotter/images/04-inked.jpg" alt="Black and crimson ink pooled on the right page; the left page now reads Now shut your iPhone" loading="lazy"></div>
+        <div class="print"><img src="/app/inkblotter/images/04-inked.jpg" alt="Blue-black and sepia ink pooled on the right page; the left page now reads Now shut your iPhone" loading="lazy"></div>
         <figcaption><span class="numeral">FIG. 4</span><strong>The ink</strong>Tap to splash, hold still to pour, drag to smear. Ink goes on one page only, as Justinus Kerner did it in 1857.</figcaption>
       </figure></li>
       <li><figure>
-        <div class="print"><img src="/app/inkblotter/images/05-revealed.jpg" alt="A symmetrical blot spread across both pages, black above and crimson below" loading="lazy"></div>
+        <div class="print"><img src="/app/inkblotter/images/05-revealed.jpg" alt="A symmetrical blot spread across both pages, blue-black above and sepia below" loading="lazy"></div>
         <figcaption><span class="numeral">FIG. 5</span><strong>The blot</strong>Close the phone to press it. Open it, and the print peels apart in strands.</figcaption>
       </figure></li>
       <li><figure>
-        <div class="print"><img src="/app/inkblotter/images/06-reading.jpg" alt="A white reading card over the blot titled The Dressed Enthusiast. It takes the answer in three parts, dancers, bowing and two, and says what each shows about the sitter" loading="lazy"></div>
+        <div class="print"><img src="/app/inkblotter/images/06-reading.jpg" alt="A white reading card over the blot titled The Graceful Minstrel. It takes the answer in three parts, dancers, bowing and two, and says what each shows about the sitter" loading="lazy"></div>
         <figcaption><span class="numeral">FIG. 6</span><strong>The reading</strong>Say what you see, and the Examiner takes your answer a word at a time: what the old examiners made of it, and what it says about you.</figcaption>
       </figure></li>
     </ol>
@@ -117,7 +118,7 @@
     </article>
   </section>
 
-  <p class="fleuron" aria-hidden="true">❦</p>
+  <hr class="crease" aria-hidden="true">
 
   <section class="facts-and-contact" aria-label="Facts and contact">
     <div>
@@ -152,10 +153,10 @@
       <h2 id="files-title">Video, stills and icon</h2>
     </div>
     <ul class="files">
-      <li><span class="what"><a href="/app/inkblotter/inkblotter-fold.mp4">The fold film</a></span><span class="meta">MP4, 1920 × 1080, 60 fps, 27 seconds · 4.2 MB</span></li>
-      <li><span class="what"><a href="/app/inkblotter/inkblotter-fold.gif">The fold film as a GIF</a></span><span class="meta">GIF, 640 wide, 20 fps · 3.8 MB</span></li>
-      <li><span class="what"><a href="/app/inkblotter/images/icon.png">App icon</a></span><span class="meta">PNG, 1024 × 1024 · 1.0 MB</span></li>
-      <li><span class="what"><a href="/app/inkblotter/inkblotter-press-kit.zip">The stills at full resolution, with the icon</a></span><span class="meta">ZIP, 8 JPEGs and a PNG · 5.5 MB</span></li>
+      <li><span class="what"><a href="/app/inkblotter/inkblotter-fold.mp4">The fold film</a></span><span class="meta">MP4, 1920 × 1080, 60 fps, 27 seconds · 4.3 MB</span></li>
+      <li><span class="what"><a href="/app/inkblotter/inkblotter-fold.gif">The fold film as a GIF</a></span><span class="meta">GIF, 640 wide, 20 fps · 4.0 MB</span></li>
+      <li><span class="what"><a href="/app/inkblotter/images/icon.png">App icon</a></span><span class="meta">PNG, 1024 × 1024 · 209 KB</span></li>
+      <li><span class="what"><a href="/app/inkblotter/inkblotter-press-kit.zip">The stills at full resolution, with the icon</a></span><span class="meta">ZIP, 8 JPEGs and a PNG · 4.9 MB</span></li>
     </ul>
   </section>
 </main>
