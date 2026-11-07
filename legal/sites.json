@@ -22,13 +22,6 @@
       "verify": ["privacy.html", "terms.html"]
     },
     {
-      "name": "Madame Fortune",
-      "repo": "joe-at-heirloom/madamefortune.github.io",
-      "local": "MadameFortune - Website",
-      "files": ["privacy.html", "terms.html", "index.html", "support.html"],
-      "verify": ["privacy.html", "terms.html"]
-    },
-    {
       "name": "WorldSimulator",
       "repo": "joe-at-heirloom/worldsimulator",
       "local": "WorldSimulator",

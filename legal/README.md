@@ -41,7 +41,7 @@ Keys: `name`, `operator` (name + description), `location`,
 for ©), and `updated` (a page's "Last updated" date). To add a fact to a page,
 wrap its current text in the markers; the next sync keeps it current.
 
-- **Ollin Tuner, Learn to Play Cards, Daily Canvas, Madame Fortune**: markers in
+- **Ollin Tuner, Learn to Play Cards, Daily Canvas**: markers in
   their HTML.
 - **WorldSimulator** and **Codekeeper**: the sync writes `src/lib/company.ts`,
   which the legal pages import, and moves their `pc:updated` dates. A push to
@@ -71,7 +71,7 @@ The workflow pushes to other repos, so it needs a token of its own:
 1. On GitHub: **Settings → Developer settings → Fine-grained tokens → Generate
    new token**. Resource owner `joe-at-heirloom`; **Only select repositories**:
    `ollintuner.github.io`, `learntoplaycards.github.io`,
-   `dailycanvas.github.io`, `madamefortune.github.io`, `heirloom.github.io`,
+   `dailycanvas.github.io`, `heirloom.github.io`,
    `worldsimulator`, `codekeeper` and `heirloom`. Permissions: **Contents: Read
    and write**. (A token's permissions apply to every repo it covers; the sync
    only reads `heirloom`.)
