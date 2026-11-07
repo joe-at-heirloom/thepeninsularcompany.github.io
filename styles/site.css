@@ -307,6 +307,8 @@ a.canvas:hover { transform: rotate(-1.2deg); }
     filter: drop-shadow(0 1.5px 1.5px rgba(0, 0, 0, 0.28));
 }
 /* Not cut yet: a dashed line where the mark will go. */
+/* A two-initial punch is wider; sized so every punch stands the same height. */
+.canvas .mark-pair { width: calc(46% * 43 / 26); max-width: 86%; }
 .canvas .mark-todo { fill: none; stroke: currentColor; stroke-width: 0.6; stroke-dasharray: 2 1.6; opacity: 0.55; filter: none; width: 34%; }
 .canvas .medium { font-size: 13.5px; font-weight: 500; line-height: 1.35; opacity: 0.86; text-wrap: balance; }
 /* The empty frame: primed, not painted. */
@@ -526,6 +528,7 @@ footer .sep { display: inline-block; width: 18px; }
     .canvas .verb { font-size: 30px; }
     .canvas .medium { display: none; }
     .canvas .mark { width: 58%; margin: 10px 0 4px; }
+    .canvas .mark-pair { width: 86%; }
     .canvas .mark-todo { width: 42%; }
     .label { margin: 9px 0 0; }
 }
