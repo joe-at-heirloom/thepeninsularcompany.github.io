@@ -19,7 +19,7 @@ The home page says each thing once, in this order:
 - **Services**: one statement and three services, a sentence each.
 - **Auction houses**: one statement and six areas, a sentence each.
 - **The Salon**: the art apps as one family, hung as a gallery wall: four frames on a picture rail, each the app's color with a verb (See, Keep, Sell, Go), and a museum wall label under it with the name, year, one sentence, status, and the app's own links. Daily Canvas, Heirloom, and Theca, plus an empty, primed frame, "Untitled", for the museum-visit app still in the studio. Theca's brand rules keep its logo away from the company's marks, so the wall uses names and colors, never app logos.
-- **Ventures**: titled "Other ventures": the company's products outside the Salon, numbered, with status, platform, and each one's own support, privacy, and terms links (today, Codekeeper). Inkblotter, WorldSimulator, Learn to Play Cards, The Ollin Tuner, and Fortjort are published by the company but shown on joelint.com. Inkblotter's pages still live here at `/app/inkblotter/`.
+- **Ventures**: titled "Other ventures": the company's products outside the Salon, numbered, with status, platform, and each one's own support, privacy, and terms links (today, Codekeeper). Inkblotter, WorldSimulator, Learn to Play Cards, The Ollin Tuner, and Fortjort are published by the company but shown on joelint.com. Inkblotter's pages moved to joelint.com/apps/inkblotter/; `app/inkblotter/` here only redirects there, so links already registered with the App Store keep working.
 - **Contact**: one question, the email address, a short note form, and a link to joelint.com. The form posts to Formspree and is guarded by Cloudflare Turnstile (the same widget as joelint.com, "Formspree contact forms", because both post to one Formspree form, which holds its secret key). Turnstile's script loads only when someone clicks into the form.
 - **Footer**: the page's one pine field, holding the white signature, the legal name, Detroit, the state motto, and links to Privacy, Terms, and Brand.
 
@@ -37,9 +37,9 @@ Keep it this spare. A new sentence should replace one, not join it. Screenshots 
 
 `legal/company.json` holds the company facts every app's privacy policy and terms share (legal name, where, which law governs). Change it and push: the **Legal sync** workflow updates and publishes every app site. See [legal/README.md](legal/README.md). `_config.yml` keeps `legal/` and `scripts/` off the published site.
 
-## Inkblotter's pages
+## Inkblotter redirects
 
-`app/inkblotter/` is Inkblotter's own site: the app's page and press kit, with its support, privacy, and terms pages. It keeps the app's look (a blue-black notebook and its own Bodoni, Bodoni Moda, served from `app/inkblotter/fonts/` under the SIL Open Font License) and loads nothing from outside this site. It is the one generated part of the site. The sources and the script are in the Inkblotter project (`Launch/press-kit/`), and `python3 Launch/press-kit/build.py` rewrites the whole folder, so change the pages there, not here. The script takes the legal name, place, and governing law from `legal/company.json`. The legal sync does not reach these pages: rebuild them when a fact changes.
+`app/inkblotter/` holds four redirect pages (the page, support, privacy, terms) that send visitors to Inkblotter's pages at joelint.com/apps/inkblotter/, where they moved on November 7, 2026. They exist so App Store links registered before the move keep working.
 
 ## Brand kit
 
@@ -57,7 +57,7 @@ The supplied colors are RGB. Letterhead is US Letter; cards are 3.5 × 2 inches,
 
 ## How the page is built
 
-The site is static HTML with two shared stylesheets and self-hosted fonts. No build step, except for `app/inkblotter/` (see above).
+The site is static HTML with two shared stylesheets and self-hosted fonts. No build step.
 
 - `styles/brand.css` is the identity: the two font families, their stand-ins, and the colors (limestone, ink, pine, brick, lake, night).
 - `styles/site.css` is everything else, for every page: the home page, the project pages under `work/`, `privacy/`, `terms/`, and `404.html`. No page carries its own pasted copy of the styles. `brand/index.html`, the brand guide, is the exception: it is self-contained so it also works from the ZIP.
