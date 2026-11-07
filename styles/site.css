@@ -236,6 +236,87 @@ main > section { padding-top: 112px; scroll-margin-top: -80px; }
 .meta { grid-column: 3; grid-row: 1 / span 2; text-align: right; }
 .meta span { display: block; }
 
+/* ---------- The Salon: the art apps ---------- */
+/* Four frames hung from one picture rail, each with a museum wall label beneath it.
+   A frame is the app's color; the empty one is the app still in the studio. */
+.salon { grid-column: 1 / -1; margin-top: 44px; }
+.rail { height: 0; border-top: 1px solid var(--ink); position: relative; }
+.frames {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.piece { position: relative; padding-top: 34px; }
+/* The hanging wire: two lines from a hook on the rail to the frame's corners. */
+.piece::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 18%; right: 18%;
+    height: 35px;
+    background:
+        linear-gradient(to top right, transparent calc(50% - 0.5px), var(--ink-2) calc(50% - 0.5px), var(--ink-2) calc(50% + 0.5px), transparent calc(50% + 0.5px)) left / 50% 100% no-repeat,
+        linear-gradient(to top left, transparent calc(50% - 0.5px), var(--ink-2) calc(50% - 0.5px), var(--ink-2) calc(50% + 0.5px), transparent calc(50% + 0.5px)) right / 50% 100% no-repeat;
+    opacity: 0.7;
+}
+.piece::after {
+    content: "";
+    position: absolute;
+    top: -3px; left: 50%;
+    width: 6px; height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: var(--ink);
+}
+.canvas {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 4 / 5;
+    padding: 16px 16px 14px;
+    background: var(--c);
+    color: var(--on, #fff);
+    /* A gilt-free frame: a dark moulding, a limestone mat. */
+    box-shadow: 0 0 0 7px var(--ground), 0 0 0 9px var(--ink), 0 14px 22px -12px rgba(27, 41, 38, 0.45);
+    margin: 9px;
+    text-decoration: none;
+    transform-origin: 50% -34px;
+    transition: transform 0.5s cubic-bezier(.3, 1.6, .5, 1), box-shadow 0.2s;
+}
+a.canvas:hover { transform: rotate(-1.2deg); }
+.piece:nth-child(even) a.canvas:hover { transform: rotate(1.2deg); }
+.canvas .verb {
+    font-family: var(--display);
+    font-size: clamp(34px, 4.2vw, 58px);
+    font-weight: 620;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+}
+.canvas .medium { font-size: 13.5px; font-weight: 500; line-height: 1.35; opacity: 0.86; text-wrap: balance; }
+/* The empty frame: primed, not painted. */
+.piece.wip .canvas {
+    background:
+        repeating-linear-gradient(135deg, transparent 0 9px, rgba(27, 41, 38, 0.07) 9px 10px),
+        #E6E2D6;
+    color: var(--ink);
+}
+.piece.wip .canvas .verb { color: transparent; -webkit-text-stroke: 1.2px var(--ink); }
+/* The wall label: artist, title and date; medium; a line of curatorial text. */
+.label { margin: 22px 9px 0; padding-left: 12px; border-left: 2px solid var(--c); }
+.piece.wip .label { border-left-style: dashed; border-left-color: var(--ink-2); }
+.label h3 { font-size: 19px; line-height: 1.2; letter-spacing: -0.015em; }
+.label h3 a { text-decoration: none; }
+.label h3 a:hover { color: var(--pine); }
+.label h3 .date { font-family: var(--font); font-weight: 400; color: var(--ink-2); letter-spacing: 0; }
+.label .about { margin-top: 10px; color: var(--ink-2); font-size: 15.5px; line-height: 1.45; text-wrap: pretty; }
+.label .status { margin-top: 10px; }
+.label .status span + span { margin-left: 10px; }
+.label .links { display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) { .canvas { transition: none; } a.canvas:hover { transform: none !important; } }
+
 /* ---------- Contact ---------- */
 .email {
     margin-top: 28px;
@@ -247,6 +328,34 @@ main > section { padding-top: 112px; scroll-margin-top: -80px; }
 }
 .email a { text-decoration: none; border-bottom: 2px solid var(--pine); }
 .email a:hover { color: var(--pine); }
+/* The note form: three plain fields on rules, and a text link to send. */
+.note-form { max-width: 620px; margin-top: 32px; }
+.note-form .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.note-form label { display: block; margin-top: 14px; }
+.note-form label span { display: block; color: var(--ink-2); }
+.note-form input, .note-form textarea {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 0;
+    border: 0;
+    border-bottom: 1px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    resize: vertical;
+}
+.note-form input:focus, .note-form textarea:focus { outline: none; border-bottom: 2px solid var(--pine); margin-bottom: -1px; }
+.note-form .turnstile-slot { margin-top: 16px; }
+.note-form .turnstile-slot:empty { margin-top: 0; }
+.note-form .send { margin-top: 20px; }
+.note-form button.link { padding: 0 0 1px; background: none; border: 0; border-bottom: 1px solid var(--pine); font: inherit; font-weight: 500; color: var(--ink); cursor: pointer; }
+.note-form button.link:hover { color: var(--pine); }
+.note-form button:focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; }
+.note-form button:disabled { opacity: 0.5; cursor: default; }
+.note-form #note-status { margin-left: 14px; }
+@media (max-width: 560px) { .note-form .fields { grid-template-columns: minmax(0, 1fr); } }
 .principal { margin-top: 24px; }
 .principal a { text-underline-offset: 3px; }
 
@@ -348,6 +457,13 @@ footer .sep { display: inline-block; width: 18px; }
     .story .summary, .points { grid-column: 1 / -1; }
 }
 
+@media (max-width: 1000px) {
+    /* Two to a row; each row gets its own rail. */
+    .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 48px; }
+    .rail { display: none; }
+    .piece { border-top: 1px solid var(--ink); }
+}
+
 @media (max-width: 760px) {
     /* Each project becomes a row: the screenshot beside its three lines. */
     .projects { grid-template-columns: minmax(0, 1fr); row-gap: 0; margin-top: 24px; border-top: 1px solid var(--rule); }
@@ -387,6 +503,18 @@ footer .sep { display: inline-block; width: 18px; }
     .more { margin-top: 48px; }
 }
 
+@media (max-width: 560px) {
+    /* On a phone each frame hangs beside its label, smaller. */
+    .frames { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+    .piece { display: grid; grid-template-columns: 38% minmax(0, 1fr); column-gap: 18px; align-items: start; }
+    .piece::before { left: 6%; right: auto; width: 26%; }
+    .piece::after { left: 19%; }
+    .canvas { padding: 10px 10px 9px; }
+    .canvas .verb { font-size: 30px; }
+    .canvas .medium { font-size: 11.5px; }
+    .label { margin: 9px 0 0; }
+}
+
 @media (max-width: 520px) {
     /* On a phone the screenshot sits above its lines, cropped to the top of the page. */
     .card { display: block; padding: 20px 0 22px; }
@@ -419,7 +547,7 @@ footer .sep { display: inline-block; width: 18px; }
     .foot .mark-line { display: none; }
     .lake { --g: Canvas; --l: CanvasText; --glass: Canvas; --moon: transparent; --starA: 0; --navA: 0; --lampA: 0; --refA: 0; }
     .lake .flake { fill: CanvasText; }
-    .no::before { forced-color-adjust: none; }
+    .no::before, .canvas { forced-color-adjust: none; }
     footer { border-top: 1px solid CanvasText; }
 }
 
@@ -430,7 +558,7 @@ footer .sep { display: inline-block; width: 18px; }
     @page { margin: 0.6in; }
     :root { --gutter: 0px; }
     body { background: #fff; }
-    .skip, .site-nav, .hero-side .action, .section-action, .back, .more { display: none; }
+    .skip, .site-nav, .hero-side .action, .section-action, .back, .more, .note-form { display: none; }
     .site-header { padding-top: 0; }
     .hero { padding-top: 16px; padding-bottom: 32px; }
     .hero h1 { font-size: 44px; }
@@ -445,6 +573,9 @@ footer .sep { display: inline-block; width: 18px; }
     .projects { margin-top: 12px; }
     .items { margin-top: 18px; }
     .works { margin-top: 20px; }
+    #art { break-before: page; }
+    .canvas { box-shadow: 0 0 0 7px #fff, 0 0 0 8px var(--ink); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .frames { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .section-title { font-size: 26px; }
     .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 0; border: 0; }
     .card { display: block; padding: 0; border: 0; }

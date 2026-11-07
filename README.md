@@ -8,18 +8,19 @@ Company site for The Peninsular Company, LLC, a privately held company in Detroi
 
 The home page says each thing once, in this order:
 
-- **Header**: the compact signature (a solid pine-green block, #234B40, with the Archivo wordmark) and five links. On a phone the links take their own row; there is no menu button.
+- **Header**: the compact signature (a solid pine-green block, #234B40, with the Archivo wordmark) and six links. On a phone the links take their own row; there is no menu button.
 - **Hero**: the headline, one statement, one link to Contact.
 - **The lake**: a line drawing across the full width of the page, directly under the hero, looking across the water at the east end of Belle Isle. On the left is the William Livingstone Memorial Lighthouse (Albert Kahn, architect; Géza Maróti, sculptor; 1930), drawn from measured proportions. In the middle is a freighter; to the right is open water. The drawing is pinned to its left edge and never taller than half its width, so a phone still shows the lighthouse and the whole freighter. It is drawn as the place is at that moment, and it carries no caption:
   - **The hour.** Afternoon, golden hour, sunset, blue hour, and night, with the sun and moon placed where they actually are. After dark the lighthouse lamp blinks the way the Coast Guard lists it (occulting white, 4 s).
   - **The sky.** After sunset the stars are the real ones in that direction: the 419 stars of the Yale Bright Star Catalogue down to magnitude 4.0 (about what a city sky shows), plus Mercury, Venus, Mars, Jupiter, and Saturn. Each appears when the sky is dark enough for it, Venus first. Planet positions were checked against NASA JPL Horizons on four dates and agree within 0.03°.
   - **The year.** The island's trees are in leaf from mid-May to late October and bare from mid-November to mid-April, with a few weeks of change between. Ice sets in through January, is solid in February, and is gone by late March (a typical year; it goes by the calendar, not by measurement). The freighter is absent while the Soo Locks are closed, from 11:59 pm on January 15 to 12:01 am on March 25.
-  - **The weather.** Wind breaks the water lines into chop, fog fades the far shore and the freighter, cloud draws a few long lines across the sky and dims the sun, moon, and stars, and rain and snow fall. The reading is the National Weather Service's latest observation at Detroit City Airport (station KDET), fetched by the visitor's browser from api.weather.gov and kept for ten minutes. If it fails or is more than three hours old, the lake is calm and clear. This is the site's one outside request, and the privacy policy says so.
+  - **The weather.** Wind breaks the water lines into chop, fog fades the far shore and the freighter, cloud draws a few long lines across the sky and dims the sun, moon, and stars, and rain and snow fall. The reading is the National Weather Service's latest observation at Detroit City Airport (station KDET), fetched by the visitor's browser from api.weather.gov and kept for ten minutes. If it fails or is more than three hours old, the lake is calm and clear. This is the only outside request the page makes when it opens, and the privacy policy says so.
 - **Work**: three client projects, each a small screenshot, the name, the industry, and one sentence giving scope and credit. Each links to its page under `work/`.
 - **Services**: one statement and three services, a sentence each.
 - **Auction houses**: one statement and six areas, a sentence each.
-- **Ventures**: the company's own products, numbered, with status, platform, and each one's own support, privacy, and terms links.
-- **Contact**: one question, the email address, and a link to joelint.com.
+- **The Salon**: the art apps as one family, hung as a gallery wall: four frames on a picture rail, each the app's color with a verb (See, Keep, Sell, Go), and a museum wall label under it with the name, year, one sentence, status, and the app's own links. Daily Canvas, Heirloom, and Theca, plus an empty, primed frame, "Untitled", for the museum-visit app still in the studio. Theca's brand rules keep its logo away from the company's marks, so the wall uses names and colors, never app logos.
+- **Ventures**: the company's other products, numbered, with status, platform, and each one's own support, privacy, and terms links: Inkblotter, Codekeeper, WorldSimulator. Learn to Play Cards, The Ollin Tuner, and Fortjort are published by the company but are shown on joelint.com.
+- **Contact**: one question, the email address, a short note form, and a link to joelint.com. The form posts to Formspree and is guarded by Cloudflare Turnstile (the same widget as joelint.com, "Formspree contact forms", because both post to one Formspree form, which holds its secret key). Turnstile's script loads only when someone clicks into the form.
 - **Footer**: the page's one pine field, holding the white signature, the legal name, Detroit, the state motto, and links to Privacy, Terms, and Brand.
 
 Keep it this spare. A new sentence should replace one, not join it. Screenshots stay small on the home page; the project pages are where they get room.
@@ -27,6 +28,8 @@ Keep it this spare. A new sentence should replace one, not join it. Screenshots 
 ## Adding a work
 
 **A venture:** copy an `<li class="work">` in `index.html`, give it the next number and a color in `style="--c: #..."`, and fill in its links. Each small link carries an `aria-label` naming the venture ("Support for Heirloom"), so change those to the new name too. Use `class="no outlined small"` for a very light color so the marker still shows.
+
+**An art app:** copy an `<li class="piece">` in the Salon, set `--c` (the frame's color) and `--on` (the verb's color), and fill in the verb, the medium line, and the wall label. Add `wip` to the class for an app that isn't out yet.
 
 **A client project:** copy a folder under `work/`, change its title, facts, summary, three points, and images, and add an `<li class="card">` to the Work list in `index.html`. Each project needs three images in `images/portfolio/`: `name-website.jpg` (1280 × 860), `name-website-768.jpg` (the same, 768 × 516, for the home page card), and `name-mobile.jpg` (390 × 844). Keep the credit accurate: say whose work it was and in what role. Add the page to `sitemap.xml`.
 
