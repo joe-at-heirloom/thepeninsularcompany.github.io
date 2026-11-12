@@ -333,7 +333,7 @@ a.canvas:hover { transform: rotate(-1.2deg); }
 @media (prefers-reduced-motion: reduce) { .canvas { transition: none; } a.canvas:hover { transform: none !important; } }
 
 /* ---------- Contact ---------- */
-.email {
+.email, .phone {
     margin-top: 28px;
     font-size: min(clamp(22px, 2.6vw, 32px), calc((100vw - 2 * var(--gutter)) / 14.7));
     font-weight: 500;
@@ -341,8 +341,9 @@ a.canvas:hover { transform: rotate(-1.2deg); }
     letter-spacing: -0.02em;
     white-space: nowrap;
 }
-.email a { text-decoration: none; border-bottom: 2px solid var(--pine); }
-.email a:hover { color: var(--pine); }
+.phone { margin-top: 14px; font-variant-numeric: tabular-nums; }
+.email a, .phone a { text-decoration: none; border-bottom: 2px solid var(--pine); }
+.email a:hover, .phone a:hover { color: var(--pine); }
 /* The note form: three plain fields on rules, and a text link to send. */
 .note-form { max-width: 620px; margin-top: 32px; }
 .note-form .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
