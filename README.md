@@ -33,6 +33,28 @@ Keep it this spare. A new sentence should replace one, not join it. Screenshots 
 
 **A client project:** copy a folder under `work/`, change its title, facts, summary, three points, and images, and add an `<li class="card">` to the Work list in `index.html`. Each project needs three images in `images/portfolio/`: `name-website.jpg` (1280 × 860), `name-website-768.jpg` (the same, 768 × 516, for the home page card), and `name-mobile.jpg` (390 × 844). Keep the credit accurate: say whose work it was and in what role. Add the page to `sitemap.xml`.
 
+## Search pages
+
+Five short pages exist so the site can be found for what people actually search. Each is built on the project-page layout (`class="project service"`): a headline, one statement, four facts, one example from `work/`, what we do, and three or four questions answered in a sentence or two.
+
+| Page | Searches it answers (US, per month, Ahrefs, November 2026) |
+| --- | --- |
+| `/manufacturing/` | manufacturing marketing agency (1,600), industrial marketing agency (1,100), manufacturing website design (800), manufacturing web design (700) |
+| `/home-services/` | contractor marketing agency (1,500), contractor website design (1,300), home services marketing agency (1,300) |
+| `/life-sciences/` | life science marketing agency (350), biotech web design (350), life sciences web design (200) |
+| `/auction-houses/` | auction management software (250), auction website development (200), auctioneer software (150), auction house software (100) |
+| `/detroit/` | detroit web design (350), website design detroit (300), detroit marketing agency (500) |
+
+Rules for these pages:
+
+- Say only what is true and shown: every claim points at a project under `work/` or at a fact on the home page. No prices, results, or client names that are not already public.
+- The questions on the page and the `FAQPage` block in the page's structured data must match word for word. Change both together.
+- The home page links to all five from one sentence under Services, and each work page links to its industry from the Industry fact. A new page needs a link from both, a line in `sitemap.xml`, and a line in `llms.txt`.
+
+`llms.txt` at the root is a plain summary of the company, its services, work, and products for AI assistants. Keep it in step with the home page.
+
+Structured data: every page carries a JSON-LD `@graph`. The company is one `Organization` with the id `https://thepeninsularcompany.com/#organization`; the service pages add `Service`, `BreadcrumbList`, and `FAQPage`; the work pages add `WebPage` and `BreadcrumbList`.
+
 ## The apps' legal pages
 
 `legal/company.json` holds the company facts every app's privacy policy and terms share (legal name, where, which law governs). Change it and push: the **Legal sync** workflow updates and publishes every app site. See [legal/README.md](legal/README.md). `_config.yml` keeps `legal/` and `scripts/` off the published site.

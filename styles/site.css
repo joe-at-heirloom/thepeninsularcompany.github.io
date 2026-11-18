@@ -414,6 +414,29 @@ footer .sep { display: inline-block; width: 18px; }
 .points li:last-child { border-bottom: 1px solid var(--rule); }
 .more { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; margin-top: 72px; }
 
+/* ---------- Service pages ---------- */
+/* An industry or a place the company works in. Built on the project page: the same
+   head and facts, one example, what we do, and a few questions answered plainly. */
+.service .project-title { grid-column: 1 / span 8; }
+.views .caption { grid-column: 1 / -1; margin-top: 12px; color: var(--ink-2); }
+.story.ruled { padding-top: 36px; border-top: 1px solid var(--ink); }
+.points b { color: var(--ink); font-weight: 600; }
+.caption a, .points a, .also a, .section-note a { text-underline-offset: 3px; text-decoration-color: var(--ink-2); }
+.caption a:hover, .points a:hover, .also a:hover, .section-note a:hover { color: var(--pine); text-decoration-color: currentColor; }
+.points a { color: var(--ink); font-weight: 500; }
+.service-sec { margin-top: 72px; }
+h2.section-label { font-family: var(--font); }
+.service-sec .statement { max-width: 640px; }
+.qa { padding: 18px 0 22px; border-top: 1px solid var(--rule); }
+.qa:first-child { padding-top: 0; border-top: 0; }
+.qa h3 { font-size: 19px; line-height: 1.25; letter-spacing: -0.015em; }
+.qa p { max-width: 640px; margin-top: 8px; color: var(--ink-2); font-size: 15.5px; line-height: 1.5; text-wrap: pretty; }
+.also { margin-top: 56px; color: var(--ink-2); }
+.also + .more { margin-top: 20px; }
+@media (max-width: 900px) { .service .project-title { grid-column: 1 / -1; } }
+@media (max-width: 640px) { .service-sec { margin-top: 56px; } .also { margin-top: 40px; } }
+@media print { .also { display: none; } .service-sec { margin-top: 30px; } }
+
 /* ---------- Legal pages ---------- */
 .doc { padding-top: 64px; }
 .doc-head { grid-column: 4 / -1; }
