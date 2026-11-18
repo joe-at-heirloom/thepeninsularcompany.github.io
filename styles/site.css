@@ -173,11 +173,11 @@ main > section { padding-top: 112px; scroll-margin-top: -80px; }
 .section-action { margin-top: 22px; }
 
 /* ---------- Work ---------- */
-/* Three projects, each a small screenshot and three lines. */
+/* Four projects, each a small screenshot and three lines. */
 .projects {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 40px 24px;
     list-style: none;
     margin: 28px 0 0;
@@ -476,6 +476,7 @@ footer .sep { display: inline-block; width: 18px; }
 @media (max-width: 1000px) {
     /* Two to a row; each row gets its own rail. */
     .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 48px; }
+    .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .rail { display: none; }
     .piece { border-top: 1px solid var(--ink); }
 }
@@ -597,7 +598,7 @@ footer .sep { display: inline-block; width: 18px; }
     .canvas { box-shadow: 0 0 0 7px #fff, 0 0 0 8px var(--ink); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     .frames { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .section-title { font-size: 26px; }
-    .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 0; border: 0; }
+    .projects { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0; border: 0; }
     .card { display: block; padding: 0; border: 0; }
     .items { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .item { display: block; padding: 12px 0 16px; }
