@@ -330,6 +330,7 @@ def build_signature():
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Email signature · The Peninsular Company</title>
 <meta name="robots" content="noindex">
+<meta name="description" content="The Peninsular Company email signature, with and without a name, plus a plain-text version: select one, copy it, and paste it into your mail app.">
 <style>
 body { margin: 0; padding: 48px 24px; background: #FFFFFF; color: %(ink)s; %(font)s; font-size: 15px; line-height: 1.5; }
 main { max-width: 640px; margin: 0 auto; }

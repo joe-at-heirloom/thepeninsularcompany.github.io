@@ -133,3 +133,7 @@ Pushes to `main` deploy via GitHub Pages from [joe-at-heirloom/thepeninsularcomp
 | CNAME | `www` | `thepeninsularcompany.github.io` |
 
 Keep these set to **DNS only** (grey cloud) so GitHub can issue and renew the HTTPS certificate. **Enforce HTTPS** is on in the repo's Pages settings.
+
+## IndexNow
+
+`19472ee71bcbcc32830436358edc802a.txt` at the root is the IndexNow key. Ahrefs uses it to tell Bing and the other IndexNow engines when pages change. Keep it published.
