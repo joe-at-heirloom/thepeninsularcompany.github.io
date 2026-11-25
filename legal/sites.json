@@ -49,7 +49,7 @@
       "name": "Heirloom",
       "repo": "joe-at-heirloom/heirloom.github.io",
       "local": "Heirloom - Website",
-      "files": ["index.html", "scripts/build-legal.mjs"],
+      "files": ["site/src/components/Footer.astro"],
       "vendor": {
         "path": "scripts/company.json",
         "keys": ["name", "operator", "location-country", "jurisdiction", "courts"]
@@ -61,8 +61,8 @@
       },
       "build": ["node scripts/build-legal.mjs", "node scripts/check-copy.mjs"],
       "env": { "LEGAL_DIR": "{sources}/legal" },
-      "outputs": ["privacy.html", "terms.html"],
-      "verify": ["privacy.html", "terms.html"]
+      "outputs": ["site/src/content/legal/privacy.md", "site/src/content/legal/terms.md"],
+      "verify": ["site/src/content/legal/privacy.md", "site/src/content/legal/terms.md"]
     }
   ]
 }
